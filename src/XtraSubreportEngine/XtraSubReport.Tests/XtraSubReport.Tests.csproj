@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9F42907D-8C0E-4D29-856A-C64A182FB97F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XtraSubReport.Tests</RootNamespace>
+    <AssemblyName>XtraSubReport.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v10.2, Version=10.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v10.2, Version=10.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v10.2, Version=10.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v10.2.Design, Version=10.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v10.2.Extensions, Version=10.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="gcCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\gcCore-dev.1.0.0.111502\lib\Net35\gcCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="eportTests.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GeniusCodeTest.cs" />
+    <Compile Include="DataSources\PathTraverserTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="DataSources\MefDatasourceTests.cs" />
+    <Compile Include="RuntimeActions\ColorReplacerTest.cs" />
+    <Compile Include="RuntimeActions\PassDatasourceToSubreportTest.cs" />
+    <Compile Include="RuntimeActions\RuntimeActionMefTest.cs" />
+    <Compile Include="RuntimeActions\RuntimeActionTests.cs" />
+    <Compile Include="DataSources\SelectDatasourceTests.cs" />
+    <Compile Include="SerializationTests.cs" />
+    <Compile Include="Support\TestHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ColorReplaceAction\ColorReplaceAction.csproj">
+      <Project>{7F3F5266-9D51-47A6-BE5C-292B13939D46}</Project>
+      <Name>ColorReplaceAction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NorthwindOData\NorthwindOData.csproj">
+      <Project>{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}</Project>
+      <Name>NorthwindOData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XtraSubreport.Contracts\XtraSubreport.Contracts.csproj">
+      <Project>{316A7AB5-8178-4F21-BAF4-C4D470594477}</Project>
+      <Name>XtraSubreport.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XtraSubReport.Winforms\XtraSubReport.Winforms.csproj">
+      <Project>{32BA9C78-C41C-4E3E-B987-33018F28A47B}</Project>
+      <Name>XtraSubReport.Winforms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XtraSubreportEngine\XtraSubreport.Engine.csproj">
+      <Project>{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}</Project>
+      <Name>XtraSubreport.Engine</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
