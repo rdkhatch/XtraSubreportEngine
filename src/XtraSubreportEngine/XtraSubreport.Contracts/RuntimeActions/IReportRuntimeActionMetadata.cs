@@ -1,4 +1,3 @@
-using System;
 
 namespace XtraSubreport.Contracts.RuntimeActions
 {
@@ -7,5 +6,6 @@ namespace XtraSubreport.Contracts.RuntimeActions
     {
         string Name { get; }
         string Description { get; }
+        string GroupName { get; }
     }
 }
