@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DevExpress.XtraReports.UI;
-using XtraSubreport.Engine.Extensions;
 using XtraSubreport.Contracts.RuntimeActions;
 
 namespace XtraSubreport.Engine.RuntimeActions
@@ -15,40 +13,30 @@ namespace XtraSubreport.Engine.RuntimeActions
         public Func<XtraReport, bool> AggregatorReportPredicate { get; set; }
 
         #region Constructors
-        public XRRuntimeVisitor(IEnumerable<IReportRuntimeActionProvider> actionProviders, IEnumerable<IReportRuntimeAction> actions)
+
+        public XRRuntimeVisitor(IReportRuntimeActionProvider actionProvider)
+            : this(actionProvider.GetRuntimeActions())
         {
-            RuntimeActions = new List<IReportRuntimeAction>();
-
-            // Actions
-            if (actions != null)
-                RuntimeActions.AddRange(actions);
-
-            // Action Providers
-            if (actionProviders != null)
-                actionProviders.ToList().ForEach(provider =>
-                    {
-                        var actionList = provider.GetRuntimeActions();
-                        RuntimeActions.AddRange(actionList);
-                    });
-
         }
 
         public XRRuntimeVisitor(IEnumerable<IReportRuntimeActionProvider> actionProviders)
-            : this(actionProviders, null)
+            : this(actionProviders.SelectMany(provider => provider.GetRuntimeActions()))
         {
         }
 
         public XRRuntimeVisitor(IEnumerable<IReportRuntimeAction> actions)
-            : this(null, actions)
         {
-        }
-
-        public XRRuntimeVisitor(IReportRuntimeAction action)
-            : this(new IReportRuntimeAction[] { action })
-        {
+            RuntimeActions = new List<IReportRuntimeAction>(actions);
         }
 
         #endregion
+
+        #region Attach Handlers
+
+        public virtual void AttachToAggregator()
+        {
+            AttachToAggregator(report => true);
+        }
 
         /// <summary>
         /// Allows this Visitor to listen to any MyReportBase's BeforePrint event.
@@ -59,7 +47,7 @@ namespace XtraSubreport.Engine.RuntimeActions
         {
             AggregatorReportPredicate = aggregatorReportPredicate;
 
-            XRRuntimeVisitorAggregator.BeforePrint += (s, e) =>
+            XRBeforePrintAggregator.BeforePrint += (s, e) =>
                 {
                     var report = e.Report;
                     bool attach = AggregatorReportPredicate(report);
@@ -97,7 +85,11 @@ namespace XtraSubreport.Engine.RuntimeActions
             };
         }
 
+        #endregion
+
         // Main Loop
+        #region Visitors
+
         private void Visit(XRControl control)
         {
             // Self
@@ -157,8 +149,14 @@ namespace XtraSubreport.Engine.RuntimeActions
             return row.Cells.Cast<XRTableCell>();
         }
 
+        #endregion
+
+        #region Execute Runtime Actions
+
         private void AttemptActionsOnControl(XRControl control)
         {
+            // TODO: Add Filter by Whitelist ReportActionName and/or ReportActionGroupName
+
             // Predicates
             var actions = from action in RuntimeActions
                           where action.ActionPredicate(control)
@@ -169,6 +167,7 @@ namespace XtraSubreport.Engine.RuntimeActions
                 action.ActionToApply.Invoke(control);
         }
 
+        #endregion
     }
 
 }

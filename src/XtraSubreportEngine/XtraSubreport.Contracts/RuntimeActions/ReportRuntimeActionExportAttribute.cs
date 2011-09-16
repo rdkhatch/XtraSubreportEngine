@@ -1,21 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.ComponentModel.Composition;
 
 namespace XtraSubreport.Contracts.RuntimeActions
 {
     [MetadataAttribute]
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)] 
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     public class ReportRuntimeActionExportAttribute : ExportAttribute, IReportRuntimeActionMetadata
     {
-        public string Name { get; set; }
-        public string Description { get; set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public string GroupName { get; private set; }
 
-        public ReportRuntimeActionExportAttribute(string datasourceName, string description)
+        public ReportRuntimeActionExportAttribute(string uniqueActionName, string groupName, string description)
             : base(typeof(IReportRuntimeAction))
         {
-            Name = datasourceName;
+            Name = uniqueActionName;
+            GroupName = groupName;
             Description = description;
         }
     }

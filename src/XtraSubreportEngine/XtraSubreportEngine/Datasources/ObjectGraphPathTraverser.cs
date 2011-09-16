@@ -1,14 +1,24 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Collections;
 using System.Text.RegularExpressions;
-using GeniusCode.Framework.Support.Refection;
 using GeniusCode.Framework.Extensions;
+using GeniusCode.Framework.Support.Refection;
 
 namespace XtraSubreport.Engine
 {
+
+    public class ExtractFromCollectionTraversal : MemberTraversal
+    {
+        public int IndexToExtract { get; set; }
+    }
+
+    public class MemberTraversal
+    {
+        public string MemberName { get; set; }
+    }
+
     /// <summary>
     /// Example path:  this.is[9].a.test
     /// </summary>
@@ -45,14 +55,14 @@ namespace XtraSubreport.Engine
 
             int index = 0;
             members.ForEach(member =>
-                {
-                    bool isLastPathSegment = index == members.Count - 1;
+                                {
+                                    bool isLastPathSegment = index == members.Count - 1;
 
-                    if (target != null)
-                        target = TraverseMember(target, member, isLastPathSegment);
+                                    if (target != null)
+                                        target = TraverseMember(target, member, isLastPathSegment);
 
-                    index++;
-                });
+                                    index++;
+                                });
 
             return target;
         }
@@ -99,12 +109,12 @@ namespace XtraSubreport.Engine
 
             // Is Target a Collection?
             // Extract first item
-            target.TryAs<IEnumerable>( collection =>
-            {
-                var list = collection.Cast<object>();
-                var newTarget = list.FirstOrDefault();
-                result = TraverseMember(newTarget, member, isLastPathSegment);
-            });
+            target.TryAs<IEnumerable>(collection =>
+                                           {
+                                               var list = Enumerable.Cast<object>(collection);
+                                               var newTarget = list.FirstOrDefault();
+                                               result = TraverseMember(newTarget, member, isLastPathSegment);
+                                           });
 
 
             if (result == null)
@@ -120,14 +130,14 @@ namespace XtraSubreport.Engine
 
                 // Is it a Collection?
                 result.TryAs<IEnumerable>(collection =>
-                    {
-                        // If not last path segment
-                        // or supposed to extract item
-                        bool shouldExtractItem = !isLastPathSegment || member is ExtractFromCollectionTraversal;
+                                              {
+                                                  // If not last path segment
+                                                  // or supposed to extract item
+                                                  bool shouldExtractItem = !isLastPathSegment || member is ExtractFromCollectionTraversal;
 
-                        if (shouldExtractItem)
-                            result = ExtractItemFromCollection(collection.Cast<object>().ToList(), member);
-                    });
+                                                  if (shouldExtractItem)
+                                                      result = ExtractItemFromCollection(collection.Cast<object>().ToList(), member);
+                                              });
             }
 
             return result;
@@ -147,24 +157,14 @@ namespace XtraSubreport.Engine
 
             // or, Extract specific item from collection
             member.TryAs<ExtractFromCollectionTraversal>(extractTraversal =>
-            {
-                result = collection[extractTraversal.IndexToExtract];
-            });
+                                                             {
+                                                                 result = collection[extractTraversal.IndexToExtract];
+                                                             });
 
             return result;
         }
-        
+
         #endregion
-        
-    }
 
-    public class ExtractFromCollectionTraversal : MemberTraversal
-    {
-        public int IndexToExtract { get; set; }
-    }
-
-    public class MemberTraversal
-    {
-        public string MemberName { get; set; }
     }
 }

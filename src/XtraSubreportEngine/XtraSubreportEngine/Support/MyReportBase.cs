@@ -1,10 +1,8 @@
-using System;
-using XtraSubreport.Engine.Support;
 using DevExpress.XtraReports;
-using XtraSubreport.Engine;
-using XtraSubreport.Engine.Extensions;
 using DevExpress.XtraReports.Localization;
+using XtraSubreport.Engine.Extensions;
 using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreport.Engine.Support;
 
 namespace XtraSubreportEngine.Support
 {
@@ -18,7 +16,8 @@ namespace XtraSubreportEngine.Support
 
         private DesignTimeDataSourceDefinition _SelectedDesignTimeDataSource;
 
-        public MyReportBase() : base()
+        public MyReportBase()
+            : base()
         {
             DesignTimeDataSources = new XRSerializableCollection<DesignTimeDataSourceDefinition>();
         }
@@ -35,7 +34,7 @@ namespace XtraSubreportEngine.Support
         [SRCategory(ReportStringId.CatData)]
         public DesignTimeDataSourceDefinition SelectedDesignTimeDataSource
         {
-            get { return _SelectedDesignTimeDataSource;  }
+            get { return _SelectedDesignTimeDataSource; }
             set
             {
                 _SelectedDesignTimeDataSource = value;
@@ -67,7 +66,8 @@ namespace XtraSubreportEngine.Support
         protected override void OnBeforePrint(System.Drawing.Printing.PrintEventArgs e)
         {
             // IMPORTANT: Must use an aggregator for End-User Designer, because reports are serialized / CodeDom - events cannot be attached
-            XRRuntimeVisitorAggregator.FireBeforePrintEvent(this, e);
+            // Reports pass themselves into the aggregator
+            XRBeforePrintAggregator.FireBeforePrintEvent(this, e);
 
             base.OnBeforePrint(e);
         }

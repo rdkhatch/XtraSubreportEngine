@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
-using DevExpress.XtraReports.UserDesigner;
+using ColorReplaceAction;
+using DevExpress.XtraBars;
 using DevExpress.XtraReports.UI;
+using DevExpress.XtraReports.UserDesigner;
+using GeniusCode.Framework.Extensions;
+using NLog;
+using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Extensions;
-using XtraSubreportEngine.Support;
-using GeniusCode.Framework.Extensions;
-using System.Diagnostics;
-using DevExpress.XtraBars;
-using XtraSubreportEngine;
-using System.Reflection;
-using System.IO;
-using System.Configuration;
-using NLog;
 using XtraSubreport.Engine.RuntimeActions;
-using XtraSubreport.Contracts.RuntimeActions;
-using XtraSubreport.Engine.RuntimeActions.Providers;
-using ColorReplaceAction;
+using XtraSubreportEngine;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Winforms
 {
@@ -39,7 +38,7 @@ namespace XtraSubReport.Winforms
         [STAThread]
         static void Main()
         {
-            var form = CreateDesignForm();
+            XRDesignForm form = CreateDesignForm();
             var controller = form.DesignMdiController;
 
             SetupNLog();
@@ -132,7 +131,7 @@ namespace XtraSubReport.Winforms
 
             return form;
         }
-        
+
         #region Select Datasource Dialog
 
         private static void AddToolbarButton_SelectDataSource(XRDesignForm form)

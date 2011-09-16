@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using XtraSubreportEngine.Support;
-using XtraSubreportEngine;
 using DevExpress.XtraReports.UI;
 using GeniusCode.Framework.Extensions;
-using XtraSubreport.Engine.Support;
-using XtraSubreport.Engine.Extensions;
-using System.ComponentModel.Composition.Hosting;
-using XtraSubreport.Contracts;
-using System.IO;
 using GeniusCode.Framework.Support.Collections.Tree;
 using XtraSubreport.Contracts.DataSources;
+using XtraSubreport.Engine.Extensions;
+using XtraSubreport.Engine.Support;
+using XtraSubreportEngine;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine
 {
@@ -139,14 +136,14 @@ namespace XtraSubreport.Engine
             var requestedDatasources = report.DesignTimeDataSources;
 
             // Folders
-            var requestedFolders = requestedDatasources.Select( definition => DataSourceProvider.FormatRelativePath(definition.DataSourceAssemblyLocationPath) );
+            var requestedFolders = requestedDatasources.Select(definition => DataSourceProvider.FormatRelativePath(definition.DataSourceAssemblyLocationPath));
             var realFolders = DataSourceProvider.GetAllFoldersWithinBasePathContainingDLLs().Select(folder => DataSourceProvider.FormatRelativePath(folder));
             var allFolders = requestedFolders.Union(realFolders);
 
             Func<string, IEnumerable<IReportDatasourceMetadata>> GetExportsFromRelativeFolder = relativeFolder =>
                 {
                     var exports = DataSourceProvider.GetDatasources(relativeFolder);
-                    var metadatas = exports.Select( (lazy) => lazy.Metadata );
+                    var metadatas = exports.Select((lazy) => lazy.Metadata);
                     return metadatas;
                 };
 
@@ -166,7 +163,7 @@ namespace XtraSubreport.Engine
                                 {
                                     Path = relativeFolder,
                                     Name = definition.DataSourceName,
-                                    
+
                                     DesignTimeDataSourceDefinition = definition,
                                     MEFMetadata = metadataNullable,
                                     PreviouslyUsedWithThisReport = (definitionNullable != null).ToString(),
@@ -174,14 +171,14 @@ namespace XtraSubreport.Engine
                                 };
                 };
 
-            var dataSourceTreeItems =   (from relativeFolder in allFolders
-                                        let exports = GetExportsFromRelativeFolder(relativeFolder)
-                                        let definitions = requestedDatasources.Where(definition => definition.DataSourceAssemblyLocationPath == relativeFolder)
-                                        // Join exports & definitions on folder + datasource name
-                                        from tuple in exports.FullOuterJoin(definitions, match)
-                                        let export = tuple.Item1
-                                        let definition = tuple.Item2
-                                        select CreateDataSourceTreeItem(relativeFolder, export, definition)).ToList();
+            var dataSourceTreeItems = (from relativeFolder in allFolders
+                                       let exports = GetExportsFromRelativeFolder(relativeFolder)
+                                       let definitions = requestedDatasources.Where(definition => definition.DataSourceAssemblyLocationPath == relativeFolder)
+                                       // Join exports & definitions on folder + datasource name
+                                       from tuple in exports.FullOuterJoin(definitions, match)
+                                       let export = tuple.T1Object
+                                       let definition = tuple.T2Object
+                                       select CreateDataSourceTreeItem(relativeFolder, export, definition)).ToList();
 
             //var folderTreeItems = from relativeFolder in allFolders
             //                      select new DesignTimeDataSourceTreeItem()
