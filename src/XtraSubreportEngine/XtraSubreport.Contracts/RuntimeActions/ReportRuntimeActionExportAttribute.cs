@@ -11,6 +11,13 @@ namespace XtraSubreport.Contracts.RuntimeActions
         public string Description { get; private set; }
         public string GroupName { get; private set; }
 
+        private static string _defaultGroupName = string.Empty;
+
+        public ReportRuntimeActionExportAttribute(string uniqueActionName, string description)
+            : this(uniqueActionName, _defaultGroupName, description)
+        {
+        }
+
         public ReportRuntimeActionExportAttribute(string uniqueActionName, string groupName, string description)
             : base(typeof(IReportRuntimeAction))
         {

@@ -30,7 +30,7 @@ namespace XtraSubReport.Winforms
         private static Logger logger;
 
         // Runtime Action Visitor, able to apply actions to Reports @ Runtime
-        private static XRRuntimeVisitor visitor;
+        private static XRRuntimeSubscriber subscriber;
 
         /// <summary>
         /// The main entry point for the application.
@@ -66,8 +66,8 @@ namespace XtraSubReport.Winforms
                 new ColorReplacerAction()
             };
 
-            visitor = new XRRuntimeVisitor(runtimeActions);
-            visitor.AttachToAggregator(report => true);
+            var controller = new XRRuntimeActionController(runtimeActions.ToArray());
+            subscriber = new XRRuntimeSubscriber(controller);
         }
 
         private static void SetupDesignTime(XRDesignMdiController controller)
@@ -115,7 +115,7 @@ namespace XtraSubReport.Winforms
             var datasourceBasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             var relativePath = ConfigurationSettings.AppSettings["RelativeDataSourcePath"];
             var path = Path.Combine(datasourceBasePath, relativePath);
-            DataSourceProvider.SetBasePath(path);
+            DataSourceLocator.SetBasePath(path);
         }
 
         private static XRDesignForm CreateDesignForm()

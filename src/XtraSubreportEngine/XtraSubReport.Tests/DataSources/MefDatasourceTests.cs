@@ -15,7 +15,7 @@ namespace XtraSubReport.Tests
         [TestMethod]
         public void catalog_should_not_be_empty()
         {
-            var exports = DataSourceProvider.GetDatasources(string.Empty).ToList();
+            var exports = DataSourceLocator.GetDatasources(string.Empty).ToList();
 
             Assert.IsTrue(exports.Count > 0);
         }
@@ -23,7 +23,7 @@ namespace XtraSubReport.Tests
         [TestMethod]
         public void Northwind_Products_should_be_exported()
         {
-            var match = DataSourceProvider.GetDatasource(TestHelper.NorthwindDataSource);
+            var match = DataSourceLocator.GetDatasource(TestHelper.NorthwindDataSource);
 
             Assert.IsNotNull(match);
         }

@@ -1,7 +1,7 @@
 using DevExpress.XtraReports;
 using DevExpress.XtraReports.Localization;
+using XtraSubreport.Engine;
 using XtraSubreport.Engine.Extensions;
-using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreport.Engine.Support;
 
 namespace XtraSubreportEngine.Support
@@ -47,7 +47,7 @@ namespace XtraSubreportEngine.Support
                     AddDesignTimeDataSource(_SelectedDesignTimeDataSource);
 
                     // Fetch datasource
-                    datasource = DataSourceProvider.GetObjectFromDataSourceDefinition(_SelectedDesignTimeDataSource);
+                    datasource = DataSourceLocator.GetObjectFromDataSourceDefinition(_SelectedDesignTimeDataSource);
                 }
 
                 this.SetReportDataSource(datasource);
@@ -67,7 +67,8 @@ namespace XtraSubreportEngine.Support
         {
             // IMPORTANT: Must use an aggregator for End-User Designer, because reports are serialized / CodeDom - events cannot be attached
             // Reports pass themselves into the aggregator
-            XRBeforePrintAggregator.FireBeforePrintEvent(this, e);
+            var message = new XRBeforePrintMessage(this, e);
+            EventAggregator.Singleton.Publish(message);
 
             base.OnBeforePrint(e);
         }

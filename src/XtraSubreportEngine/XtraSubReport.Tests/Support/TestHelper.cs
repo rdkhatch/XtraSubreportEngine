@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DevExpress.XtraReports.UserDesigner;
-using DevExpress.XtraReports.UI;
 using System.IO;
-using XtraSubreportEngine.Support;
-using XtraSubreportEngine;
-using XtraSubreport.Engine;
-using XtraSubreport.Engine.Extensions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DevExpress.XtraPrinting;
+using DevExpress.XtraReports.UI;
+using DevExpress.XtraReports.UserDesigner;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using XtraSubreport.Engine;
+using XtraSubreportEngine;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
 {
@@ -42,7 +38,7 @@ namespace XtraSubReport.Tests
 
         public static object GetNorthwindProducts()
         {
-            return DataSourceProvider.GetDatasource(NorthwindDataSource).Value.DataSource;
+            return DataSourceLocator.GetDatasource(NorthwindDataSource).Value.DataSource;
         }
 
         public static Tuple<MyReportBase, XRSubreport, MyReportBase> GetParentAndNestedSubreport()

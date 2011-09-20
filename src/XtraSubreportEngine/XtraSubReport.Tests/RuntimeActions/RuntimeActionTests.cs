@@ -1,15 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using XtraSubreport.Engine.RuntimeActions;
+﻿using System.Drawing;
 using DevExpress.XtraReports.UI;
-using XtraSubreport.Engine;
-using System.IO;
-using DevExpress.XtraPrinting;
-using System.Drawing;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Engine;
+using XtraSubreport.Engine.RuntimeActions;
 
 namespace XtraSubReport.Tests
 {
@@ -27,8 +21,7 @@ namespace XtraSubReport.Tests
             var report = new ReportFactory().GetNewReport();
             report.Bands[0].Controls.Add(label);
 
-            var visitor = new XRRuntimeVisitor(action);
-            visitor.AttachTo(report);
+            var subscriber = XRRuntimeSubscriber.SubscribeWithActions(action);
 
             TestHelper.RunReport(report);
 
@@ -39,19 +32,21 @@ namespace XtraSubReport.Tests
         public void predicate_prevents_applying_action()
         {
             var transformText = "Jeremiah";
-            var action = new ReportRuntimeActionBase<XRLabel>((l) => false, (l) => l.Text = transformText);
+            var action = new ReportRuntimeActionBase<XRLabel>((l) => l.Text != string.Empty, (l) => l.Text = transformText);
 
-            var label = new XRLabel() { Text = string.Empty };
+            var label1 = new XRLabel() { Text = string.Empty };
+            var label2 = new XRLabel() { Text = "ChangeMe" };
 
             var report = new ReportFactory().GetNewReport();
-            report.Bands[0].Controls.Add(label);
+            report.Bands[0].Controls.Add(label1);
+            report.Bands[0].Controls.Add(label2);
 
-            var visitor = new XRRuntimeVisitor(action);
-            visitor.AttachTo(report);
+            var subscriber = XRRuntimeSubscriber.SubscribeWithActions(action);
 
             TestHelper.RunReport(report);
 
-            Assert.AreNotEqual(transformText, label.Text);
+            Assert.AreNotEqual(transformText, label1.Text);
+            Assert.AreEqual(transformText, label2.Text);
         }
 
         [TestMethod]
@@ -62,8 +57,7 @@ namespace XtraSubReport.Tests
 
             var report = new ReportFactory().GetNewReport();
 
-            var visitor = new XRRuntimeVisitor(action);
-            visitor.AttachTo(report);
+            var subscriber = XRRuntimeSubscriber.SubscribeWithActions(action);
 
             TestHelper.RunReport(report);
 
@@ -82,8 +76,7 @@ namespace XtraSubReport.Tests
             var color = Color.Green;
             var action = new ReportRuntimeActionBase<XtraReport>((r) => true, (r) => r.BackColor = color);
 
-            var visitor = new XRRuntimeVisitor(action);
-            visitor.AttachTo(parentReport);
+            var subscriber = XRRuntimeSubscriber.SubscribeWithActions(action);
 
             TestHelper.RunReport(parentReport);
 
@@ -105,8 +98,7 @@ namespace XtraSubReport.Tests
             var report = new ReportFactory().GetNewReport();
             report.Bands[0].Controls.Add(table);
 
-            var visitor = new XRRuntimeVisitor(action);
-            visitor.AttachTo(report);
+            var subscriber = XRRuntimeSubscriber.SubscribeWithActions(action);
 
             TestHelper.RunReport(report);
 

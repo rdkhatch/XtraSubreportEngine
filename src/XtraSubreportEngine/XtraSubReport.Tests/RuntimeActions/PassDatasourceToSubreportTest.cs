@@ -1,12 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DevExpress.XtraReports.UI;
-using XtraSubreport.Engine.RuntimeActions;
-using System.Collections;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XtraSubreport.Engine.Extensions;
+using XtraSubreport.Engine.RuntimeActions;
 
 namespace XtraSubReport.Tests.RuntimeActions
 {
@@ -27,8 +24,9 @@ namespace XtraSubReport.Tests.RuntimeActions
 
         private void Run_Report_Assert_Subreport_Received_Datasource(XtraReport parentReport, XRSubreport placeholder)
         {
-            var visitor = new XRRuntimeVisitor(new PassSubreportDataSourceRuntimeAction());
-            visitor.AttachTo(parentReport);
+            var passSubreportAction = new PassSubreportDataSourceRuntimeAction();
+
+            var subscriber = XRRuntimeSubscriber.SubscribeWithActions(passSubreportAction);
 
             var band = placeholder.Band;
 

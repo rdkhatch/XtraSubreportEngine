@@ -136,13 +136,13 @@ namespace XtraSubreport.Engine
             var requestedDatasources = report.DesignTimeDataSources;
 
             // Folders
-            var requestedFolders = requestedDatasources.Select(definition => DataSourceProvider.FormatRelativePath(definition.DataSourceAssemblyLocationPath));
-            var realFolders = DataSourceProvider.GetAllFoldersWithinBasePathContainingDLLs().Select(folder => DataSourceProvider.FormatRelativePath(folder));
+            var requestedFolders = requestedDatasources.Select(definition => DataSourceLocator.FormatRelativePath(definition.DataSourceAssemblyLocationPath));
+            var realFolders = DataSourceLocator.GetAllFoldersWithinBasePathContainingDLLs().Select(folder => DataSourceLocator.FormatRelativePath(folder));
             var allFolders = requestedFolders.Union(realFolders);
 
             Func<string, IEnumerable<IReportDatasourceMetadata>> GetExportsFromRelativeFolder = relativeFolder =>
                 {
-                    var exports = DataSourceProvider.GetDatasources(relativeFolder);
+                    var exports = DataSourceLocator.GetDatasources(relativeFolder);
                     var metadatas = exports.Select((lazy) => lazy.Metadata);
                     return metadatas;
                 };

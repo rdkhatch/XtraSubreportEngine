@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using XtraSubreport.Contracts.RuntimeActions;
-using DevExpress.XtraReports.UI;
-using System.Drawing;
-using ColorReplaceAction.Configuration;
+﻿using System.Drawing;
 using System.IO;
+using System.Linq;
+using ColorReplaceAction.Configuration;
+using DevExpress.XtraReports.UI;
+using XtraSubreport.Contracts.RuntimeActions;
 
 namespace ColorReplaceAction
 {
@@ -16,17 +13,17 @@ namespace ColorReplaceAction
         ColorReplaceActionConfiguration _config;
 
         public ColorReplacerAction()
-            : this ( GetDefaultConfigFilePath() )
+            : this(GetDefaultConfigFilePath())
         {
         }
 
         public ColorReplacerAction(string configFile)
-            : this (ColorReplaceActionConfiguration.Deserialize(configFile))
+            : this(ColorReplaceActionConfiguration.Deserialize(configFile))
         {
         }
 
         public ColorReplacerAction(ColorReplaceActionConfiguration config)
-            : base (control => true, null)
+            : base(control => true, null)
         {
             _config = config;
 
@@ -40,10 +37,10 @@ namespace ColorReplaceAction
 
         private Color GetReplacementColor(Color color, ColorLocation location)
         {
-            var q =  from definition in _config.ColorReplaceDefinitions
-                     where location == definition.Location
-                     where color.ToArgb() == definition.FromColor.ToArgb()
-                     select definition;
+            var q = from definition in _config.ColorReplaceDefinitions
+                    where location == definition.Location
+                    where color.ToArgb() == definition.FromColor.ToArgb()
+                    select definition;
 
             var colorChange = q.SingleOrDefault();
 

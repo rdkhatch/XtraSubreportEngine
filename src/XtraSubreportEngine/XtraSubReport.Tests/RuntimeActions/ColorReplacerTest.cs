@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using ColorReplaceAction;
 using ColorReplaceAction.Configuration;
 using DevExpress.XtraReports.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using XtraSubreport.Contracts.RuntimeActions;
-using XtraSubreport.Engine.RuntimeActions;
 
 namespace XtraSubReport.Tests.RuntimeActions
 {
@@ -28,27 +25,6 @@ namespace XtraSubReport.Tests.RuntimeActions
             config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.ForeColor, beforeLabel.ForeColor, afterLabel.ForeColor));
             config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.BackColor, beforeLabel.BackColor, afterLabel.BackColor));
             config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.BorderColor, beforeLabel.BorderColor, afterLabel.BorderColor));
-        }
-
-        [TestMethod]
-        public void should_replace_colors_through_report_exporting_itself()
-        {
-            XtraReport myreport = null;
-
-            var action = new ColorReplacerAction(config);
-
-            var actions = new List<IReportRuntimeAction>();
-            actions.Add(action);
-
-            var visitor = new XRRuntimeVisitor(actions);
-            visitor.AttachToAggregator();
-
-            var stream = new MemoryStream();
-            myreport.ExportToHtml(stream);
-            var html = new StringReader(stream.ToString()).ReadToEnd();
-
-            // Color Asserts!
-            Assert.Fail();
         }
 
         [TestMethod]

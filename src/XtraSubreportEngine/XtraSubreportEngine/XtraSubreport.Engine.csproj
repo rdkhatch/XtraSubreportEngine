@@ -59,15 +59,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Datasources\DataSourceProvider.cs" />
+    <Compile Include="RuntimeActions\Eventing\XRBeforePrintMessage.cs" />
+    <Compile Include="Datasources\DataSourceLocator.cs" />
     <Compile Include="Datasources\ObjectGraphPathTraverser.cs" />
     <Compile Include="Extensions\DesignTimeHelper.cs" />
     <Compile Include="Extensions\RunTimeHelper.cs" />
+    <Compile Include="RuntimeActions\Eventing\EventAggregator.cs" />
     <Compile Include="RuntimeActions\PassSubreportDataSourceRuntimeAction.cs" />
     <Compile Include="RuntimeActions\Providers\ReportMEFRuntimeActionProvider.cs" />
+    <Compile Include="RuntimeActions\XRRuntimeActionController.cs" />
     <Compile Include="RuntimeActions\Support\IReportRuntimeActionProvider.cs" />
+    <Compile Include="RuntimeActions\Support\IRuntimeActionController.cs" />
+    <Compile Include="RuntimeActions\XRRuntimeSubscriber.cs" />
     <Compile Include="RuntimeActions\XRRuntimeVisitor.cs" />
-    <Compile Include="RuntimeActions\XRBeforePrintAggregator.cs" />
     <Compile Include="Serialization\XtraReportWithCustomPropertiesBase.cs">
       <SubType>Component</SubType>
     </Compile>
