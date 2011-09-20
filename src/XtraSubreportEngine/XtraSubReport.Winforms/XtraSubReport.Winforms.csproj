@@ -117,10 +117,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="gcCore">
-      <HintPath>..\packages\gcCore-dev.1.0.0.111012\lib\Net35\gcCore.dll</HintPath>
+      <HintPath>..\packages\gcCore-dev.1.0.1.66\lib\Net35\gcCore.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
-      <HintPath>..\packages\NLog.2.0.0.0\lib\NET40\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="NLog.Extended">
       <HintPath>..\packages\NLog.2.0.0.0\lib\NET40\NLog.Extended.dll</HintPath>

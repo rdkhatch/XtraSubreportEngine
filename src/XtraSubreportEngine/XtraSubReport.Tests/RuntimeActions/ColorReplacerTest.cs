@@ -1,30 +1,35 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DevExpress.XtraReports.UI;
-using ColorReplaceAction;
-using ColorReplaceAction.Configuration;
 using System.Drawing;
 using System.IO;
+using ColorReplaceAction;
+using ColorReplaceAction.Configuration;
+using DevExpress.XtraReports.UI;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace XtraSubReport.Tests.RuntimeActions
 {
     [TestClass]
     public class ColorReplacerTest
     {
-        [TestMethod]
-        public void should_replace_colors()
-        {
-            var beforeLabel = new XRLabel() { ForeColor = Color.Red, BackColor = Color.White, BorderColor = Color.Blue };
-            var afterLabel = new XRLabel() { ForeColor = Color.Green, BackColor = Color.Gold, BorderColor = Color.Yellow };
+        private XRLabel beforeLabel;
+        private XRLabel afterLabel;
+        private ColorReplaceActionConfiguration config;
 
-            var config = new ColorReplaceActionConfiguration();
+        [TestInitialize]
+        public void Init()
+        {
+            beforeLabel = new XRLabel() { ForeColor = Color.Red, BackColor = Color.White, BorderColor = Color.Blue };
+            afterLabel = new XRLabel() { ForeColor = Color.Green, BackColor = Color.Gold, BorderColor = Color.Yellow };
+
+            config = new ColorReplaceActionConfiguration();
             config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.ForeColor, beforeLabel.ForeColor, afterLabel.ForeColor));
             config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.BackColor, beforeLabel.BackColor, afterLabel.BackColor));
             config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.BorderColor, beforeLabel.BorderColor, afterLabel.BorderColor));
+        }
 
+        [TestMethod]
+        public void should_replace_colors_directly()
+        {
             var action = new ColorReplacerAction(config);
             action.ActionToApply.Invoke(beforeLabel);
 
@@ -36,14 +41,6 @@ namespace XtraSubReport.Tests.RuntimeActions
         [TestMethod]
         public void configuration_serialization_test()
         {
-            var beforeLabel = new XRLabel() { ForeColor = Color.Red, BackColor = Color.White, BorderColor = Color.Blue };
-            var afterLabel = new XRLabel() { ForeColor = Color.Green, BackColor = Color.Gold, BorderColor = Color.Yellow };
-
-            var config = new ColorReplaceActionConfiguration();
-            config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.ForeColor, beforeLabel.ForeColor, afterLabel.ForeColor));
-            config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.BackColor, beforeLabel.BackColor, afterLabel.BackColor));
-            config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.BorderColor, beforeLabel.BorderColor, afterLabel.BorderColor));
-
             var stream = new MemoryStream();
 
             // Uncomment to create example config file

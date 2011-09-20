@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
-using XtraSubreport.Contracts;
-using XtraSubreportEngine.Support;
-using XtraSubreport.Engine;
+using System.Linq;
 using System.Reflection;
-using System.Text;
 using XtraSubreport.Contracts.DataSources;
+using XtraSubreport.Engine;
 using XtraSubreport.Engine.Support;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubreportEngine
 {
-    public static class DataSourceProvider
+    public static class DataSourceLocator
     {
 
         public static string _basePath { get; set; }
 
-        static DataSourceProvider()
+        static DataSourceLocator()
         {
             // Default Base Path
             var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             SetBasePath(basePath);
         }
 
+        #region Paths
 
         public static void SetBasePath(string basePath)
         {
@@ -72,13 +71,13 @@ namespace XtraSubreportEngine
 
         public static string MakeFullPath(string relativePath)
         {
-            var basePath = DataSourceProvider.GetBasePath();
+            var basePath = DataSourceLocator.GetBasePath();
             return Path.Combine(basePath, relativePath);
         }
 
         public static string MakeRelativePath(string fullPath)
         {
-            var basePath = DataSourceProvider.GetBasePath();
+            var basePath = DataSourceLocator.GetBasePath();
             return MakeRelativePath(fullPath, basePath);
         }
 
@@ -105,6 +104,10 @@ namespace XtraSubreportEngine
             return relativeUri.ToString().Replace("/", @"\");
         }
 
+        #endregion
+
+        #region Locate Datasource
+
         private static IEnumerable<Lazy<IReportDatasource, IReportDatasourceMetadata>> GetDatasources(CompositionContainer container)
         {
             return container.GetExports<IReportDatasource, IReportDatasourceMetadata>();
@@ -114,7 +117,7 @@ namespace XtraSubreportEngine
         {
             var fullPath = MakeFullPath(relativeFolder);
 
-            IEnumerable<Lazy<IReportDatasource, IReportDatasourceMetadata>> exports = new Lazy<IReportDatasource, IReportDatasourceMetadata>[] {};
+            IEnumerable<Lazy<IReportDatasource, IReportDatasourceMetadata>> exports = new Lazy<IReportDatasource, IReportDatasourceMetadata>[] { };
 
             // Make sure directory exists
             if (!Directory.Exists(fullPath)) return exports;
@@ -131,7 +134,7 @@ namespace XtraSubreportEngine
             catch (ReflectionTypeLoadException tLException)
             {
                 MefHelper.ThrowReflectionTypeLoadException(tLException);
-            } 
+            }
 
             return exports;
         }
@@ -160,5 +163,6 @@ namespace XtraSubreportEngine
             return targetDataSource;
         }
 
+        #endregion
     }
 }

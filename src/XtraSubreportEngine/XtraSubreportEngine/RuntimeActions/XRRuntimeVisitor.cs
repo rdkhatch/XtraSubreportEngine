@@ -1,85 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using DevExpress.XtraReports.UI;
-using XtraSubreport.Engine.Extensions;
-using XtraSubreport.Contracts.RuntimeActions;
 
 namespace XtraSubreport.Engine.RuntimeActions
 {
-
     public class XRRuntimeVisitor
     {
-        public List<IReportRuntimeAction> RuntimeActions { get; private set; }
-        public Func<XtraReport, bool> AggregatorReportPredicate { get; set; }
+        private IRuntimeActionController _controller;
 
-        #region Constructors
-        public XRRuntimeVisitor(IEnumerable<IReportRuntimeActionProvider> actionProviders, IEnumerable<IReportRuntimeAction> actions)
+        #region Constructor
+
+        public XRRuntimeVisitor(IRuntimeActionController controller)
         {
-            RuntimeActions = new List<IReportRuntimeAction>();
-
-            // Actions
-            if (actions != null)
-                RuntimeActions.AddRange(actions);
-
-            // Action Providers
-            if (actionProviders != null)
-                actionProviders.ToList().ForEach(provider =>
-                    {
-                        var actionList = provider.GetRuntimeActions();
-                        RuntimeActions.AddRange(actionList);
-                    });
-
-        }
-
-        public XRRuntimeVisitor(IEnumerable<IReportRuntimeActionProvider> actionProviders)
-            : this(actionProviders, null)
-        {
-        }
-
-        public XRRuntimeVisitor(IEnumerable<IReportRuntimeAction> actions)
-            : this(null, actions)
-        {
-        }
-
-        public XRRuntimeVisitor(IReportRuntimeAction action)
-            : this(new IReportRuntimeAction[] { action })
-        {
+            _controller = controller;
         }
 
         #endregion
 
-        /// <summary>
-        /// Allows this Visitor to listen to any MyReportBase's BeforePrint event.
-        /// Important because DevExpress uses CodeDom and serialization for report scripting etc.  Attaching to BeforePrint events will not work.  You must attach to the Aggregator instead.
-        /// </summary>
-        /// <param name="aggregatorReportPredicate"></param>
-        public virtual void AttachToAggregator(Func<XtraReport, bool> aggregatorReportPredicate)
-        {
-            AggregatorReportPredicate = aggregatorReportPredicate;
+        #region Attach Handlers
 
-            XRRuntimeVisitorAggregator.BeforePrint += (s, e) =>
-                {
-                    var report = e.Report;
-                    bool attach = AggregatorReportPredicate(report);
-                    if (attach)
-                        Visit(report);
-                };
-        }
+        //public virtual void AttachTo(XtraReport report)
+        //{
+        //    // Important:
+        //    // Event handlers DO NOT WORK in the end user designer - because of DevExpress serialization / CodeDom
+        //    // http://www1.devexpress.com/Support/Center/p/Q256674.aspx
+        //    // http://www.devexpress.com/Support/Center/p/Q240047.aspx
+        //    // Must either:
+        //    // 1.) Override Before_Print within custom reports class (ie, MyReportBase)
+        //    // 2.) Use Scripts create an event handler
 
-        public virtual void AttachTo(XtraReport report)
-        {
-            // Important:
-            // Event handlers DO NOT WORK in the end user designer - because of DevExpress serialization / CodeDom
-            // http://www1.devexpress.com/Support/Center/p/Q256674.aspx
-            // http://www.devexpress.com/Support/Center/p/Q240047.aspx
-            // Must either:
-            // 1.) Override Before_Print within custom reports class (ie, MyReportBase)
-            // 2.) Use Scripts create an event handler
-
-            AttachTo(report as Band);
-        }
+        //    AttachTo(report as Band);
+        //}
 
         private void AttachTo(Band band)
         {
@@ -97,11 +48,15 @@ namespace XtraSubreport.Engine.RuntimeActions
             };
         }
 
+        #endregion
+
         // Main Loop
-        private void Visit(XRControl control)
+        #region Visitors
+
+        public void Visit(XRControl control)
         {
             // Self
-            AttemptActionsOnControl(control);
+            _controller.AttemptActionsOnControl(control);
 
             // Get Children
             var children = VisitChildren(control);
@@ -157,17 +112,7 @@ namespace XtraSubreport.Engine.RuntimeActions
             return row.Cells.Cast<XRTableCell>();
         }
 
-        private void AttemptActionsOnControl(XRControl control)
-        {
-            // Predicates
-            var actions = from action in RuntimeActions
-                          where action.ActionPredicate(control)
-                          select action;
-
-            // Execute matching Runtime Actions
-            foreach (var action in actions)
-                action.ActionToApply.Invoke(control);
-        }
+        #endregion
 
     }
 

@@ -25,7 +25,7 @@ namespace XtraSubReport.Tests
         [TestInitialize]
         public void Init()
         {
-            binFolder = DataSourceProvider.GetBasePath();
+            binFolder = DataSourceLocator.GetBasePath();
 
             FoldersCreated.Add(@"TestFolder");
             FoldersCreated.Add(@"TestFolder\TestChildFolder");
@@ -80,7 +80,7 @@ namespace XtraSubReport.Tests
         [TestMethod]
         public void Should_Return_Folders()
         {
-            var folders = DataSourceProvider.GetAllFoldersWithinBasePathContainingDLLs();
+            var folders = DataSourceLocator.GetAllFoldersWithinBasePathContainingDLLs();
 
             Assert.IsTrue(folders.Count() == 2);
         }

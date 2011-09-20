@@ -44,8 +44,8 @@
     <Reference Include="DevExpress.XtraReports.v11.1.Extensions, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraTreeList.v11.1, Version=11.1.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="gcCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\gcCore-dev.1.0.0.111531\lib\Net35\gcCore.dll</HintPath>
+    <Reference Include="gcCore">
+      <HintPath>..\packages\gcCore-dev.1.0.1.66\lib\Net35\gcCore.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -59,20 +59,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Datasources\DataSourceProvider.cs" />
+    <Compile Include="RuntimeActions\Eventing\XRBeforePrintMessage.cs" />
+    <Compile Include="Datasources\DataSourceLocator.cs" />
+    <Compile Include="Datasources\ObjectGraphPathTraverser.cs" />
     <Compile Include="Extensions\DesignTimeHelper.cs" />
-    <Compile Include="Extensions\GeniusCodeExtensions.cs" />
     <Compile Include="Extensions\RunTimeHelper.cs" />
+    <Compile Include="RuntimeActions\Eventing\EventAggregator.cs" />
     <Compile Include="RuntimeActions\PassSubreportDataSourceRuntimeAction.cs" />
     <Compile Include="RuntimeActions\Providers\ReportMEFRuntimeActionProvider.cs" />
+    <Compile Include="RuntimeActions\XRRuntimeActionController.cs" />
     <Compile Include="RuntimeActions\Support\IReportRuntimeActionProvider.cs" />
+    <Compile Include="RuntimeActions\Support\IRuntimeActionController.cs" />
+    <Compile Include="RuntimeActions\XRRuntimeSubscriber.cs" />
     <Compile Include="RuntimeActions\XRRuntimeVisitor.cs" />
-    <Compile Include="RuntimeActions\XRRuntimeVisitorAggregator.cs" />
     <Compile Include="Serialization\XtraReportWithCustomPropertiesBase.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Datasources\DesignTimeDataSourceTreeItem.cs" />
-    <Compile Include="Datasources\ObjectGrahPathTraverser.cs" />
     <Compile Include="Support\MefHelper.cs" />
     <Compile Include="Support\ReportFactory.cs" />
     <Compile Include="Datasources\DesignTimeDataSourceDefinition.cs">
@@ -90,9 +93,6 @@
     <Compile Include="Extensions\XRExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\XtraSubreport.Contracts\XtraSubreport.Contracts.csproj">
       <Project>{316A7AB5-8178-4F21-BAF4-C4D470594477}</Project>
       <Name>XtraSubreport.Contracts</Name>
@@ -101,7 +101,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
