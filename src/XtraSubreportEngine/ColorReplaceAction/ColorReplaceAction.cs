@@ -7,8 +7,8 @@ using XtraSubreport.Contracts.RuntimeActions;
 
 namespace ColorReplaceAction
 {
-    [ReportRuntimeActionExportAttribute("Color Replacer", "Replaces ForeColors, BackColors, and BorderColors of any report item using a config file.")]
-    public class ColorReplacerAction : ReportRuntimeActionBase<XRControl>
+    [ReportRuntimeActionExportAttribute("Color Replacer", "Replaces ForeColors, BackColors, and BorderColors of any report label using a config file.")]
+    public class ColorReplacerAction : ReportRuntimeActionBase<XRLabel>
     {
         ColorReplaceActionConfiguration _config;
 

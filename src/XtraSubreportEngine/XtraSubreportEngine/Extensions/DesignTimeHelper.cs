@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.XtraReports.UI;
+using DevExpress.XtraReports.UserDesigner;
 using GeniusCode.Framework.Extensions;
 using GeniusCode.Framework.Support.Collections.Tree;
 using XtraSubreport.Contracts.DataSources;
-using XtraSubreport.Engine.Extensions;
 using XtraSubreport.Engine.Support;
 using XtraSubreportEngine;
 using XtraSubreportEngine.Support;
@@ -14,6 +15,60 @@ namespace XtraSubreport.Engine
 {
     public static class DesignTimeHelper
     {
+        public static void SetupDesignTimeSubreportDatasourcePassing(this XRDesignMdiController controller)
+        {
+            // Selected Subreport on Design Panel
+            SubreportBase selectedSubreport = null;
+
+            // Design-Time Event Handler
+            controller.OnDesignPanelActivated(designPanel =>
+            {
+                var report = designPanel.Report;
+
+                // Populate Design-Time Datasource
+                report.TryAs<MyReportBase>(myReport =>
+                {
+                    if (selectedSubreport == null)
+                        // Stand-alone Report
+                        DesignTimeHelper.PopulateDesignTimeDataSource(myReport);
+                    else
+                        // Subreport was Double-clicked, new DesignPanel has been activated for it
+                        // Pass Design-Time DataSource from Parent to Subreport
+                        DesignTimeHelper.PassDesignTimeDataSourceToSubreport(selectedSubreport, myReport);
+                });
+
+                // Capture selected Subreport
+                // So we can enable double-clicking Subreport
+                designPanel.SelectionChanged += (sender, e) =>
+                {
+                    var selected = designPanel.GetSelectedComponents();
+                    selectedSubreport = selected.OfType<SubreportBase>().SingleOrDefault();
+
+#if DEBUG
+                    if (selectedSubreport != null)
+                    {
+                        var path = selectedSubreport.Band.GetFullDataMemberPath();
+                        Debug.WriteLine("You selected subreport with Path: {0}".FormatString(path));
+                    }
+#endif
+                };
+
+                // Redraw design panel.  Otherwise, FieldsList & PropertyGrid will be empty
+                RedrawDesignPanel(controller, designPanel);
+            });
+        }
+
+        private static void RedrawDesignPanel(XRDesignMdiController controller, XRDesignPanel designPanel)
+        {
+            designPanel.Parent.Refresh();
+            designPanel.Invalidate();
+            designPanel.Update();
+            //controller.ActiveDesignPanel = designPanel;
+            //controller.XtraTabbedMdiManager.SelectedPage =
+            controller.Form.Refresh();
+
+        }
+
         public static bool PopulateDesignTimeDataSource(MyReportBase report)
         {
             var selectedSource = report.DesignTimeDataSources.FirstOrDefault();

@@ -19,40 +19,24 @@ namespace XtraSubreport.Engine.RuntimeActions
 
         #region Attach Handlers
 
-        //public virtual void AttachTo(XtraReport report)
-        //{
-        //    // Important:
-        //    // Event handlers DO NOT WORK in the end user designer - because of DevExpress serialization / CodeDom
-        //    // http://www1.devexpress.com/Support/Center/p/Q256674.aspx
-        //    // http://www.devexpress.com/Support/Center/p/Q240047.aspx
-        //    // Must either:
-        //    // 1.) Override Before_Print within custom reports class (ie, MyReportBase)
-        //    // 2.) Use Scripts create an event handler
-
-        //    AttachTo(report as Band);
-        //}
-
-        private void AttachTo(Band band)
+        private void AttachTo(XtraReport report)
         {
-            band.BeforePrint += (s, e) =>
-                {
-                    Visit(band);
-                };
+            Visit(report);
         }
 
-        private void AttachTo(XRSubreport placeholder)
+        private void AttachToControl(XRControl control)
         {
-            placeholder.BeforePrint += (s, e) =>
-            {
-                Visit(placeholder);
-            };
+            control.BeforePrint += (s, e) =>
+                {
+                    Visit(control);
+                };
         }
 
         #endregion
 
-        // Main Loop
         #region Visitors
 
+        // Main Loop
         public void Visit(XRControl control)
         {
             // Self
@@ -62,54 +46,60 @@ namespace XtraSubreport.Engine.RuntimeActions
             var children = VisitChildren(control);
 
             // Recursion
+            // TODO: There is a bug where controls get called WAY more than they should. Why?
             foreach (var child in children)
-                Visit(child);
+                //Visit(child);
+                AttachToControl(child);
         }
 
-        private IEnumerable<XRControl> VisitChildren(XRControl control)
+        private List<XRControl> VisitChildren(XRControl control)
         {
-            if (control is Band) return VisitBandChildren(control as Band);
-            if (control is XRSubreport) return VisitSubreportChildren(control as XRSubreport);
+            if (control is XRSubreport) return VisitSubreportPlaceholderChildren(control as XRSubreport);
             if (control is XRTable) return VisitTableChildren(control as XRTable);
             if (control is XRTableRow) return VisitTableRowChildren(control as XRTableRow);
+            if (control is Band) return VisitBandChildren(control as Band);
 
-            return control.Controls.Cast<XRControl>();
+            return control.Controls.Cast<XRControl>().ToList();
         }
 
-        private IEnumerable<XRControl> VisitBandChildren(Band band)
+        private List<XRControl> VisitBandChildren(Band band)
         {
             // Special Controls - Bands & Subreport Placeholders (which need additional event handlers)
             var childBands = band.Controls.OfType<Band>().ToList();
             var subreportPlaceholders = band.Controls.OfType<XRSubreport>().ToList();
 
-            // Attach to Controls
-            childBands.ForEach(childBand => AttachTo(childBand));
-            subreportPlaceholders.ForEach(placeholder => AttachTo(placeholder));
+            // Attach to Special Controls
+            childBands.ForEach(childBand =>
+                AttachToControl(childBand));
+            subreportPlaceholders.ForEach(placeholder =>
+                AttachToControl(placeholder));
 
             var ignore = Enumerable.Concat(childBands.Cast<XRControl>(), subreportPlaceholders.Cast<XRControl>());
 
             // Normal Controls
-            return band.Controls.Cast<XRControl>().Except(ignore);
+            return band.Controls.Cast<XRControl>().Except(ignore).ToList();
         }
 
-        private IEnumerable<XRControl> VisitSubreportChildren(XRSubreport placeholder)
+        private List<XRControl> VisitSubreportPlaceholderChildren(XRSubreport placeholder)
         {
             // Subreport
-            var subreport = placeholder.ReportSource;
+            XtraReport subreport = placeholder.ReportSource;
             AttachTo(subreport);
 
             // Return empty collection
-            yield break;
+            return new List<XRControl>();
         }
 
-        private IEnumerable<XRControl> VisitTableChildren(XRTable table)
+        private List<XRControl> VisitTableChildren(XRTable table)
         {
-            return table.Rows.Cast<XRTableRow>();
+            // XRTableRows
+            return table.Rows.Cast<XRControl>().ToList();
         }
 
-        private IEnumerable<XRControl> VisitTableRowChildren(XRTableRow row)
+        private List<XRControl> VisitTableRowChildren(XRTableRow row)
         {
-            return row.Cells.Cast<XRTableCell>();
+            // XRTableCells
+            return row.Cells.Cast<XRControl>().ToList();
         }
 
         #endregion

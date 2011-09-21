@@ -1,18 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XtraSubreport.Engine;
-using XtraSubreportEngine.Support;
-using System.IO;
-using DevExpress.XtraReports.UI;
-using DevExpress.XtraReports.Serialization;
 using XtraSubreport.Engine.Support;
-using DevExpress.XtraPrinting;
-using XtraSubreport.Engine.Extensions;
-using System.Collections;
-using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
 {
@@ -65,17 +54,16 @@ namespace XtraSubReport.Tests
         }
 
 
-    }
-
-
-    public class DummyReport : XtraReportWithCustomPropertiesBase
-    {
-        public DesignTimeDataSourceDefinition RyansSerializeTestObject { get; set; }
-
-        protected override void DeclareCustomProperties()
+        public class DummyReport : XtraReportWithCustomPropertiesBase
         {
-            base.DeclareCustomObjectProperty(() => this.RyansSerializeTestObject);
+            public DesignTimeDataSourceDefinition RyansSerializeTestObject { get; set; }
+
+            protected override void DeclareCustomProperties()
+            {
+                base.DeclareCustomObjectProperty(() => this.RyansSerializeTestObject);
+            }
         }
+
     }
 
 }

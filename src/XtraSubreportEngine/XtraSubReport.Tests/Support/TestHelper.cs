@@ -33,12 +33,12 @@ namespace XtraSubReport.Tests
 
         public static DesignTimeDataSourceDefinition NorthwindDataSource
         {
-            get { return new DesignTimeDataSourceDefinition("Northwind_Products", string.Empty, string.Empty); }
+            get { return new DesignTimeDataSourceDefinition("Northwind_Orders", string.Empty, string.Empty); }
         }
 
-        public static object GetNorthwindProducts()
+        public static object GetNorthwindOrders()
         {
-            return DataSourceLocator.GetDatasource(NorthwindDataSource).Value.DataSource;
+            return DataSourceLocator.GetDatasource(NorthwindDataSource).Value.GetDataSource();
         }
 
         public static Tuple<MyReportBase, XRSubreport, MyReportBase> GetParentAndNestedSubreport()

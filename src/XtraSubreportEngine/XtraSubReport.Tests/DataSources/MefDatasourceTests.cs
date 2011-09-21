@@ -1,11 +1,6 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XtraSubreportEngine;
-using XtraSubreport.Engine;
-using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
 {
@@ -19,20 +14,20 @@ namespace XtraSubReport.Tests
 
             Assert.IsTrue(exports.Count > 0);
         }
-        
+
         [TestMethod]
-        public void Northwind_Products_should_be_exported()
+        public void Northwind_Orders_should_be_exported()
         {
             var match = DataSourceLocator.GetDatasource(TestHelper.NorthwindDataSource);
 
             Assert.IsNotNull(match);
         }
 
-        [TestMethod]
-        public void catalog_should_support_multiple_directories()
-        {
-            //DesignTimeHelper.BuildDesignTimeDataSourceTreeItems(new MyReportBase());
-            //var container = DataSourceProvider.Singleton._container;
-        }
+        //[TestMethod]
+        //public void catalog_should_support_multiple_directories()
+        //{
+        //    //DesignTimeHelper.BuildDesignTimeDataSourceTreeItems(new MyReportBase());
+        //    //var container = DataSourceProvider.Singleton._container;
+        //}
     }
 }

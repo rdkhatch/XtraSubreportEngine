@@ -1,0 +1,231 @@
+/// <XRTypeInfo>
+///   <AssemblyFullName>XtraSubreport.Engine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</AssemblyFullName>
+///   <AssemblyLocation>C:\Data\GeniusCode.net\Misc Git Projects\XtraSubReports\src\XtraSubreportEngine\XtraSubReport.Winforms\bin\Debug\XtraSubreport.Engine.dll</AssemblyLocation>
+///   <TypeName>XtraSubreportEngine.Support.MyReportBase</TypeName>
+///   <Localization>en-US</Localization>
+///   <References>
+///     <Reference Path="C:\Data\GeniusCode.net\Misc Git Projects\XtraSubReports\src\XtraSubreportEngine\XtraSubReport.Winforms\bin\Debug\XtraSubreport.Engine.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraReports.v11.1.Extensions\11.1.6.0__b88d1754d700e49a\DevExpress.XtraReports.v11.1.Extensions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Design\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Design.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.SqlXml\v4.0_4.0.0.0__b77a5c561934e089\System.Data.SqlXml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Security\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Security.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data\v4.0_4.0.0.0__b77a5c561934e089\System.Data.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.VisualC\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualC.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Transactions\v4.0_4.0.0.0__b77a5c561934e089\System.Transactions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.EnterpriseServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.DirectoryServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.DirectoryServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Remoting\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Remoting.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Framework\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Framework.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xaml\v4.0_4.0.0.0__b77a5c561934e089\System.Xaml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Caching\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Caching.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.ApplicationServices\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.ApplicationServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Numerics\v4.0_4.0.0.0__b77a5c561934e089\System.Numerics.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Services\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Utilities.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Utilities.v4.0.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.DirectoryServices.Protocols\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.DirectoryServices.Protocols.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Tasks.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Tasks.v4.0.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Accessibility\v4.0_4.0.0.0__b03f5f7f11d50a3a\Accessibility.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization.Formatters.Soap\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Serialization.Formatters.Soap.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Deployment\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Deployment.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceProcess\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.ServiceProcess.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration.Install\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.Install.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\SMDiagnostics\v4.0_4.0.0.0__b77a5c561934e089\SMDiagnostics.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.DurableInstancing\v4.0_4.0.0.0__31bf3856ad364e35\System.Runtime.DurableInstancing.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml.Linq\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.Linq.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.RegularExpressions\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing.Design\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.Design.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data.OracleClient\v4.0_4.0.0.0__b77a5c561934e089\System.Data.OracleClient.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraBars.v11.1\11.1.6.0__b88d1754d700e49a\DevExpress.XtraBars.v11.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.Reports.v11.1.Designer\11.1.6.0__b88d1754d700e49a\DevExpress.Reports.v11.1.Designer.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraCharts.v11.1.Extensions\11.1.6.0__b88d1754d700e49a\DevExpress.XtraCharts.v11.1.Extensions.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraPrinting.v11.1\11.1.6.0__b88d1754d700e49a\DevExpress.XtraPrinting.v11.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraRichEdit.v11.1\11.1.6.0__b88d1754d700e49a\DevExpress.XtraRichEdit.v11.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.RichEdit.v11.1.Core\11.1.6.0__b88d1754d700e49a\DevExpress.RichEdit.v11.1.Core.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraTreeList.v11.1\11.1.6.0__b88d1754d700e49a\DevExpress.XtraTreeList.v11.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraNavBar.v11.1\11.1.6.0__b88d1754d700e49a\DevExpress.XtraNavBar.v11.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraVerticalGrid.v11.1\11.1.6.0__b88d1754d700e49a\DevExpress.XtraVerticalGrid.v11.1.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.CodeParser.v11.1\11.1.6.0__b88d1754d700e49a\DevExpress.CodeParser.v11.1.dll" />
+///     <Reference Path="C:\Data\GeniusCode.net\Misc Git Projects\XtraSubReports\src\XtraSubreportEngine\XtraSubReport.Winforms\bin\Debug\gcCore.dll" />
+///     <Reference Path="C:\Data\GeniusCode.net\Misc Git Projects\XtraSubReports\src\XtraSubreportEngine\XtraSubReport.Winforms\bin\Debug\XtraSubreport.Contracts.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ComponentModel.Composition\v4.0_4.0.0.0__b77a5c561934e089\System.ComponentModel.Composition.dll" />
+///   </References>
+/// </XRTypeInfo>
+namespace XtraReportSerialization {
+    
+    public class Report2 : DevExpress.XtraReports.UI.XtraReport {
+        private DevExpress.XtraReports.UI.DetailBand detailBand1;
+        private DevExpress.XtraReports.UI.XRLabel MakeMeGold;
+        private DevExpress.XtraReports.UI.XRLabel label2;
+        private DevExpress.XtraReports.UI.XRLabel label1;
+        private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
+        private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
+        private System.Resources.ResourceManager _resources;
+        public Report2() {
+            this.InitializeComponent();
+        }
+        private System.Resources.ResourceManager resources {
+            get {
+                if (_resources == null) {
+                    string resourceString = "zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJza" +
+                        "W9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4O" +
+                        "SNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAVAAAAAAAAAFBBRFBBRFCt+36F0" +
+                        "vmOhf/FHox6dD+T3/5rmApX0J5M3L+zs5jLs6t4y8Ba2PDF05PIx1ujmO1y1RnuPlEDAf5gRwqrzpYlm" +
+                        "8tJONKpfUvtBH1patUFdyw9lHkECQAAMggAACcBAADKAgAArAMAAH4EAAAdBAAASwMAAGUJAAAAAAAAp" +
+                        "AAAAOcEAADOCQAADgYAAJMIAAAlBwAAsQcAAIsFAACiBgAAPgIAALsBAABxCwAAngFEAGUAcwBpAGcAb" +
+                        "gBUAGkAbQBlAEQAYQB0AGEAUwBvAHUAcgBjAGUAcwBfAFgAXwBJAHQAZQBtADAAXwBYAF8APABEAGEAd" +
+                        "ABhAFMAbwB1AHIAYwBlAEEAcwBzAGUAbQBiAGwAeQBMAG8AYwBhAHQAaQBvAG4AUABhAHQAaAA+AGsAX" +
+                        "wBfAEIAYQBjAGsAaQBuAGcARgBpAGUAbABkAAAAAAB+RABlAHMAaQBnAG4AVABpAG0AZQBEAGEAdABhA" +
+                        "FMAbwB1AHIAYwBlAHMAXwBYAF8ASQB0AGUAbQAwAF8AWABfADwARABhAHQAYQBTAG8AdQByAGMAZQBOA" +
+                        "GEAbQBlAD4AawBfAF8AQgBhAGMAawBpAG4AZwBGAGkAZQBsAGQAAgAAAI4BRABlAHMAaQBnAG4AVABpA" +
+                        "G0AZQBEAGEAdABhAFMAbwB1AHIAYwBlAHMAXwBYAF8ASQB0AGUAbQAwAF8AWABfADwARABhAHQAYQBTA" +
+                        "G8AdQByAGMAZQBSAGUAbABhAHQAaQBvAG4AUABhAHQAaAA+AGsAXwBfAEIAYQBjAGsAaQBuAGcARgBpA" +
+                        "GUAbABkABQAAAB+RABlAHMAaQBnAG4AVABpAG0AZQBEAGEAdABhAFMAbwB1AHIAYwBlAHMAXwBYAF8AS" +
+                        "QB0AGUAbQAwAF8AWABfADwARABhAHQAYQBTAG8AdQByAGMAZQBUAHkAcABlAD4AawBfAF8AQgBhAGMAa" +
+                        "wBpAG4AZwBGAGkAZQBsAGQAIwAAAIYBRABlAHMAaQBnAG4AVABpAG0AZQBEAGEAdABhAFMAbwB1AHIAY" +
+                        "wBlAHMAXwBYAF8ASQB0AGUAbQAwAF8AWABfADwAUgBvAG8AdABEAGEAdABhAFMAbwB1AHIAYwBlAFQAe" +
+                        "QBwAGUAPgBrAF8AXwBCAGEAYwBrAGkAbgBnAEYAaQBlAGwAZAApAQAAfEQAZQBzAGkAZwBuAFQAaQBtA" +
+                        "GUARABhAHQAYQBTAG8AdQByAGMAZQBzAF8AWABfAEkAdABlAG0AMABfAFgAXwBEAGEAdABhAFMAbwB1A" +
+                        "HIAYwBlAEEAcwBzAGUAbQBiAGwAeQBMAG8AYwBhAHQAaQBvAG4AUABhAHQAaAADAgAAXEQAZQBzAGkAZ" +
+                        "wBuAFQAaQBtAGUARABhAHQAYQBTAG8AdQByAGMAZQBzAF8AWABfAEkAdABlAG0AMABfAFgAXwBEAGEAd" +
+                        "ABhAFMAbwB1AHIAYwBlAE4AYQBtAGUABQIAAGxEAGUAcwBpAGcAbgBUAGkAbQBlAEQAYQB0AGEAUwBvA" +
+                        "HUAcgBjAGUAcwBfAFgAXwBJAHQAZQBtADAAXwBYAF8ARABhAHQAYQBTAG8AdQByAGMAZQBSAGUAbABhA" +
+                        "HQAaQBvAG4AUABhAHQAaAAXAgAAXEQAZQBzAGkAZwBuAFQAaQBtAGUARABhAHQAYQBTAG8AdQByAGMAZ" +
+                        "QBzAF8AWABfAEkAdABlAG0AMABfAFgAXwBEAGEAdABhAFMAbwB1AHIAYwBlAFQAeQBwAGUAJgIAAGREA" +
+                        "GUAcwBpAGcAbgBUAGkAbQBlAEQAYQB0AGEAUwBvAHUAcgBjAGUAcwBfAFgAXwBJAHQAZQBtADAAXwBYA" +
+                        "F8AUgBvAG8AdABEAGEAdABhAFMAbwB1AHIAYwBlAFQAeQBwAGUALAMAAJ4BRABlAHMAaQBnAG4AVABpA" +
+                        "G0AZQBEAGEAdABhAFMAbwB1AHIAYwBlAHMAXwBYAF8ASQB0AGUAbQAxAF8AWABfADwARABhAHQAYQBTA" +
+                        "G8AdQByAGMAZQBBAHMAcwBlAG0AYgBsAHkATABvAGMAYQB0AGkAbwBuAFAAYQB0AGgAPgBrAF8AXwBCA" +
+                        "GEAYwBrAGkAbgBnAEYAaQBlAGwAZAAGBAAAfkQAZQBzAGkAZwBuAFQAaQBtAGUARABhAHQAYQBTAG8Ad" +
+                        "QByAGMAZQBzAF8AWABfAEkAdABlAG0AMQBfAFgAXwA8AEQAYQB0AGEAUwBvAHUAcgBjAGUATgBhAG0AZ" +
+                        "QA+AGsAXwBfAEIAYQBjAGsAaQBuAGcARgBpAGUAbABkAAgEAACOAUQAZQBzAGkAZwBuAFQAaQBtAGUAR" +
+                        "ABhAHQAYQBTAG8AdQByAGMAZQBzAF8AWABfAEkAdABlAG0AMQBfAFgAXwA8AEQAYQB0AGEAUwBvAHUAc" +
+                        "gBjAGUAUgBlAGwAYQB0AGkAbwBuAFAAYQB0AGgAPgBrAF8AXwBCAGEAYwBrAGkAbgBnAEYAaQBlAGwAZ" +
+                        "AAaBAAAfkQAZQBzAGkAZwBuAFQAaQBtAGUARABhAHQAYQBTAG8AdQByAGMAZQBzAF8AWABfAEkAdABlA" +
+                        "G0AMQBfAFgAXwA8AEQAYQB0AGEAUwBvAHUAcgBjAGUAVAB5AHAAZQA+AGsAXwBfAEIAYQBjAGsAaQBuA" +
+                        "GcARgBpAGUAbABkACwEAACGAUQAZQBzAGkAZwBuAFQAaQBtAGUARABhAHQAYQBTAG8AdQByAGMAZQBzA" +
+                        "F8AWABfAEkAdABlAG0AMQBfAFgAXwA8AFIAbwBvAHQARABhAHQAYQBTAG8AdQByAGMAZQBUAHkAcABlA" +
+                        "D4AawBfAF8AQgBhAGMAawBpAG4AZwBGAGkAZQBsAGQAmgQAAHxEAGUAcwBpAGcAbgBUAGkAbQBlAEQAY" +
+                        "QB0AGEAUwBvAHUAcgBjAGUAcwBfAFgAXwBJAHQAZQBtADEAXwBYAF8ARABhAHQAYQBTAG8AdQByAGMAZ" +
+                        "QBBAHMAcwBlAG0AYgBsAHkATABvAGMAYQB0AGkAbwBuAFAAYQB0AGgAdAUAAFxEAGUAcwBpAGcAbgBUA" +
+                        "GkAbQBlAEQAYQB0AGEAUwBvAHUAcgBjAGUAcwBfAFgAXwBJAHQAZQBtADEAXwBYAF8ARABhAHQAYQBTA" +
+                        "G8AdQByAGMAZQBOAGEAbQBlAHYFAABsRABlAHMAaQBnAG4AVABpAG0AZQBEAGEAdABhAFMAbwB1AHIAY" +
+                        "wBlAHMAXwBYAF8ASQB0AGUAbQAxAF8AWABfAEQAYQB0AGEAUwBvAHUAcgBjAGUAUgBlAGwAYQB0AGkAb" +
+                        "wBuAFAAYQB0AGgAiAUAAFxEAGUAcwBpAGcAbgBUAGkAbQBlAEQAYQB0AGEAUwBvAHUAcgBjAGUAcwBfA" +
+                        "FgAXwBJAHQAZQBtADEAXwBYAF8ARABhAHQAYQBTAG8AdQByAGMAZQBUAHkAcABlAJoFAABkRABlAHMAa" +
+                        "QBnAG4AVABpAG0AZQBEAGEAdABhAFMAbwB1AHIAYwBlAHMAXwBYAF8ASQB0AGUAbQAxAF8AWABfAFIAb" +
+                        "wBvAHQARABhAHQAYQBTAG8AdQByAGMAZQBUAHkAcABlAAgGAABCRABlAHMAaQBnAG4AVABpAG0AZQBEA" +
+                        "GEAdABhAFMAbwB1AHIAYwBlAHMAXwBYAF8ASQB0AGUAbQBDAG8AdQBuAHQA4gYAAAEAARBOb3J0aHdpb" +
+                        "mRfT3JkZXJzAQ1PcmRlcl9EZXRhaWxzAYMCU3lzdGVtLkRhdGEuU2VydmljZXMuQ2xpZW50LkRhdGFTZ" +
+                        "XJ2aWNlQ29sbGVjdGlvbmAxW1tOb3J0aHdpbmRPRGF0YS5Ob3J0aHdpbmQuT3JkZXJfRGV0YWlsLCBOb" +
+                        "3J0aHdpbmRPRGF0YSwgVmVyc2lvbj0xLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva" +
+                        "2VuPW51bGxdXSwgU3lzdGVtLkRhdGEuU2VydmljZXMuQ2xpZW50LCBWZXJzaW9uPTQuMC4wLjAsIEN1b" +
+                        "HR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OQHXAVN5c3RlbS5Db2xsZ" +
+                        "WN0aW9ucy5HZW5lcmljLkxpc3RgMVtbTm9ydGh3aW5kT0RhdGEuTm9ydGh3aW5kLk9yZGVyLCBOb3J0a" +
+                        "HdpbmRPRGF0YSwgVmVyc2lvbj0xLjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuP" +
+                        "W51bGxdXSwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZ" +
+                        "XlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5AQABEE5vcnRod2luZF9PcmRlcnMBDU9yZGVyX0RldGFpbHMBg" +
+                        "wJTeXN0ZW0uRGF0YS5TZXJ2aWNlcy5DbGllbnQuRGF0YVNlcnZpY2VDb2xsZWN0aW9uYDFbW05vcnRod" +
+                        "2luZE9EYXRhLk5vcnRod2luZC5PcmRlcl9EZXRhaWwsIE5vcnRod2luZE9EYXRhLCBWZXJzaW9uPTEuM" +
+                        "C4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbF1dLCBTeXN0ZW0uRGF0YS5TZ" +
+                        "XJ2aWNlcy5DbGllbnQsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb" +
+                        "2tlbj1iNzdhNWM1NjE5MzRlMDg5AdcBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzdGAxW1tOb" +
+                        "3J0aHdpbmRPRGF0YS5Ob3J0aHdpbmQuT3JkZXIsIE5vcnRod2luZE9EYXRhLCBWZXJzaW9uPTEuMC4wL" +
+                        "jAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbF1dLCBtc2NvcmxpYiwgVmVyc2lvb" +
+                        "j00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkBA" +
+                        "AEQTm9ydGh3aW5kX09yZGVycwEQT3JkZXJfRGV0YWlsc1swXQFsTm9ydGh3aW5kT0RhdGEuTm9ydGh3a" +
+                        "W5kLk9yZGVyX0RldGFpbCwgTm9ydGh3aW5kT0RhdGEsIFZlcnNpb249MS4wLjAuMCwgQ3VsdHVyZT1uZ" +
+                        "XV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsAdcBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVyaWMuTGlzd" +
+                        "GAxW1tOb3J0aHdpbmRPRGF0YS5Ob3J0aHdpbmQuT3JkZXIsIE5vcnRod2luZE9EYXRhLCBWZXJzaW9uP" +
+                        "TEuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbF1dLCBtc2NvcmxpYiwgV" +
+                        "mVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzN" +
+                        "GUwODkBAAEQTm9ydGh3aW5kX09yZGVycwEQT3JkZXJfRGV0YWlsc1swXQFsTm9ydGh3aW5kT0RhdGEuT" +
+                        "m9ydGh3aW5kLk9yZGVyX0RldGFpbCwgTm9ydGh3aW5kT0RhdGEsIFZlcnNpb249MS4wLjAuMCwgQ3Vsd" +
+                        "HVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsAdcBU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVya" +
+                        "WMuTGlzdGAxW1tOb3J0aHdpbmRPRGF0YS5Ob3J0aHdpbmQuT3JkZXIsIE5vcnRod2luZE9EYXRhLCBWZ" +
+                        "XJzaW9uPTEuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbF1dLCBtc2Nvc" +
+                        "mxpYiwgVmVyc2lvbj00LjAuMC4wLCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1Y" +
+                        "zU2MTkzNGUwODkIAgAAAA==";
+                    this._resources = new DevExpress.XtraReports.Serialization.XRResourceManager(resourceString);
+                }
+                return this._resources;
+            }
+        }
+        private void InitializeComponent() {
+            this.detailBand1 = new DevExpress.XtraReports.UI.DetailBand();
+            this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
+            this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
+            this.MakeMeGold = new DevExpress.XtraReports.UI.XRLabel();
+            this.label2 = new DevExpress.XtraReports.UI.XRLabel();
+            this.label1 = new DevExpress.XtraReports.UI.XRLabel();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            // 
+            // detailBand1
+            // 
+            this.detailBand1.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.MakeMeGold,
+                        this.label2,
+                        this.label1});
+            this.detailBand1.HeightF = 23F;
+            this.detailBand1.Name = "detailBand1";
+            // 
+            // topMarginBand1
+            // 
+            this.topMarginBand1.Name = "topMarginBand1";
+            // 
+            // bottomMarginBand1
+            // 
+            this.bottomMarginBand1.Name = "bottomMarginBand1";
+            // 
+            // MakeMeGold
+            // 
+            this.MakeMeGold.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "UnitPrice", "{0:$0.00}")});
+            this.MakeMeGold.LocationFloat = new DevExpress.Utils.PointFloat(550F, 0F);
+            this.MakeMeGold.Name = "MakeMeGold";
+            this.MakeMeGold.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.MakeMeGold.SizeF = new System.Drawing.SizeF(100F, 23F);
+            this.MakeMeGold.Text = "MakeMeGold";
+            // 
+            // label2
+            // 
+            this.label2.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Quantity")});
+            this.label2.LocationFloat = new DevExpress.Utils.PointFloat(423.9583F, 0F);
+            this.label2.Name = "label2";
+            this.label2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label2.SizeF = new System.Drawing.SizeF(100F, 23F);
+            this.label2.Text = "label2";
+            // 
+            // label1
+            // 
+            this.label1.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
+                        new DevExpress.XtraReports.UI.XRBinding("Text", null, "Product.ProductName")});
+            this.label1.LocationFloat = new DevExpress.Utils.PointFloat(0F, 0F);
+            this.label1.Name = "label1";
+            this.label1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.label1.SizeF = new System.Drawing.SizeF(100F, 23F);
+            this.label1.Text = "label1";
+            // 
+            // Report2
+            // 
+            this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
+                        this.detailBand1,
+                        this.topMarginBand1,
+                        this.bottomMarginBand1});
+            this.DisplayName = "Report2";
+            this.Name = "Report2";
+            this.PageHeight = 1100;
+            this.PageWidth = 850;
+            this.Version = "11.1";
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+        }
+    }
+}

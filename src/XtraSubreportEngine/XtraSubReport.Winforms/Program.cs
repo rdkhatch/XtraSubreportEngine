@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Diagnostics;
+using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using ColorReplaceAction;
 using DevExpress.XtraBars;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
@@ -14,7 +12,6 @@ using GeniusCode.Framework.Extensions;
 using NLog;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine;
-using XtraSubreport.Engine.Extensions;
 using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreportEngine;
 using XtraSubreportEngine.Support;
@@ -23,9 +20,6 @@ namespace XtraSubReport.Winforms
 {
     static class Program
     {
-        // Selected Subreport on Design Panel
-        public static SubreportBase selectedSubreport;
-
         // NLog - Helpful to diagnose if a DLL cannot be found, etc.
         private static Logger logger;
 
@@ -42,8 +36,14 @@ namespace XtraSubReport.Winforms
             var controller = form.DesignMdiController;
 
             SetupNLog();
+
+            // Pass Datasource to Subreports
+            controller.SetupDesignTimeSubreportDatasourcePassing();
+
+            // Runtime Actions
             SetupRuntimeActions();
-            SetupDesignTime(controller);
+
+            // Design-Time Datasources
             SetupDesignTimeDataSources();
 
             // Add toolbar button to select Datasource
@@ -63,60 +63,17 @@ namespace XtraSubReport.Winforms
                 new PassSubreportDataSourceRuntimeAction(),
 
                 // ColorReplaceAction, which can change report colors at runtime
-                new ColorReplacerAction()
+                //new ColorReplacerAction()
+                new ReportRuntimeActionBase<XRLabel>(label => label.Name.Contains("MakeMeGold"), label => label.BackColor = Color.Gold)
             };
 
             var controller = new XRRuntimeActionController(runtimeActions.ToArray());
             subscriber = new XRRuntimeSubscriber(controller);
         }
 
-        private static void SetupDesignTime(XRDesignMdiController controller)
-        {
-            // Design-Time Event Handler
-            controller.OnDesignPanelActivated(designPanel =>
-            {
-                var report = designPanel.Report;
-
-                // Populate Design-Time Datasource
-                report.TryAs<MyReportBase>(myReport =>
-                {
-                    if (selectedSubreport == null)
-                        // Stand-alone Report
-                        DesignTimeHelper.PopulateDesignTimeDataSource(myReport);
-                    else
-                        // Subreport was Double-clicked, new DesignPanel has been activated for it
-                        // Pass Design-Time DataSource from Parent to Subreport
-                        DesignTimeHelper.PassDesignTimeDataSourceToSubreport(selectedSubreport, myReport);
-                });
-
-                // Capture selected Subreport
-                // So we can enable double-clicking Subreport
-                designPanel.SelectionChanged += (sender, e) =>
-                {
-                    var selected = designPanel.GetSelectedComponents();
-                    selectedSubreport = selected.OfType<SubreportBase>().SingleOrDefault();
-
-#if DEBUG
-                    if (selectedSubreport != null)
-                    {
-                        var path = selectedSubreport.Band.GetFullDataMemberPath();
-                        Debug.WriteLine("You selected subreport with Path: {0}".FormatString(path));
-                    }
-#endif
-                };
 
 
-            });
-        }
 
-        private static void SetupDesignTimeDataSources()
-        {
-            // MEF Datasources
-            var datasourceBasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var relativePath = ConfigurationSettings.AppSettings["RelativeDataSourcePath"];
-            var path = Path.Combine(datasourceBasePath, relativePath);
-            DataSourceLocator.SetBasePath(path);
-        }
 
         private static XRDesignForm CreateDesignForm()
         {
@@ -130,6 +87,15 @@ namespace XtraSubReport.Winforms
             form.DesignMdiController.AddService(typeof(ReportTypeService), service);
 
             return form;
+        }
+
+        private static void SetupDesignTimeDataSources()
+        {
+            // MEF Datasources
+            var datasourceBasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var relativePath = ConfigurationSettings.AppSettings["RelativeDataSourcePath"];
+            var path = Path.Combine(datasourceBasePath, relativePath);
+            DataSourceLocator.SetBasePath(path);
         }
 
         #region Select Datasource Dialog

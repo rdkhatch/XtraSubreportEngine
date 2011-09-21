@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -44,7 +47,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NorthwindDataSource.cs" />
+    <Compile Include="NorthwindProducts.cs" />
+    <Compile Include="NorthwindOrders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\Northwind\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -61,6 +65,7 @@
     </ServiceReferenceMetadataStorage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="Service References\Northwind\service.edmx" />
   </ItemGroup>
   <ItemGroup>

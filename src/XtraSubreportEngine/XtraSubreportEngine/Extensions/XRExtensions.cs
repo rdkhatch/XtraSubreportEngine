@@ -1,18 +1,18 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using DevExpress.XtraReports.Native.Data;
-using DevExpress.Data.Browsing;
-using DevExpress.XtraReports.UI;
-using GeniusCode.Framework.Extensions;
 using System.Reflection;
-using System.Collections;
-using DevExpress.XtraTreeList.Nodes;
-using DevExpress.XtraTreeList;
-using DevExpress.XtraTreeList.Nodes.Operations;
+using DevExpress.Data.Browsing;
+using DevExpress.XtraReports.Native.Data;
+using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
+using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Nodes;
+using DevExpress.XtraTreeList.Nodes.Operations;
+using GeniusCode.Framework.Extensions;
 
-namespace XtraSubreport.Engine.Extensions
+namespace XtraSubreport.Engine
 {
     public static class XRExtensions
     {
@@ -72,7 +72,7 @@ namespace XtraSubreport.Engine.Extensions
             else if (datasource is IEnumerable)
                 report.DataSource = datasource;
             else
-                report.DataSource = new List<object>{ datasource };
+                report.DataSource = new List<object> { datasource };
         }
 
         public static void OnDesignPanelActivated(this XRDesignMdiController controller, Action<XRDesignPanel> handler)
@@ -123,7 +123,7 @@ namespace XtraSubreport.Engine.Extensions
 
             return Enumerable.Concat(myControls, childControls);
         }
-        
+
 
         public static IEnumerable<XRSubreport> FindAllSubreports(this XtraReport report)
         {
