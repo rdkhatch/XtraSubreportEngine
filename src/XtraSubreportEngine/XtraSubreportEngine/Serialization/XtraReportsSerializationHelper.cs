@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Collections;
 using System.Reflection;
+using DevExpress.XtraReports.Serialization;
 using GeniusCode.Framework.Extensions;
 using GeniusCode.Framework.Support.Refection;
-using DevExpress.XtraReports.Serialization;
-using System.Collections;
 
 namespace XtraSubreport.Engine.Support
 {
@@ -26,7 +23,14 @@ namespace XtraSubreport.Engine.Support
 
             else if (type == typeof(string))
                 serializer.SerializeString(name, (string)value);
-            
+
+            else if (type == typeof(Type))
+            {
+                var typeValue = (Type)value;
+                var typeString = (typeValue != null) ? typeValue.AssemblyQualifiedName : string.Empty;
+                serializer.SerializeString(name, typeString);
+            }
+
             // Other types here
         }
 
@@ -60,6 +64,9 @@ namespace XtraSubreport.Engine.Support
 
             else if (type == typeof(string))
                 value = serializer.DeserializeString(name, string.Empty);
+
+            else if (type == typeof(Type))
+                value = Type.GetType(serializer.DeserializeString(name, string.Empty), false);
 
             // Set Value
             ReflectionHelper.SetMemberValue(containerInstance, name, value);

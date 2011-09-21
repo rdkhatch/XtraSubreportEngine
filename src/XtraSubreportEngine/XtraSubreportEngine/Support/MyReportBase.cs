@@ -1,7 +1,6 @@
 using DevExpress.XtraReports;
 using DevExpress.XtraReports.Localization;
 using XtraSubreport.Engine;
-using XtraSubreport.Engine.Extensions;
 using XtraSubreport.Engine.Support;
 
 namespace XtraSubreportEngine.Support

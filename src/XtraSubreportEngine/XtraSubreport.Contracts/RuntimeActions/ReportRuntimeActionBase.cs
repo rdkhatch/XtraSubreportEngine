@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using DevExpress.XtraReports.UI;
 
 namespace XtraSubreport.Contracts.RuntimeActions
 {
     public class ReportRuntimeActionBase<T> : IReportRuntimeAction<T>
-        where T:XRControl
+        where T : XRControl
     {
         protected Func<T, bool> _predicate;
         protected Action<T> _action;
@@ -17,7 +14,8 @@ namespace XtraSubreport.Contracts.RuntimeActions
             // If you want to inherit, you can
         }
 
-        public ReportRuntimeActionBase(Func<T, bool> predicate, Action<T> action) : this()
+        public ReportRuntimeActionBase(Func<T, bool> predicate, Action<T> action)
+            : this()
         {
             _predicate = predicate;
             _action = action;
@@ -40,7 +38,7 @@ namespace XtraSubreport.Contracts.RuntimeActions
                 return (control) =>
                 {
                     if (control is T)
-                        return _predicate.Invoke((T) control);
+                        return _predicate.Invoke((T)control);
 
                     return false;
                 };
@@ -66,6 +64,12 @@ namespace XtraSubreport.Contracts.RuntimeActions
                     }
                 };
             }
+        }
+
+
+        public Type ApplyToControlType
+        {
+            get { return typeof(T); }
         }
     }
 }

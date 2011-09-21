@@ -1,14 +1,10 @@
-﻿using System;
-using System.Text;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using XtraSubreportEngine;
-using XtraSubreport.Engine;
-using System.Collections;
-using NorthwindOData.Northwind;
 using DevExpress.XtraReports.UI;
-using XtraSubreport.Engine.RuntimeActions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NorthwindOData.Northwind;
+using XtraSubreport.Engine;
 
 namespace XtraSubReport.Tests
 {
@@ -18,30 +14,30 @@ namespace XtraSubReport.Tests
         [TestMethod]
         public void should_allow_root_collection()
         {
-            object products = TestHelper.GetNorthwindProducts();
+            object orders = TestHelper.GetNorthwindOrders();
 
-            object products2 = ObjectGraphPathTraverser.TraversePath(products, "");
+            object orders2 = ObjectGraphPathTraverser.TraversePath(orders, "");
 
-            Assert.ReferenceEquals(products, products2);
+            Assert.ReferenceEquals(orders, orders2);
         }
 
         [TestMethod]
         public void should_extract_item_from_collection()
         {
-            object products = TestHelper.GetNorthwindProducts();
+            object orders = TestHelper.GetNorthwindOrders();
 
-            object product = ObjectGraphPathTraverser.TraversePath(products, "[0]");
+            object order = ObjectGraphPathTraverser.TraversePath(orders, "[0]");
 
-            Assert.IsTrue(product is NorthwindOData.Northwind.Product);
-            Assert.IsNotNull(product);
+            Assert.IsTrue(order is NorthwindOData.Northwind.Order);
+            Assert.IsNotNull(order);
         }
 
         [TestMethod]
         public void should_traverse_up_to_collections()
         {
-            object products = TestHelper.GetNorthwindProducts();
+            object orders = TestHelper.GetNorthwindOrders();
 
-            object order_details = ObjectGraphPathTraverser.TraversePath(products, "[0].Order_Details");
+            object order_details = ObjectGraphPathTraverser.TraversePath(orders, "[0].Order_Details");
 
             var collection = (order_details as IEnumerable).Cast<Order_Detail>();
 
@@ -51,9 +47,9 @@ namespace XtraSubReport.Tests
         [TestMethod]
         public void should_traverse_through_collections_with_index()
         {
-            object products = TestHelper.GetNorthwindProducts();
+            object orders = TestHelper.GetNorthwindOrders();
 
-            object order_detail = ObjectGraphPathTraverser.TraversePath(products, "[0].Order_Details[0]");
+            object order_detail = ObjectGraphPathTraverser.TraversePath(orders, "[0].Order_Details[0]");
 
             Assert.IsTrue(order_detail is Order_Detail);
         }
@@ -61,9 +57,9 @@ namespace XtraSubReport.Tests
         [TestMethod]
         public void should_traverse_through_collections_without_index()
         {
-            object products = TestHelper.GetNorthwindProducts();
+            object orders = TestHelper.GetNorthwindOrders();
 
-            object order_details = ObjectGraphPathTraverser.TraversePath(products, "Order_Details");
+            object order_details = ObjectGraphPathTraverser.TraversePath(orders, "Order_Details");
 
             Assert.IsTrue(order_details is IEnumerable<Order_Detail>);
         }

@@ -2,7 +2,7 @@
 using System.Linq;
 using DevExpress.XtraReports.UI;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using XtraSubreport.Engine.Extensions;
+using XtraSubreport.Engine;
 using XtraSubreport.Engine.RuntimeActions;
 
 namespace XtraSubReport.Tests.RuntimeActions

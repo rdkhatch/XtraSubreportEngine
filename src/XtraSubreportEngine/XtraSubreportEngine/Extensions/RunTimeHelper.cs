@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DevExpress.XtraReports.UI;
-using System.Diagnostics;
-using XtraSubreport.Engine.Extensions;
+﻿using DevExpress.XtraReports.UI;
 
 namespace XtraSubreport.Engine
 {

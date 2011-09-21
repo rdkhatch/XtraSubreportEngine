@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using XtraSubreportEngine.Support;
+using DevExpress.XtraTreeList.Nodes;
 using GeniusCode.Framework.Support.Collections.Tree;
 using XtraSubreport.Engine.Support;
-using DevExpress.XtraTreeList.Nodes;
-using XtraSubreport.Engine.Extensions;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine
 {
@@ -62,7 +61,7 @@ namespace XtraSubreport.Engine
             else
                 index = ImageIndex.Unavailable;
 
-            item.ImageIndex = (int) index;
+            item.ImageIndex = (int)index;
         }
 
         void HighlightCurrentDatasource()

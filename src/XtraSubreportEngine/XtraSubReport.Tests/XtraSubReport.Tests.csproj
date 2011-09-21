@@ -63,9 +63,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="eportTests.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ReportTests\ReportTests.cs" />
     <Compile Include="DataSources\PathTraverserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataSources\MefDatasourceTests.cs" />
@@ -74,7 +72,7 @@
     <Compile Include="RuntimeActions\RuntimeActionMefTest.cs" />
     <Compile Include="RuntimeActions\RuntimeActionTests.cs" />
     <Compile Include="DataSources\SelectDatasourceTests.cs" />
-    <Compile Include="SerializationTests.cs" />
+    <Compile Include="Serialization\SerializationTests.cs" />
     <Compile Include="Support\TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>

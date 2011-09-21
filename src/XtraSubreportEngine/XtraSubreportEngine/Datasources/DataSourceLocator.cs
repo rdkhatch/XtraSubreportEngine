@@ -158,8 +158,18 @@ namespace XtraSubreportEngine
             var rootDataSourceInterface = GetDatasource(datasource.DataSourceAssemblyLocationPath, datasource.DataSourceName);
             if (rootDataSourceInterface == null) return null;
 
-            var rootDataSource = rootDataSourceInterface.Value.DataSource;
+            datasource.RootDataSourceType = null;
+            datasource.DataSourceType = null;
+
+            var rootDataSource = rootDataSourceInterface.Value.GetDataSource();
             var targetDataSource = ObjectGraphPathTraverser.TraversePath(rootDataSource, datasource.DataSourceRelationPath);
+
+            // Assign Datasource Types to DesignTimeDatasource, not that we've obtained the datasource & traversed the relation path
+            if (rootDataSource != null)
+                datasource.RootDataSourceType = rootDataSource.GetType();
+            if (targetDataSource != null)
+                datasource.DataSourceType = targetDataSource.GetType();
+
             return targetDataSource;
         }
 
