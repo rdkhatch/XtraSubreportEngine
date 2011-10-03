@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Datasources\DesignTimeDataSourceTreeItem.cs" />
     <Compile Include="Support\MefHelper.cs" />
+    <Compile Include="Support\RelativePathReportStorageExtension.cs" />
     <Compile Include="Support\ReportFactory.cs" />
     <Compile Include="Datasources\DesignTimeDataSourceDefinition.cs">
       <SubType>Code</SubType>

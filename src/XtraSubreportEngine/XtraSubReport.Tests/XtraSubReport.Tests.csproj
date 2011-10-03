@@ -73,6 +73,7 @@
     <Compile Include="RuntimeActions\RuntimeActionTests.cs" />
     <Compile Include="DataSources\SelectDatasourceTests.cs" />
     <Compile Include="Serialization\SerializationTests.cs" />
+    <Compile Include="ReportTests\RelativePathReportStorageTest.cs" />
     <Compile Include="Support\TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
+using DevExpress.XtraReports.Extensions;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
 using GeniusCode.Framework.Extensions;
@@ -13,11 +14,13 @@ using NLog;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Winforms
 {
+
     static class Program
     {
         // NLog - Helpful to diagnose if a DLL cannot be found, etc.
@@ -48,6 +51,11 @@ namespace XtraSubReport.Winforms
 
             // Add toolbar button to select Datasource
             AddToolbarButton_SelectDataSource(form);
+
+            // Relative Path ReportSourceURL
+            var basePath = GetReportBasePath();
+            var relativePathStorage = new RelativePathReportStorage(basePath);
+            ReportStorageExtension.RegisterExtensionGlobal(relativePathStorage);
 
             Application.Run(form);
         }
@@ -147,6 +155,16 @@ namespace XtraSubReport.Winforms
                 var exception = (Exception)e.ExceptionObject;
                 logger.FatalException("Report Designer encountered unhandled exception", exception);
             };
+        }
+
+        private static string GetReportBasePath()
+        {
+            var appPath = Path.GetDirectoryName(Application.ExecutablePath);
+            var basePathUgly = Path.Combine(appPath, @"..\..\..\SampleReports");
+            var directory = new DirectoryInfo(basePathUgly);
+            var basePath = directory.FullName;
+
+            return basePath;
         }
 
     }

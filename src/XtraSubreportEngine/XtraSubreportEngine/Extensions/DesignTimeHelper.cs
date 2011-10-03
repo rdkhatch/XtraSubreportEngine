@@ -25,6 +25,11 @@ namespace XtraSubreport.Engine
             {
                 var report = designPanel.Report;
 
+                // TODO: Set DesignPanel Filename?
+                // string url;
+                // report.Extensions.TryGetValue("StorageID", out url);
+                // designPanel.FileName = url;
+
                 // Populate Design-Time Datasource
                 report.TryAs<MyReportBase>(myReport =>
                 {

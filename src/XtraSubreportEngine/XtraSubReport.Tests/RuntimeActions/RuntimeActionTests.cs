@@ -7,6 +7,8 @@ using XtraSubreport.Engine.RuntimeActions;
 
 namespace XtraSubReport.Tests
 {
+    // TODO: Use .repx for tests.  Right now, we are using direct references.  We should use .repx, which is what we will REALLY be using.
+
     [TestClass]
     public class RuntimeActionTests
     {
