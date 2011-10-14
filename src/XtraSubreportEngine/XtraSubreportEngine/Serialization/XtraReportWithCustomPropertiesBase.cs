@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DevExpress.XtraReports.UI;
 using System.Linq.Expressions;
-using System.Collections;
-using XtraSubreportEngine.Support;
-using GeniusCode.Framework.Support.Refection;
 using System.Reflection;
 using DevExpress.XtraReports.Serialization;
+using DevExpress.XtraReports.UI;
+using GeniusCode.Framework.Support.Refection;
 
 namespace XtraSubreport.Engine.Support
 {
@@ -16,7 +12,8 @@ namespace XtraSubreport.Engine.Support
     {
         private List<PropertyInfo> _CustomProperties = new List<PropertyInfo>();
 
-        public XtraReportWithCustomPropertiesBase() : base()
+        public XtraReportWithCustomPropertiesBase()
+            : base()
         {
             DeclareCustomProperties();
         }
@@ -25,24 +22,25 @@ namespace XtraSubreport.Engine.Support
 
         protected abstract void DeclareCustomProperties();
 
-        protected void DeclareCustomObjectProperty<T>(Expression<Func<T>> property)
-            where T : IXRSerializable, new()
+        protected void DeclareCustomObjectProperty<TProperty>(Expression<Func<TProperty>> property)
+            where TProperty : IXRSerializable, new()
         {
             _DeclareCustomProperty(property);
         }
 
-        protected void DeclareCustomValueProperty(Expression<Func<string>> property)
+        protected void DeclareCustomValueProperty<T>(Expression<Func<T, string>> property)
+            where T : XtraReportWithCustomPropertiesBase
         {
             _DeclareCustomProperty(property);
         }
 
-        protected void DeclareCustomValueProperty<T>(Expression<Func<T>> property)
-            where T : struct
+        protected void DeclareCustomValueProperty<TProperty>(Expression<Func<TProperty>> property)
+            where TProperty : struct
         {
             _DeclareCustomProperty(property);
         }
 
-        private void _DeclareCustomProperty<T>(Expression<Func<T>> property)
+        private void _DeclareCustomProperty(LambdaExpression property)
         {
             var propertyInfo = ReflectionHelper.ExtractPropertyInfo(property);
             _CustomProperties.Add(propertyInfo);
@@ -55,7 +53,7 @@ namespace XtraSubreport.Engine.Support
         protected override void SerializeProperties(XRSerializer serializer)
         {
             base.SerializeProperties(serializer);
-          
+
             foreach (var property in _CustomProperties)
                 XtraReportsSerializationHelper.SerializeMember(this, property, serializer);
         }
@@ -63,7 +61,7 @@ namespace XtraSubreport.Engine.Support
         protected override void DeserializeProperties(DevExpress.XtraReports.Serialization.XRSerializer serializer)
         {
             base.DeserializeProperties(serializer);
-            
+
             foreach (var property in _CustomProperties)
                 XtraReportsSerializationHelper.DeserializeMember(this, property, serializer);
         }

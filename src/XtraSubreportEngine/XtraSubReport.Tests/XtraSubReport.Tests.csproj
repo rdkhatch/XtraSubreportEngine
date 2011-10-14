@@ -46,7 +46,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="gcCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\gcCore-dev.1.0.0.111502\lib\Net35\gcCore.dll</HintPath>
+      <HintPath>..\packages\gcCore-dev.1.0.1.71\lib\Net35\gcCore.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
@@ -64,24 +64,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReportTests\ReportTests.cs" />
-    <Compile Include="DataSources\PathTraverserTest.cs" />
+    <Compile Include="DataSourceTests\PathTraverserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataSources\MefDatasourceTests.cs" />
-    <Compile Include="RuntimeActions\ColorReplacerTest.cs" />
-    <Compile Include="RuntimeActions\PassDatasourceToSubreportTest.cs" />
-    <Compile Include="RuntimeActions\RuntimeActionMefTest.cs" />
-    <Compile Include="RuntimeActions\RuntimeActionTests.cs" />
-    <Compile Include="DataSources\SelectDatasourceTests.cs" />
-    <Compile Include="Serialization\SerializationTests.cs" />
+    <Compile Include="DataSourceTests\MefDatasourceTests.cs" />
+    <Compile Include="RuntimeActionTests\ColorReplacerTest.cs" />
+    <Compile Include="RuntimeActionTests\PassDatasourceToSubreportTest.cs" />
+    <Compile Include="RuntimeActionTests\RuntimeActionMefTest.cs" />
+    <Compile Include="RuntimeActionTests\RuntimeActionTests.cs" />
+    <Compile Include="DataSourceTests\SelectDatasourceTests.cs" />
+    <Compile Include="SerializationTests\SerializationTests.cs" />
     <Compile Include="ReportTests\RelativePathReportStorageTest.cs" />
+    <Compile Include="Support\AssertHelper.Exceptions.cs" />
+    <Compile Include="Support\AssertHelper.Reports.cs" />
+    <Compile Include="Support\DummyDesignerContext.cs" />
     <Compile Include="Support\TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ColorReplaceAction\ColorReplaceAction.csproj">
+    <ProjectReference Include="..\Samples\ColorReplaceAction\ColorReplaceAction.csproj">
       <Project>{7F3F5266-9D51-47A6-BE5C-292B13939D46}</Project>
       <Name>ColorReplaceAction</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NorthwindOData\NorthwindOData.csproj">
+    <ProjectReference Include="..\Samples\NorthwindOData\NorthwindOData.csproj">
       <Project>{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}</Project>
       <Name>NorthwindOData</Name>
     </ProjectReference>
@@ -89,7 +92,11 @@
       <Project>{316A7AB5-8178-4F21-BAF4-C4D470594477}</Project>
       <Name>XtraSubreport.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XtraSubReport.Winforms\XtraSubReport.Winforms.csproj">
+    <ProjectReference Include="..\XtraSubreport.Designer\XtraSubreport.Designer.csproj">
+      <Project>{69C3EEB8-11C3-475C-A15A-0C4324CB052B}</Project>
+      <Name>XtraSubreport.Designer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Samples\XtraSubReport.Winforms\XtraSubReport.Winforms.csproj">
       <Project>{32BA9C78-C41C-4E3E-B987-33018F28A47B}</Project>
       <Name>XtraSubReport.Winforms</Name>
     </ProjectReference>

@@ -1,4 +1,5 @@
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Engine.Eventing;
 
 namespace XtraSubreport.Engine.RuntimeActions
 {

@@ -20,17 +20,16 @@ namespace XtraSubReport.Tests
         [TestMethod]
         public void populates_design_time_datasource()
         {
-            var form = TestHelper.CreateDesignForm();
             var factory = new ReportFactory();
+            var designContext = TestHelper.CreateDesignerContext();
 
-            // Parent Report
-            var parentReport = factory.GetNewReport();
-            var parentDataSource = TestHelper.NorthwindDataSource;
-            parentReport.DesignTimeDataSources.Add(parentDataSource);
+            var report = factory.GetNewReport();
+            var datasourceDefinition = TestHelper.NorthwindDataSource;
+            report.DesignTimeDataSources.Add(datasourceDefinition);
 
-            DesignTimeHelper.PopulateDesignTimeDataSource(parentReport);
+            report.ChangeDesignTimeDatasourceToDefault(designContext);
 
-            Assert.IsNotNull(parentReport.DataSource);
+            AssertHelper.Reports.AssertDatasourceHasItems(report);
         }
 
         [TestMethod]
@@ -41,18 +40,50 @@ namespace XtraSubReport.Tests
             var parentReport = tuple.Item1;
             var subreportContainer = tuple.Item2;
             var subreport = tuple.Item3;
+            var designContext = tuple.Item4;
 
             var parentPath = @"C:\temp\reports\parent.repx";
             var subreportPath = @"C:\temp\reports\subreport.repx";
 
             subreportContainer.ReportSource = null;
             subreportContainer.ReportSourceUrl = subreportPath;
-            subreport.SelectedDesignTimeDataSource = TestHelper.NorthwindDataSource;
-            subreport.SelectedDesignTimeDataSource.DataSourceRelationPath = "[0].Order_Details";
+
+            var datasourceDefinition = TestHelper.NorthwindDataSource;
+            datasourceDefinition.DataSourceRelationPath = "[0].Order_Details";
+            subreport.ChangeDesignTimeDatasource(datasourceDefinition, designContext);
+
             parentReport.SaveLayout(parentPath);
             subreport.SaveLayout(subreportPath);
         }
 
+        [TestMethod]
+        public void should_not_throw_exception_when_no_design_time_datasources()
+        {
+            var factory = new ReportFactory();
+            var designContext = TestHelper.CreateDesignerContext();
+
+            var report = factory.GetNewReport();
+
+            // Should not throw exception
+            report.ChangeDesignTimeDatasourceToDefault(designContext);
+        }
+
+        [TestMethod]
+        public void should_replace_existing_datasource()
+        {
+            var factory = new ReportFactory();
+            var designContext = TestHelper.CreateDesignerContext();
+
+            var report = factory.GetNewReport();
+
+            // Dummy datasource
+            var dummy = new int[] { 1, 2, 3 };
+            report.DataSource = dummy;
+
+            report.ChangeDesignTimeDatasourceToDefault(designContext);
+
+            Assert.AreEqual(null, report.DataSource);
+        }
 
         public class DummyReport : XtraReportWithCustomPropertiesBase
         {

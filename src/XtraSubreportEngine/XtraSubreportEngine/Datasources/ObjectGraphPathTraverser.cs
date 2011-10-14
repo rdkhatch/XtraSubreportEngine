@@ -49,9 +49,9 @@ namespace XtraSubreport.Engine
 
         public object Traverse()
         {
-            var members = BreakPathIntoMembers(_fullPath).ToList();
-
             var target = _rootDataSource;
+
+            var members = BreakPathIntoMembers(_fullPath).ToList();
 
             int index = 0;
             members.ForEach(member =>
@@ -69,10 +69,12 @@ namespace XtraSubreport.Engine
 
         private IEnumerable<MemberTraversal> BreakPathIntoMembers(string path)
         {
+            if (path == null)
+                return new MemberTraversal[] { };
+
             var split = path.Split(pathDelimiter);
 
-            foreach (string segment in split)
-                yield return ConvertPathSegmentToTraversal(segment);
+            return split.Select(segment => ConvertPathSegmentToTraversal(segment));
         }
 
         private MemberTraversal ConvertPathSegmentToTraversal(string segment)

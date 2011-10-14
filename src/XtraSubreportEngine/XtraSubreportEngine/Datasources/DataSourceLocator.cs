@@ -11,109 +11,28 @@ using XtraSubreportEngine.Support;
 
 namespace XtraSubreportEngine
 {
-    public static class DataSourceLocator
+    public class DataSourceLocator
     {
 
-        public static string _basePath { get; set; }
+        private string _fullBasePath;
 
-        static DataSourceLocator()
+        public DataSourceLocator(string fullBasePath)
         {
             // Default Base Path
-            var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            SetBasePath(basePath);
+            if (String.IsNullOrWhiteSpace(fullBasePath))
+                fullBasePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+            _fullBasePath = MakeIntoFolderPath(fullBasePath);
         }
-
-        #region Paths
-
-        public static void SetBasePath(string basePath)
-        {
-            // Always end a folder path with a slash
-            // Important for telling files & folders apart
-            if (!basePath.EndsWith(@"\"))
-                basePath = basePath + @"\";
-
-            _basePath = basePath;
-        }
-
-        public static string GetBasePath()
-        {
-            return GetDirectoryName(_basePath);
-        }
-
-        public static string GetDirectoryName(string filepath)
-        {
-            string path = Path.GetDirectoryName(filepath);
-
-            // Always end a folder path with a slash
-            // Important for telling files & folders apart
-            if (!path.EndsWith(@"\"))
-                path = path + @"\";
-
-            return path;
-        }
-
-        public static IEnumerable<string> GetAllFoldersWithinBasePathContainingDLLs()
-        {
-            var basePath = GetBasePath();
-
-            return (from filePath in Directory.GetFiles(basePath, "*.dll", SearchOption.AllDirectories)
-                    let folderName = GetDirectoryName(filePath)
-                    select MakeRelativePath(folderName)
-                   ).Distinct();
-        }
-
-        public static string FormatRelativePath(string relativePath)
-        {
-            var fullPath = MakeFullPath(relativePath);
-            var result = MakeRelativePath(fullPath);
-            return result;
-        }
-
-        public static string MakeFullPath(string relativePath)
-        {
-            var basePath = DataSourceLocator.GetBasePath();
-            return Path.Combine(basePath, relativePath);
-        }
-
-        public static string MakeRelativePath(string fullPath)
-        {
-            var basePath = DataSourceLocator.GetBasePath();
-            return MakeRelativePath(fullPath, basePath);
-        }
-
-        private static String MakeRelativePath(string fullPath, string relativetoPath)
-        {
-            if (String.IsNullOrEmpty(relativetoPath)) throw new ArgumentNullException("fullPath");
-            if (String.IsNullOrEmpty(fullPath)) throw new ArgumentNullException("relativetoPath");
-
-            if (!relativetoPath.EndsWith(@"\"))
-                relativetoPath = relativetoPath + @"\";
-
-            bool dontEscape = true;
-
-            // Change Windows Slashes into URI slashes
-            fullPath = fullPath.Replace(@"\", "/");
-            relativetoPath = relativetoPath.Replace(@"\", "/");
-
-            Uri fromUri = new Uri(relativetoPath, dontEscape);
-            Uri toUri = new Uri(fullPath, dontEscape);
-
-            Uri relativeUri = fromUri.MakeRelativeUri(toUri);
-
-            // Change URI slahes back into Windows Slashes
-            return relativeUri.ToString().Replace("/", @"\");
-        }
-
-        #endregion
 
         #region Locate Datasource
 
-        private static IEnumerable<Lazy<IReportDatasource, IReportDatasourceMetadata>> GetDatasources(CompositionContainer container)
+        private IEnumerable<Lazy<IReportDatasource, IReportDatasourceMetadata>> GetDatasources(CompositionContainer container)
         {
             return container.GetExports<IReportDatasource, IReportDatasourceMetadata>();
         }
 
-        public static IEnumerable<Lazy<IReportDatasource, IReportDatasourceMetadata>> GetDatasources(string relativeFolder)
+        public IEnumerable<Lazy<IReportDatasource, IReportDatasourceMetadata>> GetDatasources(string relativeFolder)
         {
             var fullPath = MakeFullPath(relativeFolder);
 
@@ -139,12 +58,12 @@ namespace XtraSubreportEngine
             return exports;
         }
 
-        public static Lazy<IReportDatasource, IReportDatasourceMetadata> GetDatasource(DesignTimeDataSourceDefinition definition)
+        public Lazy<IReportDatasource, IReportDatasourceMetadata> GetDatasource(DesignTimeDataSourceDefinition definition)
         {
             return GetDatasource(definition.DataSourceAssemblyLocationPath, definition.DataSourceName);
         }
 
-        public static Lazy<IReportDatasource, IReportDatasourceMetadata> GetDatasource(string folderPath, string datasourceName)
+        public Lazy<IReportDatasource, IReportDatasourceMetadata> GetDatasource(string folderPath, string datasourceName)
         {
             var match = (from export in GetDatasources(folderPath)
                          where export.Metadata.Name == datasourceName
@@ -153,26 +72,128 @@ namespace XtraSubreportEngine
             return match;
         }
 
-        public static object GetObjectFromDataSourceDefinition(DesignTimeDataSourceDefinition datasource)
+        public TraversedDatasourceResult GetTraversedObjectFromDataSourceDefinition(DesignTimeDataSourceDefinition definition)
         {
-            var rootDataSourceInterface = GetDatasource(datasource.DataSourceAssemblyLocationPath, datasource.DataSourceName);
-            if (rootDataSourceInterface == null) return null;
+            if (definition == null)
+                return new TraversedDatasourceResult(null, null, null);
 
-            datasource.RootDataSourceType = null;
-            datasource.DataSourceType = null;
+            // Get Export
+            var export = GetDatasource(definition.DataSourceAssemblyLocationPath, definition.DataSourceName);
+            var exportInstance = export.Value;
 
-            var rootDataSource = rootDataSourceInterface.Value.GetDataSource();
-            var targetDataSource = ObjectGraphPathTraverser.TraversePath(rootDataSource, datasource.DataSourceRelationPath);
+            // Get Datasource
+            var rootDataSource = exportInstance.GetDataSource();
+
+            // Traverse Relation Path
+            var targetDataSource = ObjectGraphPathTraverser.TraversePath(rootDataSource, definition.DataSourceRelationPath);
 
             // Assign Datasource Types to DesignTimeDatasource, not that we've obtained the datasource & traversed the relation path
-            if (rootDataSource != null)
-                datasource.RootDataSourceType = rootDataSource.GetType();
-            if (targetDataSource != null)
-                datasource.DataSourceType = targetDataSource.GetType();
+            definition.RootDataSourceType = null;
+            definition.DataSourceType = null;
 
-            return targetDataSource;
+            if (rootDataSource != null) definition.RootDataSourceType = rootDataSource.GetType();
+            if (targetDataSource != null) definition.DataSourceType = targetDataSource.GetType();
+
+            return new TraversedDatasourceResult(definition, rootDataSource, targetDataSource);
+        }
+
+        public class TraversedDatasourceResult
+        {
+            public DesignTimeDataSourceDefinition Definition { get; private set; }
+            public object RootDataSource { get; private set; }
+            public object TraversedDataSource { get; private set; }
+
+            public bool Succeeded
+            {
+                get { return RootDataSource != null && TraversedDataSource != null; }
+            }
+
+            public TraversedDatasourceResult(DesignTimeDataSourceDefinition definition, object rootDataSource, object traversedDataSource)
+            {
+                Definition = definition;
+                RootDataSource = rootDataSource;
+                TraversedDataSource = traversedDataSource;
+            }
         }
 
         #endregion
+
+
+
+        #region Paths
+
+        public string GetBasePath()
+        {
+            return GetDirectoryName(_fullBasePath);
+        }
+
+        private static string MakeIntoFolderPath(string path)
+        {
+            // Always end a folder path with a slash
+            // Important for telling files & folders apart
+            if (!path.EndsWith(@"\"))
+                path = path + @"\";
+
+            return path;
+        }
+
+        public static string GetDirectoryName(string filepath)
+        {
+            string path = Path.GetDirectoryName(filepath);
+            path = MakeIntoFolderPath(path);
+            return path;
+        }
+
+        public IEnumerable<string> GetAllFoldersWithinBasePathContainingDLLs()
+        {
+            var basePath = GetBasePath();
+
+            return (from filePath in Directory.GetFiles(basePath, "*.dll", SearchOption.AllDirectories)
+                    let folderName = GetDirectoryName(filePath)
+                    select MakeRelativePath(folderName)
+                   ).Distinct();
+        }
+
+        public string FormatRelativePath(string relativePath)
+        {
+            var fullPath = MakeFullPath(relativePath);
+            var result = MakeRelativePath(fullPath);
+            return result;
+        }
+
+        public string MakeFullPath(string relativePath)
+        {
+            return Path.Combine(GetBasePath(), relativePath);
+        }
+
+        public string MakeRelativePath(string fullPath)
+        {
+            return MakeRelativePath(fullPath, GetBasePath());
+        }
+
+        private static String MakeRelativePath(string fullPath, string relativetoPath)
+        {
+            if (String.IsNullOrEmpty(relativetoPath)) throw new ArgumentNullException("fullPath");
+            if (String.IsNullOrEmpty(fullPath)) throw new ArgumentNullException("relativetoPath");
+
+            relativetoPath = MakeIntoFolderPath(relativetoPath);
+
+            bool dontEscape = true;
+
+            // Change Windows Slashes into URI slashes
+            fullPath = fullPath.Replace(@"\", "/");
+            relativetoPath = relativetoPath.Replace(@"\", "/");
+
+            Uri fromUri = new Uri(relativetoPath, dontEscape);
+            Uri toUri = new Uri(fullPath, dontEscape);
+
+            Uri relativeUri = fromUri.MakeRelativeUri(toUri);
+
+            // Change URI slahes back into Windows Slashes
+            return relativeUri.ToString().Replace("/", @"\");
+        }
+
+        #endregion
+
     }
 }

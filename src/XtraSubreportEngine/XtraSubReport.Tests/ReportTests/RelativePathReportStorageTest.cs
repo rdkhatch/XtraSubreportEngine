@@ -9,36 +9,47 @@ namespace XtraSubReport.Tests.Support
     [TestClass]
     public class RelativePathReportStorageTest
     {
-        string basePath;
+        string applicationBasePath;
+        string reportsRelativeBasePath;
+        string reportsFullBasePath;
 
         XtraReport report1;
-        string report1Filename;
-        string report1Fullpath;
+        string report1RelativePath;
+        string report1FullPath;
 
         RelativePathReportStorage storage;
 
         [TestInitialize]
         public void Init()
         {
-            var outFolder = TestContext.TestRunDirectory;
+            // C:\...\TestDirectory\Out\Reports
+            var reportPath = "Reports";
+            Init(reportPath);
+        }
 
-            // C:\Out\Reports
-            basePath = Path.Combine(outFolder, "Reports");
+        private void Init(string _reportsRelativeBasePath)
+        {
+            var outFolder = TestContext.DeploymentDirectory;
+
+            applicationBasePath = outFolder;
+
+            reportsRelativeBasePath = _reportsRelativeBasePath;
+            reportsFullBasePath = Path.Combine(applicationBasePath, reportsRelativeBasePath);
 
             // Clear Folder
-            if (Directory.Exists(basePath))
-                Directory.Delete(basePath, true);
+            if (Directory.Exists(reportsFullBasePath))
+                Directory.Delete(reportsFullBasePath, true);
 
             // Create Folder
-            Directory.CreateDirectory(basePath);
+            Directory.CreateDirectory(reportsFullBasePath);
 
             // Create Report
             report1 = new XtraReport() { Name = "Report1" };
-            report1Filename = "Report1.resx";
-            report1Fullpath = Path.Combine(basePath, report1Filename);
+            report1RelativePath = "Report1.resx";
+            report1FullPath = Path.Combine(reportsFullBasePath, report1RelativePath);
 
             // Create Storage Extension
-            storage = new RelativePathReportStorage(basePath);
+            storage = new RelativePathReportStorage(reportsRelativeBasePath);
         }
 
         [TestMethod]
@@ -47,13 +58,11 @@ namespace XtraSubReport.Tests.Support
             report1.Name = "TestLoad";
 
             // Save Report (using Full Path)
-            report1.SaveLayout(report1Fullpath);
-
-            // Assert File Exists
-            Assert.IsTrue(File.Exists(report1Fullpath));
+            report1.SaveLayout(report1FullPath);
+            Assert.IsTrue(File.Exists(report1FullPath));
 
             // Open Report - using Report Storage
-            var bytes = storage.GetData(report1Filename);
+            var bytes = storage.GetData(report1RelativePath);
             var stream = new MemoryStream(bytes);
             var openedReport = XtraReport.FromStream(stream, true);
 
@@ -67,13 +76,59 @@ namespace XtraSubReport.Tests.Support
             report1.Name = "TestSave";
 
             // Save Report - using Report Storage
-            storage.SetData(report1, report1Filename);
+            storage.SetData(report1, report1RelativePath);
 
             // Assert File Exists
-            Assert.IsTrue(File.Exists(report1Fullpath));
+            Assert.IsTrue(File.Exists(report1FullPath));
 
             // Assert Saved Properly
-            var savedReport = XtraReport.FromFile(report1Fullpath, true);
+            var savedReport = XtraReport.FromFile(report1FullPath, true);
+            Assert.AreEqual(report1.Name, savedReport.Name);
+        }
+
+        [TestMethod]
+        public void Should_Save_To_Relative_Base_Path_from_save_dialog_Within_bin_path()
+        {
+            report1.Name = "TestSave";
+
+            // Save Dialog uses this url format
+            // ~\Reports\Report1.resx
+            var saveDialogRelativeFilePath = Path.Combine("~", reportsRelativeBasePath, report1RelativePath);
+
+            // Save Report - using Report Storage
+            storage.SetData(report1, saveDialogRelativeFilePath);
+
+            // Assert File Exists
+            Assert.IsTrue(File.Exists(report1FullPath));
+
+            // Assert Saved Properly
+            var savedReport = XtraReport.FromFile(report1FullPath, true);
+            Assert.AreEqual(report1.Name, savedReport.Name);
+        }
+
+        [TestMethod]
+        public void Should_Save_To_Relative_Base_Path_from_save_dialog_Outside_bin_path()
+        {
+            // C:\...\TestDirectory\Reports  (Notice this is outside Out [bin] path)
+            var reportPath = @"..\Reports";
+
+            // Re-Initialize using new report base path (creates directory, report, etc.)
+            Init(reportPath);
+
+            report1.Name = "TestSave";
+
+            // Save Dialog uses this url format
+            // ~\Reports\Report1.resx
+            var saveDialogRelativeFilePath = Path.Combine("~", reportsRelativeBasePath, report1RelativePath);
+
+            // Save Report - using Report Storage
+            storage.SetData(report1, saveDialogRelativeFilePath);
+
+            // Assert File Exists
+            Assert.IsTrue(File.Exists(report1FullPath));
+
+            // Assert Saved Properly
+            var savedReport = XtraReport.FromFile(report1FullPath, true);
             Assert.AreEqual(report1.Name, savedReport.Name);
         }
 
@@ -81,29 +136,21 @@ namespace XtraSubReport.Tests.Support
         public void Should_Recognize_Is_Valid()
         {
             // Assert Invalid URL
-            Assert.IsFalse(storage.IsValidUrl(report1Filename));
+            Assert.IsFalse(storage.IsValidUrl(report1RelativePath));
 
             // Save Report (using Full Path)
-            report1.SaveLayout(report1Fullpath);
-
-            // Assert File Exists
-            Assert.IsTrue(File.Exists(report1Fullpath));
+            report1.SaveLayout(report1FullPath);
+            Assert.IsTrue(File.Exists(report1FullPath));
 
             // Assert Valid URL
-            Assert.IsTrue(storage.IsValidUrl(report1Filename));
+            Assert.IsTrue(storage.IsValidUrl(report1RelativePath));
         }
-
-        //[TestMethod]
-        //public void test_dialog()
-        //{
-        //    var url = storage.GetNewUrl();
-        //}
 
         [TestMethod]
         public void Test_Directory_Should_Be_Empty()
         {
             // Each Test should start with an empty directory
-            var files = Directory.GetFiles(basePath).ToList();
+            var files = Directory.GetFiles(reportsRelativeBasePath).ToList();
             Assert.AreEqual(0, files.Count);
         }
 

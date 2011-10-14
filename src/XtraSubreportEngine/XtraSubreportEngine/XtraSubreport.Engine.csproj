@@ -47,8 +47,8 @@
     <Reference Include="DevExpress.XtraReports.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
     </Reference>
     <Reference Include="DevExpress.XtraTreeList.v11.1, Version=11.1.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="gcCore">
-      <HintPath>..\packages\gcCore-dev.1.0.1.66\lib\Net35\gcCore.dll</HintPath>
+    <Reference Include="gcCore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\gcCore-dev.1.0.1.71\lib\Net35\gcCore.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -62,12 +62,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RuntimeActions\Eventing\XRBeforePrintMessage.cs" />
+    <Compile Include="Designer\IDesignerContext.cs" />
+    <Compile Include="Eventing\XRBeforePrintMessage.cs" />
     <Compile Include="Datasources\DataSourceLocator.cs" />
     <Compile Include="Datasources\ObjectGraphPathTraverser.cs" />
     <Compile Include="Extensions\DesignTimeHelper.cs" />
     <Compile Include="Extensions\RunTimeHelper.cs" />
-    <Compile Include="RuntimeActions\Eventing\EventAggregator.cs" />
+    <Compile Include="Eventing\EventAggregator.cs" />
     <Compile Include="RuntimeActions\PassSubreportDataSourceRuntimeAction.cs" />
     <Compile Include="RuntimeActions\Providers\ReportMEFRuntimeActionProvider.cs" />
     <Compile Include="RuntimeActions\XRRuntimeActionController.cs" />
@@ -107,9 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Designer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

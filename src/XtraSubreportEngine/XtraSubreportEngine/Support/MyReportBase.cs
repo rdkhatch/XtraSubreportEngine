@@ -1,6 +1,6 @@
 using DevExpress.XtraReports;
 using DevExpress.XtraReports.Localization;
-using XtraSubreport.Engine;
+using XtraSubreport.Engine.Eventing;
 using XtraSubreport.Engine.Support;
 
 namespace XtraSubreportEngine.Support
@@ -13,7 +13,8 @@ namespace XtraSubreportEngine.Support
     public class MyReportBase : XtraReportWithCustomPropertiesBase
     {
 
-        private DesignTimeDataSourceDefinition _SelectedDesignTimeDataSource;
+        [SRCategory(ReportStringId.CatData)]
+        public XRSerializableCollection<DesignTimeDataSourceDefinition> DesignTimeDataSources { get; set; }
 
         public MyReportBase()
             : base()
@@ -23,43 +24,8 @@ namespace XtraSubreportEngine.Support
 
         protected override void DeclareCustomProperties()
         {
+            // Serialize DesignTimeDataSources collection into .REPX file
             DeclareCustomObjectProperty(() => this.DesignTimeDataSources);
-        }
-
-        // Design-Time Datasources
-        [SRCategory(ReportStringId.CatData)]
-        public XRSerializableCollection<DesignTimeDataSourceDefinition> DesignTimeDataSources { get; set; }
-
-        [SRCategory(ReportStringId.CatData)]
-        public DesignTimeDataSourceDefinition SelectedDesignTimeDataSource
-        {
-            get { return _SelectedDesignTimeDataSource; }
-            set
-            {
-                _SelectedDesignTimeDataSource = value;
-
-                object datasource = null;
-
-                if (_SelectedDesignTimeDataSource != null)
-                {
-                    // Store datasource definition, so we can reuse it
-                    AddDesignTimeDataSource(_SelectedDesignTimeDataSource);
-
-                    // Fetch datasource
-                    datasource = DataSourceLocator.GetObjectFromDataSourceDefinition(_SelectedDesignTimeDataSource);
-                }
-
-                this.SetReportDataSource(datasource);
-            }
-        }
-
-        private void AddDesignTimeDataSource(DesignTimeDataSourceDefinition definition)
-        {
-            if (DesignTimeDataSources.Contains(definition))
-                return;
-
-            // Add item as first in list - So we know it was the last one used
-            DesignTimeDataSources.Insert(0, definition);
         }
 
         protected override void OnBeforePrint(System.Drawing.Printing.PrintEventArgs e)
@@ -71,7 +37,6 @@ namespace XtraSubreportEngine.Support
 
             base.OnBeforePrint(e);
         }
-
 
     }
 }

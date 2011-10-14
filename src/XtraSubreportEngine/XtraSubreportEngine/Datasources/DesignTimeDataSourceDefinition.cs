@@ -37,6 +37,11 @@ namespace XtraSubreportEngine.Support
             return HashcodeBuilder.GetHashcodeItems(DataSourceName, DataSourceAssemblyLocationPath, DataSourceRelationPath);
         }
 
+        public override string ToString()
+        {
+            return "{0} ('{1}', '{2}')".FormatString(DataSourceName, DataSourceAssemblyLocationPath, DataSourceRelationPath);
+        }
+
     }
 
 }

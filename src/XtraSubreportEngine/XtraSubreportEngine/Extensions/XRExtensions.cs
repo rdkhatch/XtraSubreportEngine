@@ -16,6 +16,9 @@ namespace XtraSubreport.Engine
 {
     public static class XRExtensions
     {
+
+        #region Get DataSource
+
         /// <summary>
         /// Obtains DataSource for this Band.  Works at Runtime and Design-Time. Very important method.
         /// </summary>
@@ -60,6 +63,31 @@ namespace XtraSubreport.Engine
             return (ListBrowser)field.GetValue(report);
         }
 
+        private static void VerifyListBrowserAndDataSourceAreCreated(XtraReportBase report)
+        {
+            // Force ListBrowser to be created, along with DataContext
+            // Very important.
+            report.GetCurrentRow();
+        }
+
+        // Another method of passing Subreport it's parent datasource
+        // This method did not work for me.
+        //private static void ChangeSubreportParentForDataContext(this XRSubreport subreport)
+        //{
+        //    var report = subreport.ReportSource;
+
+        //    //var dataContextContainer = subreport.Report;
+        //    var dataContextContainer = subreport.RootReport;
+
+        //    //container.Bands[BandKind.Detail].Controls.Add(report);
+
+        //    var field = typeof(XtraReportBase).GetField("fParent", BindingFlags.NonPublic | BindingFlags.Instance);
+        //    field.SetValue(report, dataContextContainer);
+        //}
+
+        #endregion
+
+        #region Set DataSource
 
         public static void SetReportDataSource(this XtraReportBase report, object datasource)
         {
@@ -74,6 +102,8 @@ namespace XtraSubreport.Engine
             else
                 report.DataSource = new List<object> { datasource };
         }
+
+        #endregion
 
         public static void OnDesignPanelActivated(this XRDesignMdiController controller, Action<XRDesignPanel> handler)
         {
@@ -146,31 +176,6 @@ namespace XtraSubreport.Engine
             return Enumerable.Concat(mySubreports, childBandSubreports);
         }
 
-        #region Helper Methods
-
-        private static void VerifyListBrowserAndDataSourceAreCreated(XtraReportBase report)
-        {
-            // Force ListBrowser to be created, along with DataContext
-            // Very important.
-            report.GetCurrentRow();
-        }
-
-        // Another method of passing Subreport it's parent datasource
-        // This method did not work for me.
-        //private static void ChangeSubreportParentForDataContext(this XRSubreport subreport)
-        //{
-        //    var report = subreport.ReportSource;
-
-        //    //var dataContextContainer = subreport.Report;
-        //    var dataContextContainer = subreport.RootReport;
-
-        //    //container.Bands[BandKind.Detail].Controls.Add(report);
-
-        //    var field = typeof(XtraReportBase).GetField("fParent", BindingFlags.NonPublic | BindingFlags.Instance);
-        //    field.SetValue(report, dataContextContainer);
-        //}
-
-        #endregion
     }
 
 }

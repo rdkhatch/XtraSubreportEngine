@@ -2,9 +2,9 @@
 using System.IO;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.UI;
-using DevExpress.XtraReports.UserDesigner;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using XtraSubreport.Engine;
+using XtraSubreport.Engine.Designer;
 using XtraSubreportEngine;
 using XtraSubreportEngine.Support;
 
@@ -12,9 +12,14 @@ namespace XtraSubReport.Tests
 {
     static class TestHelper
     {
-        public static XRDesignForm CreateDesignForm()
+        public static IDesignerContext CreateDesignerContext()
         {
-            return new XRDesignForm();
+            return new DummyDesignerContext();
+        }
+
+        public static DataSourceLocator CreateDataSourceLocator()
+        {
+            return new DataSourceLocator(string.Empty);
         }
 
         public static TReport RunThroughSerializer<TReport>(TReport report)
@@ -38,10 +43,11 @@ namespace XtraSubReport.Tests
 
         public static object GetNorthwindOrders()
         {
-            return DataSourceLocator.GetDatasource(NorthwindDataSource).Value.GetDataSource();
+            var locator = CreateDataSourceLocator();
+            return locator.GetDatasource(NorthwindDataSource).Value.GetDataSource();
         }
 
-        public static Tuple<MyReportBase, XRSubreport, MyReportBase> GetParentAndNestedSubreport()
+        public static Tuple<MyReportBase, XRSubreport, MyReportBase, IDesignerContext> GetParentAndNestedSubreport()
         {
             var factory = new ReportFactory();
 
@@ -62,10 +68,11 @@ namespace XtraSubReport.Tests
             detailBand.Controls.Add(subreportContainer);
 
             // Datasource MUST be set AFTER the Detail Band has been added!!  Otherwise detailband gets empty object[] as its datasource
-            parentReport.SelectedDesignTimeDataSource = TestHelper.NorthwindDataSource;
+            var designContext = TestHelper.CreateDesignerContext();
+            parentReport.ChangeDesignTimeDatasource(TestHelper.NorthwindDataSource, designContext);
             Assert.IsNotNull(parentReport.DataSource);
 
-            return new Tuple<MyReportBase, XRSubreport, MyReportBase>(parentReport, subreportContainer, subreport);
+            return new Tuple<MyReportBase, XRSubreport, MyReportBase, IDesignerContext>(parentReport, subreportContainer, subreport, designContext);
         }
 
         public static void RunReport(XtraReport report)
