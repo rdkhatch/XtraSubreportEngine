@@ -1,1 +1,1 @@
-﻿
+﻿This file is a placeholder (marked as Content) used to create a "Sample Reports" folder in the Bin folder

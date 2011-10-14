@@ -35,7 +35,7 @@ namespace XtraSubReport.Winforms
             // Runtime Actions
             var runtimeActions = new List<IReportRuntimeAction>()
             {
-                new ReportRuntimeActionBase<XRLabel>(label => label.Name.Contains("MakeMeGold"), label => label.BackColor = Color.Gold)
+                new ReportRuntimeActionBase<XRLabel>(label => label.Name.Contains("gold"), label => label.BackColor = Color.Gold)
             };
 
             var designerContext = new DesignerContext(runtimeActions, relativeReportBasePath, relativeDatasourceBasePath);
