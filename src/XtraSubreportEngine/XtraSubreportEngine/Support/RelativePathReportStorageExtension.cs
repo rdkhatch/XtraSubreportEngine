@@ -35,20 +35,27 @@ namespace XtraSubreport.Engine.Support
         {
             var dialog = new OpenFileDialog()
             {
-                InitialDirectory = _relativeBasePath,
+                InitialDirectory = _fullBasePath,
                 Filter = "XtraReports|*.repx"
             };
             dialog.ShowDialog();
-            var selectedFullFilePath = dialog.FileName;
 
+            // If cancelled / no file selected, exit
+            if (string.IsNullOrWhiteSpace(dialog.FileName))
+                return string.Empty;
+
+            // Was file selected within Report base path?
+            var selectedFullFilePath = dialog.FileName;
             if (isFullPathWithinBasePath(selectedFullFilePath) == false)
             {
-                var message = String.Format("You selected a file outside the base path! Please select a file within the base path. Base Path = '{0}'  File = '{1}'", _relativeBasePath, selectedFullFilePath);
+                var message = String.Format("You selected a file outside the base path! Please select a file within the base path. Base Path = '{0}'  File = '{1}'", _fullBasePath, selectedFullFilePath);
                 MessageBox.Show(message);
                 return string.Empty;
             }
 
+            // Convert full path to relative path
             var selectedRelativeFilePath = ConvertToRelativePath(selectedFullFilePath);
+
             return selectedRelativeFilePath;
         }
 
