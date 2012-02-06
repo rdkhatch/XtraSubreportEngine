@@ -1,4 +1,5 @@
 ﻿
+using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
 using XtraSubreportEngine;
 namespace XtraSubreport.Engine.Designer
@@ -7,5 +8,10 @@ namespace XtraSubreport.Engine.Designer
     {
         DataSourceLocator DataSourceLocator { get; }
         XRDesignForm DesignForm { get; }
+    }
+
+    internal interface IDesignerContextInternal
+    {
+        SubreportBase SelectedSubreport { get; set; }
     }
 }
