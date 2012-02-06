@@ -117,7 +117,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="gcCore">
-      <HintPath>..\..\packages\gcCore-dev.1.0.1.71\lib\Net35\gcCore.dll</HintPath>
+      <HintPath>..\..\dependencies\gcCore.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
