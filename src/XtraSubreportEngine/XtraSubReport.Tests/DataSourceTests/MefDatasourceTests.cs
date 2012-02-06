@@ -1,22 +1,22 @@
 ﻿using System.Collections;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using XtraSubreportEngine;
 
 namespace XtraSubReport.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class MefDatasourceTests
     {
         DataSourceLocator locator;
 
-        [TestInitialize]
+        [SetUp]
         public void Init()
         {
             locator = new DataSourceLocator(string.Empty);
         }
 
-        [TestMethod]
+        [Test]
         public void catalog_should_not_be_empty()
         {
             var exports = locator.GetDatasources(string.Empty).ToList();
@@ -24,7 +24,7 @@ namespace XtraSubReport.Tests
             Assert.IsTrue(exports.Count > 0);
         }
 
-        [TestMethod]
+        [Test]
         public void Northwind_Orders_should_be_exported()
         {
             var match = locator.GetDatasource(TestHelper.NorthwindDataSource);
@@ -32,7 +32,7 @@ namespace XtraSubReport.Tests
             Assert.IsNotNull(match);
         }
 
-        [TestMethod]
+        [Test]
         public void Northwind_Orders_should_contain_data()
         {
             var export = locator.GetDatasource(TestHelper.NorthwindDataSource);
@@ -47,7 +47,7 @@ namespace XtraSubReport.Tests
             Assert.AreNotEqual(0, collection.Count);
         }
 
-        //[TestMethod]
+        //[Test]
         //public void catalog_should_support_multiple_directories()
         //{
         //    //DesignTimeHelper.BuildDesignTimeDataSourceTreeItems(new MyReportBase());

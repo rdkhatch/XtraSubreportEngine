@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Linq;
 using DevExpress.XtraReports.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.RuntimeActions;
@@ -10,10 +10,10 @@ namespace XtraSubReport.Tests
 {
     // TODO: Use .repx for tests.  Right now, we are using direct references.  We should use .repx, which is what we will REALLY be using.
 
-    [TestClass]
+    [TestFixture]
     public class RuntimeActionTests
     {
-        [TestMethod]
+        [Test]
         public void change_all_label_text()
         {
             var transformText = "Jeremiah";
@@ -31,7 +31,7 @@ namespace XtraSubReport.Tests
             Assert.AreEqual(transformText, label.Text);
         }
 
-        [TestMethod]
+        [Test]
         public void predicate_prevents_applying_action()
         {
             var transformText = "Jeremiah";
@@ -52,7 +52,7 @@ namespace XtraSubReport.Tests
             Assert.AreEqual(transformText, label2.Text);
         }
 
-        [TestMethod]
+        [Test]
         public void applies_to_entire_report()
         {
             var color = Color.Green;
@@ -67,7 +67,7 @@ namespace XtraSubReport.Tests
             Assert.AreEqual(color, report.BackColor);
         }
 
-        [TestMethod]
+        [Test]
         public void applies_to_subreports()
         {
             var tuple = TestHelper.GetParentAndNestedSubreport();
@@ -94,7 +94,7 @@ namespace XtraSubReport.Tests
             //Assert.Fail();
         }
 
-        [TestMethod]
+        [Test]
         public void applies_to_tables()
         {
             var transformColor = Color.Blue;

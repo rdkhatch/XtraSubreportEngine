@@ -1,14 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using NUnit.Framework;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class ReportTests
     {
-        [TestMethod]
+        [Test]
         public void service_creates_custom_report_class()
         {
             var factory = new ReportFactory();
@@ -17,7 +17,7 @@ namespace XtraSubReport.Tests
             Assert.IsTrue(report is MyReportBase);
         }
 
-        [TestMethod]
+        [Test]
         public void populates_design_time_datasource()
         {
             var factory = new ReportFactory();
@@ -32,7 +32,7 @@ namespace XtraSubReport.Tests
             AssertHelper.Reports.AssertDatasourceHasItems(report);
         }
 
-        [TestMethod]
+        [Test]
         public void save_parent_and_subreport_for_opening_in_designer()
         {
             var tuple = TestHelper.GetParentAndNestedSubreport();
@@ -56,7 +56,7 @@ namespace XtraSubReport.Tests
             subreport.SaveLayout(subreportPath);
         }
 
-        [TestMethod]
+        [Test]
         public void should_not_throw_exception_when_no_design_time_datasources()
         {
             var factory = new ReportFactory();
@@ -68,7 +68,7 @@ namespace XtraSubReport.Tests
             report.ChangeDesignTimeDatasourceToDefault(designContext);
         }
 
-        [TestMethod]
+        [Test]
         public void should_replace_existing_datasource()
         {
             var factory = new ReportFactory();

@@ -1,12 +1,12 @@
 ﻿using System.IO;
 using System.Linq;
 using DevExpress.XtraReports.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using XtraSubreport.Engine.Support;
 
 namespace XtraSubReport.Tests.Support
 {
-    [TestClass]
+    [TestFixture]
     public class RelativePathReportStorageTest
     {
         string applicationBasePath;
@@ -19,7 +19,7 @@ namespace XtraSubReport.Tests.Support
 
         RelativePathReportStorage storage;
 
-        [TestInitialize]
+        [SetUp]
         public void Init()
         {
             // C:\...\TestDirectory\Out\Reports
@@ -29,7 +29,8 @@ namespace XtraSubReport.Tests.Support
 
         private void Init(string _reportsRelativeBasePath)
         {
-            var outFolder = TestContext.DeploymentDirectory;
+            //var outFolder = TestContext.DeploymentDirectory;        // Visual Studio Tests
+            var outFolder = TestContext.CurrentContext.TestDirectory; // NUnit
 
             applicationBasePath = outFolder;
 
@@ -52,7 +53,7 @@ namespace XtraSubReport.Tests.Support
             storage = new RelativePathReportStorage(reportsRelativeBasePath);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_Load_From_Relative_Base_Path()
         {
             report1.Name = "TestLoad";
@@ -70,7 +71,7 @@ namespace XtraSubReport.Tests.Support
             Assert.AreEqual(report1.Name, openedReport.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_Save_To_Relative_Base_Path()
         {
             report1.Name = "TestSave";
@@ -86,7 +87,7 @@ namespace XtraSubReport.Tests.Support
             Assert.AreEqual(report1.Name, savedReport.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_Save_To_Relative_Base_Path_from_save_dialog_Within_bin_path()
         {
             report1.Name = "TestSave";
@@ -106,7 +107,7 @@ namespace XtraSubReport.Tests.Support
             Assert.AreEqual(report1.Name, savedReport.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_Save_To_Relative_Base_Path_from_save_dialog_Outside_bin_path()
         {
             // C:\...\TestDirectory\Reports  (Notice this is outside Out [bin] path)
@@ -132,7 +133,7 @@ namespace XtraSubReport.Tests.Support
             Assert.AreEqual(report1.Name, savedReport.Name);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_Recognize_Is_Valid()
         {
             // Assert Invalid URL
@@ -146,7 +147,7 @@ namespace XtraSubReport.Tests.Support
             Assert.IsTrue(storage.IsValidUrl(report1RelativePath));
         }
 
-        [TestMethod]
+        [Test]
         public void Test_Directory_Should_Be_Empty()
         {
             // Each Test should start with an empty directory

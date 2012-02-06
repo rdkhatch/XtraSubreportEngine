@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.XtraReports.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NorthwindOData.Northwind;
+using NUnit.Framework;
 using XtraSubreport.Engine;
 
 namespace XtraSubReport.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class PathTraverserTest
     {
-        [TestMethod]
+        [Test]
         public void should_allow_root_collection()
         {
             object orders = TestHelper.GetNorthwindOrders();
@@ -25,7 +25,7 @@ namespace XtraSubReport.Tests
             Assert.ReferenceEquals(orders, orders3);
         }
 
-        [TestMethod]
+        [Test]
         public void should_extract_item_from_collection()
         {
             object orders = TestHelper.GetNorthwindOrders();
@@ -36,7 +36,7 @@ namespace XtraSubReport.Tests
             Assert.IsNotNull(order);
         }
 
-        [TestMethod]
+        [Test]
         public void should_traverse_up_to_collections()
         {
             object orders = TestHelper.GetNorthwindOrders();
@@ -48,7 +48,7 @@ namespace XtraSubReport.Tests
             Assert.IsNotNull(collection);
         }
 
-        [TestMethod]
+        [Test]
         public void should_traverse_through_collections_with_index()
         {
             object orders = TestHelper.GetNorthwindOrders();
@@ -58,7 +58,7 @@ namespace XtraSubReport.Tests
             Assert.IsTrue(order_detail is Order_Detail);
         }
 
-        [TestMethod]
+        [Test]
         public void should_traverse_through_collections_without_index()
         {
             object orders = TestHelper.GetNorthwindOrders();
@@ -68,7 +68,7 @@ namespace XtraSubReport.Tests
             Assert.IsTrue(order_details is IEnumerable<Order_Detail>);
         }
 
-        [TestMethod]
+        [Test]
         public void combine_parent_datasourcepath_with_band_memberpath()
         {
             var factory = new ReportFactory();
@@ -90,7 +90,7 @@ namespace XtraSubReport.Tests
             Assert.AreEqual("[0].OrderDetails", path);
         }
 
-        [TestMethod]
+        [Test]
         public void should_traverse_when_changing_datasource()
         {
             var factory = new ReportFactory();

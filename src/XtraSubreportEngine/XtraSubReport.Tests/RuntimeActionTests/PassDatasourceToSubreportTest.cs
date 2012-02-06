@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Linq;
 using DevExpress.XtraReports.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.RuntimeActions;
 
 namespace XtraSubReport.Tests.RuntimeActions
 {
-    [TestClass]
+    [TestFixture]
     public class PassDatasourceToSubreportTest
     {
-        [TestMethod]
+        [Test]
         public void Runtime_datasource_passes_to_subreport()
         {
             var tuple = TestHelper.GetParentAndNestedSubreport();

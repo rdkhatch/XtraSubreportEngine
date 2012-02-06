@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NorthwindOData.Northwind;
+using NUnit.Framework;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class SerializationTests
     {
-        [TestMethod]
+        [Test]
         public void can_serialize_custom_report_properties()
         {
             var report1 = new DummyReport();
@@ -25,7 +25,7 @@ namespace XtraSubReport.Tests
             Assert.AreEqual(report1.RyansSerializeTestObject, report2.RyansSerializeTestObject);
         }
 
-        [TestMethod]
+        [Test]
         public void datasources_list_is_serialized()
         {
             var factory = new ReportFactory();
@@ -43,7 +43,7 @@ namespace XtraSubReport.Tests
             Assert.IsTrue(report2.DesignTimeDataSources.Count == 2);
         }
 
-        [TestMethod]
+        [Test]
         public void datasource_should_resolves_types_when_setting_selected_datasource()
         {
             var designContext = TestHelper.CreateDesignerContext();
@@ -64,7 +64,7 @@ namespace XtraSubReport.Tests
             Assert.AreEqual(datasource1.RootDataSourceType, typeof(List<Order>));
         }
 
-        [TestMethod]
+        [Test]
         public void datasource_should_serialize_all_properties()
         {
             var datasource1 = new DesignTimeDataSourceDefinition("mydatasource", "mypath", "myrelation")

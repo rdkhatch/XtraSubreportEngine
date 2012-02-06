@@ -4,18 +4,18 @@ using System.IO;
 using ColorReplaceAction;
 using ColorReplaceAction.Configuration;
 using DevExpress.XtraReports.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace XtraSubReport.Tests.RuntimeActions
 {
-    [TestClass]
+    [TestFixture]
     public class ColorReplacerTest
     {
         private XRLabel beforeLabel;
         private XRLabel afterLabel;
         private ColorReplaceActionConfiguration config;
 
-        [TestInitialize]
+        [SetUp]
         public void Init()
         {
             beforeLabel = new XRLabel() { ForeColor = Color.Red, BackColor = Color.White, BorderColor = Color.Blue };
@@ -27,7 +27,7 @@ namespace XtraSubReport.Tests.RuntimeActions
             config.ColorReplaceDefinitions.Add(new ColorReplaceDefinition(ColorLocation.BorderColor, beforeLabel.BorderColor, afterLabel.BorderColor));
         }
 
-        [TestMethod]
+        [Test]
         public void should_replace_colors_directly()
         {
             var action = new ColorReplacerAction(config);
@@ -38,7 +38,7 @@ namespace XtraSubReport.Tests.RuntimeActions
             Assert.AreEqual(afterLabel.BorderColor, beforeLabel.BorderColor);
         }
 
-        [TestMethod]
+        [Test]
         public void configuration_serialization_test()
         {
             var stream = new MemoryStream();

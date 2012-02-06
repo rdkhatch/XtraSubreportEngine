@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests

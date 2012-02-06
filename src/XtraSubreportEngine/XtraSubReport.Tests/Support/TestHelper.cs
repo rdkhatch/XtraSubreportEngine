@@ -2,7 +2,7 @@
 using System.IO;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.UI;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Designer;
 using XtraSubreportEngine;

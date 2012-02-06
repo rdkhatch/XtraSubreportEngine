@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using GeniusCode.Framework.Extensions;
 using GeniusCode.Framework.Support.Collections.Tree;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Support;
 using XtraSubreportEngine;
@@ -11,7 +11,7 @@ using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class SelectDatasourceTests
     {
         #region Test initialize
@@ -20,7 +20,7 @@ namespace XtraSubReport.Tests
         List<string> FoldersCreated = new List<string>();
         DataSourceLocator locator;
 
-        [TestInitialize]
+        [SetUp]
         public void Init()
         {
             locator = new DataSourceLocator(string.Empty);
@@ -69,14 +69,14 @@ namespace XtraSubReport.Tests
                 });
         }
 
-        [TestCleanup]
+        [TearDown]
         public void Cleanup()
         {
             DeleteFolders();
         }
         #endregion
 
-        [TestMethod]
+        [Test]
         public void Should_Return_Folders()
         {
             var folders = locator.GetAllFoldersWithinBasePathContainingDLLs().ToList();
@@ -84,7 +84,7 @@ namespace XtraSubReport.Tests
             Assert.AreEqual(2, folders.Count);
         }
 
-        [TestMethod]
+        [Test]
         public void Should_Create_TreeItems_With_Exports_For_Folders()
         {
             var report = new MyReportBase();

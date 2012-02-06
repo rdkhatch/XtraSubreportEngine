@@ -1,18 +1,15 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using XtraSubreport.Engine.RuntimeActions.Providers;
-using System.IO;
 using System.Reflection;
+using NUnit.Framework;
+using XtraSubreport.Engine.RuntimeActions.Providers;
 
 namespace XtraSubReport.Tests.RuntimeActions
 {
-    [TestClass]
+    [TestFixture]
     public class RuntimeActionMefTest
     {
-        [TestMethod]
+        [Test]
         public void should_find_exports()
         {
             var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
