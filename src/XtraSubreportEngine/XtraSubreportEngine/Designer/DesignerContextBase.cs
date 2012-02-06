@@ -4,7 +4,7 @@ using XtraSubreportEngine;
 
 namespace XtraSubreport.Engine.Designer
 {
-    public class DesignerContextBase : IDesignerContext, IDesignerContextInternal
+    public abstract class DesignerContextBase : IDesignerContext, IDesignerContextInternal
     {
         protected abstract DataSourceLocator GetDataSourceLocator();
         protected abstract XRDesignForm GetDesignForm();
