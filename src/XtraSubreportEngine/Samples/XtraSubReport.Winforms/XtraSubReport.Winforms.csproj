@@ -159,29 +159,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <Content Include="..\ColorReplaceAction\bin\Debug\ColorReplaceAction.dll">
-      <Link>Sample ReportActions\ColorReplaceAction.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\ColorReplaceAction\bin\Debug\ColorReplaceAction.pdb">
-      <Link>Sample ReportActions\ColorReplaceAction.pdb</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\NorthwindOData\bin\Debug\Newtonsoft.Json.dll">
-      <Link>Sample Datasources\Newtonsoft.Json.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\NorthwindOData\bin\Debug\NorthwindOData.dll">
-      <Link>Sample Datasources\NorthwindOData.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\NorthwindOData\bin\Debug\NorthwindOData.pdb">
-      <Link>Sample Datasources\NorthwindOData.pdb</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sample ReportActions\ColorReplaceAction.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
