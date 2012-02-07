@@ -8,7 +8,7 @@ using XtraSubreport.Contracts.RuntimeActions;
 
 namespace XtraSubreport.Engine.RuntimeActions
 {
-    public class PassSubreportDataSourceRuntimeAction : ReportRuntimeActionBase<XRSubreport>
+    public class PassSubreportDataSourceRuntimeAction : ReportRuntimeAction<XRSubreport>
     {
         private static Func<XRSubreport, bool> predicate = (subreport) => true;
         private static Action<XRSubreport> action = (subreport) =>

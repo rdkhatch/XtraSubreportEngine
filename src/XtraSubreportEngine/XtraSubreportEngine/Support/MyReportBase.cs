@@ -17,7 +17,6 @@ namespace XtraSubreportEngine.Support
         public XRSerializableCollection<DesignTimeDataSourceDefinition> DesignTimeDataSources { get; set; }
 
         public MyReportBase()
-            : base()
         {
             DesignTimeDataSources = new XRSerializableCollection<DesignTimeDataSourceDefinition>();
         }
@@ -25,7 +24,7 @@ namespace XtraSubreportEngine.Support
         protected override void DeclareCustomProperties()
         {
             // Serialize DesignTimeDataSources collection into .REPX file
-            DeclareCustomObjectProperty(() => this.DesignTimeDataSources);
+            DeclareCustomObjectProperty(() => DesignTimeDataSources);
         }
 
         protected override void OnBeforePrint(System.Drawing.Printing.PrintEventArgs e)

@@ -3,18 +3,18 @@ using DevExpress.XtraReports.UI;
 
 namespace XtraSubreport.Contracts.RuntimeActions
 {
-    public class ReportRuntimeActionBase<T> : IReportRuntimeAction<T>
+    public class ReportRuntimeAction<T> : IReportRuntimeAction<T>
         where T : XRControl
     {
-        protected Func<T, bool> _predicate;
-        protected Action<T> _action;
+        private Func<T, bool> _predicate;
+        private readonly Action<T> _action;
 
-        protected ReportRuntimeActionBase()
+        protected ReportRuntimeAction()
         {
             // If you want to inherit, you can
         }
 
-        public ReportRuntimeActionBase(Func<T, bool> predicate, Action<T> action)
+        public ReportRuntimeAction(Func<T, bool> predicate, Action<T> action)
             : this()
         {
             _predicate = predicate;

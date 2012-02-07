@@ -85,10 +85,10 @@ this.ScenarioSetup(scenarioInfo);
 #line 12
  testRunner.And("DontChangeMe\'s text property has a value of GreenBayPackers");
 #line 13
- testRunner.And("an action exists against an XRLabel named ChangeMe");
+ testRunner.And("an action exists against an XRLabel named ChangeMe to change the name to Camp and" +
+                    " increment a counter");
 #line 14
- testRunner.And("the action is supposed to change the text of a XRLabel to Camp and increment a co" +
-                    "unter");
+ testRunner.And("the xtrasubreport engine is initialized");
 #line 15
  testRunner.When("the report engine runs");
 #line 16

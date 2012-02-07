@@ -1,43 +1,124 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using DevExpress.XtraReports.UI;
+using FluentAssertions;
 using TechTalk.SpecFlow;
+using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubReports.Runtime.Specs.Steps
 {
     [Binding]
+    [Scope(Feature = "Actions")]
     public class ActionsExecuteRecursivelySteps
     {
-        [Given("I have entered (.*) into the calculator")]
-        public void GivenIHaveEnteredSomethingIntoTheCalculator(int number)
-        {
-            //TODO: implement arrange (recondition) logic
-            // For storing and retrieving scenario-specific data, 
-            // the instance fields of the class or the
-            //     ScenarioContext.Current
-            // collection can be used.
-            // To use the multiline text or the table argument of the scenario,
-            // additional string/Table parameters can be defined on the step definition
-            // method. 
+        private XtraReport _report;
 
-            ScenarioContext.Current.Pending();
+        private XRRuntimeSubscriber _subscriber;
+        private IRuntimeActionController _actionController;
+
+        private XRLabel _changeMeLabel;
+        private XRLabel _dontChangeMeLabel;
+
+        private IReportRuntimeAction _action;
+        private int _counter;
+        private MyReportBase _newReport;
+
+
+        private XRLabel _newChangeMeLabel;
+        private XRLabel _newDontChangeMeLabel;
+
+        [Given(@"A report exists")]
+        public void GivenAReportExists()
+        {
+            _report = new XtraReport();
+            _report.Bands.Add(new ReportHeaderBand());
+
         }
 
-        [When("I press add")]
-        public void WhenIPressAdd()
+        [Given(@"the report has an XRLabel named ChangeMe in the header")]
+        public void GivenTheReportHasAnXRLabelNamedChangeMeInTheHeader()
         {
-            //TODO: implement act (action) logic
-
-            ScenarioContext.Current.Pending();
+            _changeMeLabel = new XRLabel {Name = "ChangeMe"};
+            _report.Bands[BandKind.ReportHeader].Controls.Add(_changeMeLabel);
         }
 
-        [Then("the result should be (.*) on the screen")]
-        public void ThenTheResultShouldBe(int result)
+        [Given(@"ChangeMe's text property has a value of (.*)")]
+        public void GivenChangeMeSTextPropertyHasAValueOfBrodie(string value)
         {
-            //TODO: implement assert (verification) logic
-
-            ScenarioContext.Current.Pending();
+            _changeMeLabel.Text = value;
         }
+
+        [Given(@"the report has another XRLabel named DontChangeMe in header")]
+        public void GivenTheReportHasAnotherXRLabelNamedDontChangeMeInHeader()
+        {
+            _dontChangeMeLabel = new XRLabel {Name = "DontChangeMe"};
+            _report.Bands[BandKind.ReportHeader].Controls.Add(_dontChangeMeLabel);
+        }
+
+        [Given(@"DontChangeMe's text property has a value of (.*)")]
+        public void GivenDontChangeMeSTextPropertyHasAValueOfGreenBayPackers(string value)
+        {
+            _dontChangeMeLabel.Text = value;
+        }
+
+        [Given(@"an action exists against an XRLabel named ChangeMe to change the name to (.*) and increment a counter")]
+        public void GivenAnActionExistsAgainstAnXRLabelNamedChangeMe(string newName)
+        {
+            _action = new ReportRuntimeAction<XRLabel>(l => l.Name == "ChangeMe", l =>
+                                                                                      {
+                                                                                          l.Text = newName;
+                                                                                          _counter++;
+                                                                                      });
+        }
+
+        [Given(@"the xtrasubreport engine is initialized")]
+        public void GivenTheXtrasubreportEngineIsInitialized()
+        {
+            _actionController = new XRRuntimeActionController(_action);
+            _subscriber = new XRRuntimeSubscriber(_actionController);
+        }
+
+        [When(@"the report engine runs")]
+        public void WhenTheReportEngineRuns()
+        {
+            var stream = new MemoryStream();
+            _report.SaveLayout(stream);
+            stream.Position = 0;
+
+            _newReport = new MyReportBase();
+            _newReport.LoadLayout(stream);
+
+            _newReport.ExportToHtml(new MemoryStream());
+
+            _newChangeMeLabel = (XRLabel)_newReport.Bands[0].Controls[_changeMeLabel.Name];
+            _newDontChangeMeLabel = (XRLabel) _newReport.Bands[0].Controls[_dontChangeMeLabel.Name];
+        }
+
+        
+        [Then(@"ChangeMe's text property should have a value of (.*)")]
+        public void ThenChangeMeSTextPropertyShouldHaveAValueOfCamp(string value)
+        {
+            _newChangeMeLabel.Text.Should().Be(value);
+
+        }
+
+        [Then(@"DontChangeMe's text property should have a value of (.*)")]
+        public void ThenDontChangeMeSTextPropertyShouldHaveAValueOfGreenBayPackers(string value)
+        {
+            _newDontChangeMeLabel.Text.Should().Be(value);
+        }
+
+
+        [Then(@"the counter incremented by the action should have a count of 1")]
+        public void ThenTheCounterIncrementedByTheActionShouldHaveACountOf1()
+        {
+            _counter.Should().Be(1);
+        }
+
     }
 }

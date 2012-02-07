@@ -6,7 +6,7 @@ namespace XtraSubreport.Engine.RuntimeActions
 {
     public class XRRuntimeVisitor
     {
-        private IRuntimeActionController _controller;
+        private readonly IRuntimeActionController _controller;
 
         #region Constructor
 
