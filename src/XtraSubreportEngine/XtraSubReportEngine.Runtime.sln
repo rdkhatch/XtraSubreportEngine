@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubreport.Contracts", "XtraSubreport.Contracts\XtraSubreport.Contracts.csproj", "{316A7AB5-8178-4F21-BAF4-C4D470594477}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubreport.Engine", "XtraSubreportEngine\XtraSubreport.Engine.csproj", "{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubReports.Runtime.Specs", "XtraSubReports.Runtime.Specs\XtraSubReports.Runtime.Specs.csproj", "{1F7419AF-5A5B-4D9E-931E-B703D8A24546}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{316A7AB5-8178-4F21-BAF4-C4D470594477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{316A7AB5-8178-4F21-BAF4-C4D470594477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{316A7AB5-8178-4F21-BAF4-C4D470594477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{316A7AB5-8178-4F21-BAF4-C4D470594477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F7419AF-5A5B-4D9E-931E-B703D8A24546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F7419AF-5A5B-4D9E-931E-B703D8A24546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F7419AF-5A5B-4D9E-931E-B703D8A24546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F7419AF-5A5B-4D9E-931E-B703D8A24546}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
