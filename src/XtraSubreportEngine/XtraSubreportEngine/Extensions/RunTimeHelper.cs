@@ -1,10 +1,13 @@
-﻿using DevExpress.XtraReports.UI;
+﻿using System.IO;
+using DevExpress.XtraReports.UI;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine
 {
 
     public static class RunTimeHelper
     {
+/*
         public static void PassDatasourceToSubreports(XtraReport report)
         {
             var subreports = report.FindAllSubreports();
@@ -23,8 +26,9 @@ namespace XtraSubreport.Engine
                 SetDataSourceOnSubreport(subreport);
             };
         }
+*/
 
-        public static void SetDataSourceOnSubreport(XRSubreport subreport)
+        public static object SetDataSourceOnSubreport(XRSubreport subreport)
         {
             var datasource = subreport.Band.GetDataSource();
 
@@ -35,9 +39,10 @@ namespace XtraSubreport.Engine
 
                 report.SetReportDataSource(datasource);
             }
+
+            return datasource;
         }
 
-        #endregion
-
+     //   #endregion
     }
 }

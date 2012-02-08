@@ -14,6 +14,11 @@ namespace XtraSubreport.Contracts.RuntimeActions
             // If you want to inherit, you can
         }
 
+        public ReportRuntimeAction(Action<T> action)
+            : this(a=> true, action)
+        {
+        }
+
         public ReportRuntimeAction(Func<T, bool> predicate, Action<T> action)
             : this()
         {

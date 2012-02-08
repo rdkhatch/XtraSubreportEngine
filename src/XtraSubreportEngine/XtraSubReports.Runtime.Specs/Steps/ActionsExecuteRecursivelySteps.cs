@@ -6,7 +6,9 @@ using System.Text;
 using DevExpress.XtraReports.UI;
 using FluentAssertions;
 using TechTalk.SpecFlow;
+using XtraSubReports.Runtime.UnitTests;
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Engine;
 using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreportEngine.Support;
 
@@ -86,20 +88,14 @@ namespace XtraSubReports.Runtime.Specs.Steps
         [When(@"the report engine runs")]
         public void WhenTheReportEngineRuns()
         {
-            var stream = new MemoryStream();
-            _report.SaveLayout(stream);
-            stream.Position = 0;
-
-            _newReport = new MyReportBase();
-            _newReport.LoadLayout(stream);
-
-            _newReport.ExportToHtml(new MemoryStream());
+            _newReport = _report.CloneUsingLayout();
+            _newReport.ExportToMemory();
 
             _newChangeMeLabel = (XRLabel)_newReport.Bands[0].Controls[_changeMeLabel.Name];
             _newDontChangeMeLabel = (XRLabel) _newReport.Bands[0].Controls[_dontChangeMeLabel.Name];
         }
 
-        
+
         [Then(@"ChangeMe's text property should have a value of (.*)")]
         public void ThenChangeMeSTextPropertyShouldHaveAValueOfCamp(string value)
         {
@@ -119,6 +115,5 @@ namespace XtraSubReports.Runtime.Specs.Steps
         {
             _counter.Should().Be(1);
         }
-
     }
 }

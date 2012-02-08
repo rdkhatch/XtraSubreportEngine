@@ -77,13 +77,23 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("A parent report exists");
 #line 9
- testRunner.And("the parent report has a datasource");
+ testRunner.And("the parent report has a datasource of three items");
 #line 10
- testRunner.And("the parent report has a subreport in the report header");
+ testRunner.And("a subreport exists as a file");
 #line 11
- testRunner.When("the report engine runs");
+ testRunner.And("a XRSubreport container exists in the parent report\'s header band");
 #line 12
- testRunner.Then("the subreport should have the same datasource as the parent as a collection");
+ testRunner.And("the XRSubreport container references the subreport\'s filename");
+#line 13
+ testRunner.And("the xtrasubreport engine is initialized");
+#line 14
+ testRunner.When("the report engine runs");
+#line 15
+ testRunner.Then("the subreport\'s datasource should be the same as the parent report\'s datasource");
+#line 16
+ testRunner.And("the subreport\'s datasource should not be null");
+#line 17
+ testRunner.And("the subreport action should have been fired 1 time(s)");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -93,18 +103,28 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SubreportInsideOfAFooterBand()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Subreport inside of a footer band", ((string[])(null)));
-#line 14
-this.ScenarioSetup(scenarioInfo);
-#line 15
- testRunner.Given("A parent report exists");
-#line 16
- testRunner.And("the parent report has a datasource");
-#line 17
- testRunner.And("the parent report has a subreport in the report footer");
-#line 18
- testRunner.When("the report engine runs");
 #line 19
- testRunner.Then("the subreport should have the same datasource as the parent as a collection");
+this.ScenarioSetup(scenarioInfo);
+#line 20
+ testRunner.Given("A parent report exists");
+#line 21
+ testRunner.And("the parent report has a datasource of three items");
+#line 22
+ testRunner.And("a subreport exists as a file");
+#line 23
+ testRunner.And("a XRSubreport container exists in the parent report\'s footer band");
+#line 24
+ testRunner.And("the XRSubreport container references the subreport\'s filename");
+#line 25
+ testRunner.And("the xtrasubreport engine is initialized");
+#line 26
+ testRunner.When("the report engine runs");
+#line 27
+ testRunner.Then("the subreport\'s datasource should be the same as the parent report\'s datasource");
+#line 28
+ testRunner.And("the subreport\'s datasource should not be null");
+#line 29
+ testRunner.And("the subreport action should have been fired 1 time(s)");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -114,22 +134,26 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SubreportInsideOfADetailBand()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Subreport inside of a detail band", ((string[])(null)));
-#line 21
+#line 31
 this.ScenarioSetup(scenarioInfo);
-#line 22
+#line 32
  testRunner.Given("A parent report exists");
-#line 23
- testRunner.And("the parent report has a datasource");
-#line 24
- testRunner.And("the parent report has a subreport in the detail band");
-#line 25
+#line 33
+ testRunner.And("the parent report has a datasource of three items");
+#line 34
+ testRunner.And("a subreport exists as a file");
+#line 35
+ testRunner.And("a XRSubreport container exists in the parent report\'s detail band");
+#line 36
+ testRunner.And("the XRSubreport container references the subreport\'s filename");
+#line 37
+ testRunner.And("the xtrasubreport engine is initialized with datasource tracking");
+#line 38
  testRunner.When("the report engine runs");
-#line 26
- testRunner.Then("each subreport instance should have a collection datasource containing only one i" +
-                    "tem");
-#line 27
- testRunner.And("each subreport instance\'s datasource contains the same datasource as the containi" +
-                    "ng detail band");
+#line 39
+ testRunner.Then("each item in the parent\'s datasource should have been set once");
+#line 40
+ testRunner.And("the subreport action should have been fired 3 time(s)");
 #line hidden
             this.ScenarioCleanup();
         }

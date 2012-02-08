@@ -26,10 +26,16 @@ namespace XtraSubreport.Engine.RuntimeActions
 
         private void AttachToControl(XRControl control)
         {
-            control.BeforePrint += (s, e) =>
-                {
-                    Visit(control);
-                };
+            control.BeforePrint -= control_BeforePrint;
+            control.BeforePrint += control_BeforePrint;
+
+/*            //TODO: Check that this doesn't fire too many times
+            control.BeforePrint += (s, e) => Visit(control);*/
+        }
+
+        void control_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        {
+            Visit((XRControl)sender);
         }
 
         #endregion
@@ -69,12 +75,10 @@ namespace XtraSubreport.Engine.RuntimeActions
             var subreportPlaceholders = band.Controls.OfType<XRSubreport>().ToList();
 
             // Attach to Special Controls
-            childBands.ForEach(childBand =>
-                AttachToControl(childBand));
-            subreportPlaceholders.ForEach(placeholder =>
-                AttachToControl(placeholder));
+            childBands.ForEach(AttachToControl);
+            subreportPlaceholders.ForEach(AttachToControl);
 
-            var ignore = Enumerable.Concat(childBands.Cast<XRControl>(), subreportPlaceholders.Cast<XRControl>());
+            var ignore = childBands.Concat(subreportPlaceholders.Cast<XRControl>());
 
             // Normal Controls
             return band.Controls.Cast<XRControl>().Except(ignore).ToList();
