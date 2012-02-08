@@ -21,6 +21,11 @@ namespace XtraSubreportEngine.Support
             DesignTimeDataSources = new XRSerializableCollection<DesignTimeDataSourceDefinition>();
         }
 
+        /// <summary>
+        /// Hashcode of Root Report
+        /// </summary>
+        public int RootHashCode { get; set; }
+
         protected override void DeclareCustomProperties()
         {
             // Serialize DesignTimeDataSources collection into .REPX file

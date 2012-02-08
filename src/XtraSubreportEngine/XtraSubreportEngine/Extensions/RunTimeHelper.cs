@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using DevExpress.XtraReports.UI;
 using XtraSubreportEngine.Support;
 
@@ -42,6 +43,21 @@ namespace XtraSubreport.Engine
 
             return datasource;
         }
+
+        public static int SetRootHashCodeOnSubreport(XRSubreport subreport)
+        {
+            var hashcode = ((MyReportBase)subreport.Report).RootHashCode;
+
+            if(hashcode == 0)
+                throw new Exception("Report did not have a root hashcode.");
+
+            var report = (MyReportBase)subreport.ReportSource ;
+            report.RootHashCode = hashcode;              
+
+            return hashcode;
+        }
+
+
 
      //   #endregion
     }

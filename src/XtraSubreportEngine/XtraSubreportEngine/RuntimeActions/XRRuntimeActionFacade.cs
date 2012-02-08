@@ -6,22 +6,22 @@ using XtraSubreport.Contracts.RuntimeActions;
 
 namespace XtraSubreport.Engine.RuntimeActions
 {
-    public class XRRuntimeActionController : IRuntimeActionController
+    public class XRRuntimeActionFacade : IRuntimeActionFacade
     {
-        private List<IReportRuntimeAction> _runtimeActions;
-        private List<Type> _controlTypes;
+        private readonly List<IReportRuntimeAction> _runtimeActions;
+        private readonly List<Type> _controlTypes;
 
-        public XRRuntimeActionController(IReportRuntimeActionProvider actionProvider)
+        public XRRuntimeActionFacade(IReportRuntimeActionProvider actionProvider)
             : this(actionProvider.GetRuntimeActions().ToArray())
         {
         }
 
-        public XRRuntimeActionController(IEnumerable<IReportRuntimeActionProvider> actionProviders)
+        public XRRuntimeActionFacade(IEnumerable<IReportRuntimeActionProvider> actionProviders)
             : this(actionProviders.SelectMany(provider => provider.GetRuntimeActions()).ToArray())
         {
         }
 
-        public XRRuntimeActionController(params IReportRuntimeAction[] actions)
+        public XRRuntimeActionFacade(params IReportRuntimeAction[] actions)
         {
             _runtimeActions = new List<IReportRuntimeAction>(actions);
 
@@ -35,7 +35,7 @@ namespace XtraSubreport.Engine.RuntimeActions
 
             // Optimization - ignore XRControls that we don't have ReportActions for
             var foundMatchingRuntimeAction = (from type in _controlTypes
-                                              where type.IsAssignableFrom(control.GetType())
+                                              where type.IsInstanceOfType(control)
                                               select type).Any();
 
             if (foundMatchingRuntimeAction == false)

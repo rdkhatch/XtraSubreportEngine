@@ -1,18 +1,17 @@
 using System.Drawing.Printing;
-using DevExpress.XtraReports.UI;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.Eventing
 {
     public class XRBeforePrintMessage
     {
-        public XtraReport Report { get; private set; }
+        public MyReportBase Report { get; private set; }
         public PrintEventArgs PrintArgs { get; private set; }
 
-        public XRBeforePrintMessage(XtraReport report, PrintEventArgs e)
+        public XRBeforePrintMessage(MyReportBase report, PrintEventArgs e)
         {
             Report = report;
             PrintArgs = e;
         }
     }
-
 }

@@ -20,8 +20,8 @@ namespace XtraSubReports.Runtime.Specs.Steps
     {
         private XtraReport _report;
 
-        private XRRuntimeSubscriber _subscriber;
-        private IRuntimeActionController _actionController;
+        private GlobalXRSubscriber _subscriber;
+        private IRuntimeActionFacade _actionFacade;
 
         private XRLabel _changeMeLabel;
         private XRLabel _dontChangeMeLabel;
@@ -33,6 +33,7 @@ namespace XtraSubReports.Runtime.Specs.Steps
 
         private XRLabel _newChangeMeLabel;
         private XRLabel _newDontChangeMeLabel;
+        private XRReportController _controller;
 
         [Given(@"A report exists")]
         public void GivenAReportExists()
@@ -81,15 +82,17 @@ namespace XtraSubReports.Runtime.Specs.Steps
         [Given(@"the xtrasubreport engine is initialized")]
         public void GivenTheXtrasubreportEngineIsInitialized()
         {
-            _actionController = new XRRuntimeActionController(_action);
-            _subscriber = new XRRuntimeSubscriber(_actionController);
+            var facade = new XRRuntimeActionFacade(_action);
+            _controller = new XRReportController(_report, facade);
+            
         }
 
         [When(@"the report engine runs")]
         public void WhenTheReportEngineRuns()
         {
-            _newReport = _report.CloneUsingLayout();
-            _newReport.ExportToMemory();
+
+
+            _newReport = _controller.Print(r => r.ExportToMemory());
 
             _newChangeMeLabel = (XRLabel)_newReport.Bands[0].Controls[_changeMeLabel.Name];
             _newDontChangeMeLabel = (XRLabel) _newReport.Bands[0].Controls[_dontChangeMeLabel.Name];

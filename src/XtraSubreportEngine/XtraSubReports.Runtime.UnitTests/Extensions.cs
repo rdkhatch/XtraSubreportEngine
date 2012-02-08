@@ -11,17 +11,5 @@ namespace XtraSubReports.Runtime.UnitTests
         {
             report.ExportToHtml(new MemoryStream());
         }
-
-        public static MyReportBase CloneUsingLayout(this XtraReport report)
-        {
-            var stream = new MemoryStream();
-            report.SaveLayout(stream);
-            stream.Position = 0;
-
-            var newReport = new MyReportBase();
-            newReport.LoadLayout(stream);
-            newReport.DataSource = report.DataSource;
-            return newReport;
-        }
     }
 }

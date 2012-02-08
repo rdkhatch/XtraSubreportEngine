@@ -1,0 +1,82 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using DevExpress.XtraReports.UI;
+using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreportEngine.Support;
+
+namespace XtraSubreport.Engine.RuntimeActions
+{
+    public class XRReportController : IReportController, IDisposable
+    {
+        private readonly XtraReport _view;
+        private readonly XRRuntimeActionFacade _injectedFacade;
+
+        private ScopedXRSubscriber _subscriber;
+        public XRReportController(XtraReport view, XRRuntimeActionFacade injectedFacade = null)
+        {
+            _view = view;
+            _injectedFacade = injectedFacade;
+            GlobalXRSubscriber.Init();
+        }
+
+        protected virtual IEnumerable<IReportRuntimeAction> OnGetDefautActions()
+        {
+            yield return new PassSubreportDataSourceRuntimeAction();
+        }
+
+        protected virtual void OnRegisterAdditionalActions()
+        {
+        }
+
+        private List<IReportRuntimeAction> _toDos;
+
+        protected void RegisterFor<T>(Action<T> toDo) where T : XRControl
+        {
+            var action = new ReportRuntimeAction<T>(toDo);
+            _toDos.Add(action);
+        }
+
+        public MyReportBase Print(Action<XtraReport> printAction)
+        {
+            var actions = OnGetDefautActions();
+            var defaultFacade = new XRRuntimeActionFacade(actions.ToArray());
+
+            _toDos = new List<IReportRuntimeAction>();
+            OnRegisterAdditionalActions();
+            var additionalActionsFacade = new XRRuntimeActionFacade(_toDos.ToArray());
+
+            var newView = CloneInMemory(_view);
+            newView.RootHashCode = newView.GetHashCode();
+            _subscriber = new ScopedXRSubscriber(newView.RootHashCode, c =>
+                                                                           {
+                                                                               defaultFacade.AttemptActionsOnControl(c);
+                                                                               additionalActionsFacade.AttemptActionsOnControl(c);
+
+                                                                               if (_injectedFacade != null)
+                                                                                   _injectedFacade.AttemptActionsOnControl(c);
+                                                                           });
+            printAction(newView);
+            return newView;
+        }
+
+        private static MyReportBase CloneInMemory(XtraReport report)
+        {
+            var stream = new MemoryStream();
+            report.SaveLayout(stream);
+            stream.Position = 0;
+
+            var newReport = new MyReportBase();
+            newReport.LoadLayout(stream);
+            newReport.DataSource = report.DataSource;
+
+            return newReport;
+        }
+
+        public void Dispose()
+        {
+            _subscriber.Dispose();
+        }
+    }
+}
