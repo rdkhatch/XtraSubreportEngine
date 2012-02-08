@@ -56,7 +56,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiTweaks.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="DataSourceTrackingController.cs" />
     <Compile Include="MyTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

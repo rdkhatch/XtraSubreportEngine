@@ -28,13 +28,14 @@ namespace XtraSubReports.Runtime.Specs.Steps
         private Func<XtraReport, XRSubreport> _getContainerFunc;
         private MyReportBase _newSubReport;
         private XRSubreport _newSubReportContainer;
-        private IRuntimeActionController _actionController;
-        private XRRuntimeSubscriber _subscriber;
+        private IRuntimeActionFacade _actionFacade;
+        private GlobalXRSubscriber _subscriber;
         private int _counter;
 
         private readonly HashSet<Person> _datasources = new HashSet<Person>();
-        
-            [Given(@"A parent report exists")]
+        private DataSourceTrackingController _controller;
+
+        [Given(@"A parent report exists")]
         public void GivenAParentReportExists()
         {
             _parentReport = new XtraReport();
@@ -101,17 +102,17 @@ namespace XtraSubReports.Runtime.Specs.Steps
         [Given(@"the xtrasubreport engine is initialized")]
         public void GivenTheXtrasubreportEngineIsInitialized()
         {
-            _actionController = new XRRuntimeActionController(
-                new PassSubreportDataSourceRuntimeAction((s,ds) =>_counter++));
-            _subscriber = new XRRuntimeSubscriber(_actionController);
+            _controller = new DataSourceTrackingController(_parentReport,(s,o)=> _counter++);
         }
 
 
         [Given(@"the xtrasubreport engine is initialized with datasource tracking")]
         public void GivenTheXtrasubreportEngineIsInitializedWithDataSourceTracking()
         {
-            _actionController = new XRRuntimeActionController(
-                new PassSubreportDataSourceRuntimeAction((s,ds) =>
+
+            
+
+            _controller = new DataSourceTrackingController(_parentReport,(s,ds) =>
                                                              {
                                                                  _counter++;
 
@@ -128,9 +129,7 @@ namespace XtraSubReports.Runtime.Specs.Steps
                                                                      throw new NotImplementedException();
                                                                  }
 
-                                                             }));
-                    
-            _subscriber = new XRRuntimeSubscriber(_actionController);
+                                                             });
         }
 
         
@@ -139,11 +138,9 @@ namespace XtraSubReports.Runtime.Specs.Steps
         [When(@"the report engine runs")]
         public void WhenTheReportEngineRuns()
         {
-            _newParentReport = _parentReport.CloneUsingLayout();
-            _newParentReport.ExportToMemory();
+            _newParentReport = _controller.Print(r => r.ExportToMemory());
 
             _newSubReportContainer = _getContainerFunc(_newParentReport);
-
         }
 
 
@@ -177,6 +174,8 @@ namespace XtraSubReports.Runtime.Specs.Steps
         {
             _datasources.Count.Should().Be(3);
         }
+
+
 
 
     }

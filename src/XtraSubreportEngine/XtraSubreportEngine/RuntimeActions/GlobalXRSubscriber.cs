@@ -1,20 +1,25 @@
+using System;
+using System.Collections.Generic;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine.Eventing;
 
 namespace XtraSubreport.Engine.RuntimeActions
 {
-    public class XRRuntimeSubscriber : IHandle<XRBeforePrintMessage>
+    public class GlobalXRSubscriber : IHandle<XRBeforePrintMessage>
     {
-        private IRuntimeActionController _controller;
+        public static GlobalXRSubscriber Singleton { get; private set; }      
 
-        public XRRuntimeSubscriber(IRuntimeActionController controller)
-            : this(controller, EventAggregator.Singleton)
+        private readonly IEventAggregator _aggregator;
+
+        public static void Init()
         {
+            if(Singleton == null)
+                Singleton = new GlobalXRSubscriber(EventAggregator.Singleton);
         }
 
-        public XRRuntimeSubscriber(IRuntimeActionController controller, IEventAggregator aggregator)
+        private GlobalXRSubscriber(IEventAggregator aggregator)
         {
-            _controller = controller;
+            _aggregator = aggregator;
 
             // Attach to Event Aggregator
             // Allows this Visitor to listen to any MyReportBase's BeforePrint event.
@@ -30,14 +35,19 @@ namespace XtraSubreport.Engine.RuntimeActions
 
         void IHandle<XRBeforePrintMessage>.Handle(XRBeforePrintMessage message)
         {
-            var visitor = new XRRuntimeVisitor(_controller);
-            visitor.Visit(message.Report);
+            VisitMethodRecursively(message);
         }
 
-        public static XRRuntimeSubscriber SubscribeWithActions(params IReportRuntimeAction[] actions)
+        public readonly List<WeakReference> Visitors = new List<WeakReference>();
+
+        private void VisitMethodRecursively(XRBeforePrintMessage message)
         {
-            var controller = new XRRuntimeActionController(actions);
-            return new XRRuntimeSubscriber(controller);
+            using (var visitor = new XRRuntimeVisitor(_aggregator, message.Report)) 
+            {
+                Visitors.Add( new WeakReference(visitor));
+                visitor.Visit();
+            }
         }
+
     }
 }
