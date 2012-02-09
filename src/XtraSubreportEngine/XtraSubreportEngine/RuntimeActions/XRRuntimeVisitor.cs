@@ -96,12 +96,7 @@ namespace XtraSubreport.Engine.RuntimeActions
         var subreportPlaceholders = band.Controls.OfType<XRSubreport>().ToList();
 
         // Attach to Special Controls
-        childBands.ForEach(band1 =>
-                               {
-                                   band1.TryAs<DetailReportBand>(Visit);
-                                   AttachToControl(band1);
-
-                               });  //BUG: Not firing
+        childBands.ForEach(AttachToControl);  //BUG: Not firing
         subreportPlaceholders.ForEach(AttachToControl);
 
         var ignore = childBands.Concat(subreportPlaceholders.Cast<XRControl>());

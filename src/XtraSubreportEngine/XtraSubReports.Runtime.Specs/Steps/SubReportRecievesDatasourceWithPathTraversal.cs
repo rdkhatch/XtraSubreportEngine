@@ -70,7 +70,7 @@ namespace XtraSubReports.Runtime.Specs.Steps
 
             _detailReport = new DetailReportBand();
             _detailReport.DataMember = "Dogs";
-            _detailReport.DataSource = _parentReport.DataSource;
+            //_detailReport.DataSource = _parentReport.DataSource;
             _detailReport.Level = 0;
             _detailReport.Name = "DetailReport";
 
