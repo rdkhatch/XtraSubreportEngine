@@ -57,6 +57,7 @@ namespace XtraSubreport.Engine.RuntimeActions
         // Set Root Hashcode On SubReport Here:
         control.TryAs<XRSubreport>(sr => RunTimeHelper.SetRootHashCodeOnSubreport(sr));
 
+
         // Self
         PublishScopedMessage(control);
 
@@ -88,12 +89,19 @@ namespace XtraSubreport.Engine.RuntimeActions
 
     private List<XRControl> VisitBandChildren(Band band)
     {
+        
+
         // Special Controls - Bands & Subreport Placeholders (which need additional event handlers)
         var childBands = band.Controls.OfType<Band>().ToList();
         var subreportPlaceholders = band.Controls.OfType<XRSubreport>().ToList();
 
         // Attach to Special Controls
-        childBands.ForEach(AttachToControl);
+        childBands.ForEach(band1 =>
+                               {
+                                   band1.TryAs<DetailReportBand>(Visit);
+                                   AttachToControl(band1);
+
+                               });  //BUG: Not firing
         subreportPlaceholders.ForEach(AttachToControl);
 
         var ignore = childBands.Concat(subreportPlaceholders.Cast<XRControl>());

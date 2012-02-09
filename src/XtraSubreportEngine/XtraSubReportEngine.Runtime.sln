@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubReports.Runtime.Spec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubReports.Runtime.UnitTests", "XtraSubReports.Runtime.UnitTests\XtraSubReports.Runtime.UnitTests.csproj", "{B3254A1C-0A73-4A04-9B96-268E3F66CD38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubReport.Samples", "XtraSubReport.Samples\XtraSubReport.Samples.csproj", "{E0B4ABAB-2402-409C-BB18-6D82CD3BF02C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{B3254A1C-0A73-4A04-9B96-268E3F66CD38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3254A1C-0A73-4A04-9B96-268E3F66CD38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3254A1C-0A73-4A04-9B96-268E3F66CD38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0B4ABAB-2402-409C-BB18-6D82CD3BF02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0B4ABAB-2402-409C-BB18-6D82CD3BF02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0B4ABAB-2402-409C-BB18-6D82CD3BF02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0B4ABAB-2402-409C-BB18-6D82CD3BF02C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -77,14 +77,20 @@ this.ScenarioSetup(scenarioInfo);
 #line 8
  testRunner.Given("A parent report exists");
 #line 9
- testRunner.And("the parent report has a datasource");
+ testRunner.And("the parent report has a datasource of three items");
 #line 10
- testRunner.And("the parent report has a group traversal on a collection inside a detail band");
+ testRunner.And("a subreport exists as a file");
 #line 11
- testRunner.And("the group contains a subreport in its header");
+ testRunner.And("the parent report has a group traversal on a collection inside a detail band");
 #line 12
- testRunner.When("the report engine runs");
+ testRunner.And("the group contains a subreport in its header band");
 #line 13
+ testRunner.And("the XRSubreport container references the subreport\'s filename");
+#line 14
+ testRunner.And("the xtrasubreport engine is initialized");
+#line 15
+ testRunner.When("the report engine runs");
+#line 16
  testRunner.Then("the subreport should have the same datasource as the containing group\'s datasourc" +
                     "e collection");
 #line hidden
@@ -96,19 +102,19 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SubreportInsideOfAGroupFooterBand()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Subreport inside of a group footer band", ((string[])(null)));
-#line 15
-this.ScenarioSetup(scenarioInfo);
-#line 16
- testRunner.Given("A parent report exists");
-#line 17
- testRunner.And("the parent report has a datasource");
 #line 18
- testRunner.And("the parent report has a group traversal on a collection inside a detail band");
+this.ScenarioSetup(scenarioInfo);
 #line 19
- testRunner.And("the group contains a subreport in its footer");
+ testRunner.Given("A parent report exists");
 #line 20
- testRunner.When("the report engine runs");
+ testRunner.And("the parent report has a datasource");
 #line 21
+ testRunner.And("the parent report has a group traversal on a collection inside a detail band");
+#line 22
+ testRunner.And("the group contains a subreport in its footer band");
+#line 23
+ testRunner.When("the report engine runs");
+#line 24
  testRunner.Then("the subreport should have the same datasource as the containing group\'s datasourc" +
                     "e collection");
 #line hidden
@@ -120,22 +126,22 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void SubreportInsideOfAGroupDetailBand()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Subreport inside of a group detail band", ((string[])(null)));
-#line 23
-this.ScenarioSetup(scenarioInfo);
-#line 24
- testRunner.Given("A parent report exists");
-#line 25
- testRunner.And("the parent report has a datasource");
 #line 26
- testRunner.And("the parent report has a group traversal on a collection inside a detail band");
+this.ScenarioSetup(scenarioInfo);
 #line 27
- testRunner.And("the group\'s detail band has a subreport");
+ testRunner.Given("A parent report exists");
 #line 28
- testRunner.When("the report engine runs");
+ testRunner.And("the parent report has a datasource");
 #line 29
+ testRunner.And("the parent report has a group traversal on a collection inside a detail band");
+#line 30
+ testRunner.And("the group contains a subreport in its detail band");
+#line 31
+ testRunner.When("the report engine runs");
+#line 32
  testRunner.Then("each subreport instance should have a collection datasource containing only one i" +
                     "tem");
-#line 30
+#line 33
  testRunner.And("each subreport instance\'s datasource contains the same datasource as the containi" +
                     "ng group\'s detail band");
 #line hidden

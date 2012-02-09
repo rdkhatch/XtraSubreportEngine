@@ -19,18 +19,11 @@ namespace XtraSubReports.Runtime.Specs.Steps
     public class ActionsExecuteRecursivelySteps
     {
         private XtraReport _report;
-
-        private GlobalXRSubscriber _subscriber;
-        private IRuntimeActionFacade _actionFacade;
-
         private XRLabel _changeMeLabel;
         private XRLabel _dontChangeMeLabel;
-
         private IReportRuntimeAction _action;
         private int _counter;
         private MyReportBase _newReport;
-
-
         private XRLabel _newChangeMeLabel;
         private XRLabel _newDontChangeMeLabel;
         private XRReportController _controller;
@@ -90,8 +83,6 @@ namespace XtraSubReports.Runtime.Specs.Steps
         [When(@"the report engine runs")]
         public void WhenTheReportEngineRuns()
         {
-
-
             _newReport = _controller.Print(r => r.ExportToMemory());
 
             _newChangeMeLabel = (XRLabel)_newReport.Bands[0].Controls[_changeMeLabel.Name];

@@ -68,6 +68,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\ActionsExecuteRecursivelySteps.cs" />
+    <Compile Include="Steps\SubReportRecievesDatasourceWithPathTraversal.cs" />
     <Compile Include="Steps\SubReportRecievesDatasourceWithoutPathTraversal.cs" />
     <Compile Include="SubreportRecievesDataSourceWithCollectionPathTraversal.feature.cs">
       <AutoGen>True</AutoGen>
