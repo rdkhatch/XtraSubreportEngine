@@ -9,28 +9,26 @@ using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.RuntimeActions
 {
-     public class PassSubreportDataSourceRuntimeAction : ReportRuntimeAction<XRSubreport>
+     public sealed class PassSubreportDataSourceRuntimeAction : ReportRuntimeActionBase<XRSubreport>
     {
-        private static readonly Func<XRSubreport, bool> Predicate = s => true;
+         private readonly Action<XRSubreport, object> _nestedAction;
 
         public PassSubreportDataSourceRuntimeAction()
             : this(null)
         {
         }
 
-        private static void OnPerformAction(XRSubreport subReport, Action<XRSubreport, object> nestedAction)
-        {
-            var ds = RunTimeHelper.SetDataSourceOnSubreport(subReport);
-
-            if (nestedAction != null)
-                nestedAction(subReport,ds);
-        }
-
         public PassSubreportDataSourceRuntimeAction(Action<XRSubreport, object> nestedAction)
-            : base( Predicate,r=> OnPerformAction(r, nestedAction))
-                                  
         {
+            _nestedAction = nestedAction;
         }
 
+         protected override void PerformAction(XRSubreport control)
+         {
+             var ds = RunTimeHelper.SetDataSourceOnSubreport(control);
+
+             if (_nestedAction != null)
+                 _nestedAction(control, ds);
+         }
     }
 }

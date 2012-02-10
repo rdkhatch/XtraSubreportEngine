@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using DevExpress.XtraReports.UI;
 using FluentAssertions;
 using NUnit.Framework;
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Engine;
 using XtraSubreport.Engine.Eventing;
 using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreportEngine.Support;
@@ -13,9 +15,62 @@ using XtraSubreportEngine.Support;
 namespace XtraSubReports.Runtime.UnitTests
 {
     [TestFixture]
-    public class MyTestFixture
+    public class GeneralUnitTests
     {
         private int _counter;
+
+        [Test]
+        public void applies_to_entire_report()
+        {
+            var color = Color.Green;
+            var action = new ReportRuntimeAction<XtraReport>(r => true, r => r.BackColor = color);
+
+            var report = new ReportFactory().GetNewReport();
+            var newReport = new XRReportController(report, new XRRuntimeActionFacade(action)).Print(r => r.ExportToMemory());
+
+            Assert.AreEqual(color, newReport.BackColor);
+        }
+
+        [Test]
+        public void predicate_prevents_applying_action()
+        {
+            const string transformText = "Jeremiah";
+            var action = new ReportRuntimeAction<XRLabel>((l) => l.Text != string.Empty, (l) => l.Text = transformText);
+
+            var label1 = new XRLabel { Text = string.Empty };
+            var label2 = new XRLabel { Text = "ChangeMe" };
+
+            var report = new ReportFactory().GetNewReport();
+            report.Bands[0].Controls.Add(label1);
+            report.Bands[0].Controls.Add(label2);
+
+            new XRReportController(report, new XRRuntimeActionFacade(action)).Print(r => r.ExportToMemory());
+
+            Assert.AreNotEqual(transformText, label1.Text);
+            Assert.AreEqual(transformText, label2.Text);
+        }
+
+        [Test]
+        public void Should_fire_actions_on_table_members()
+        {
+            var transformColor = Color.Blue;
+            var action = new ReportRuntimeAction<XRControl>(c => true, c => c.BackColor = transformColor);
+
+            var table = new XRTable();
+            var row = new XRTableRow();
+            var cell = new XRTableCell();
+            row.Cells.Add(cell);
+            table.Rows.Add(row);
+
+            var report = new ReportFactory().GetNewReport();
+            report.Bands[0].Controls.Add(table);
+
+            //var subscriber = XRRuntimeSubscriber.SubscribeWithActions(action);
+            new XRReportController(report, new XRRuntimeActionFacade(action)).Print(r => r.ExportToMemory());
+            
+
+            Assert.AreEqual(transformColor, cell.BackColor);
+        }
 
         [Test]
         public void Should_convert_subreport_to_myReportBase()
@@ -92,7 +147,7 @@ namespace XtraSubReports.Runtime.UnitTests
 
                                     };
             int counter = 0;
-            var action = new ReportRuntimeAction<XRLabel>(l =>
+            var action = ReportRuntimeAction<XRLabel>.WithNoPredicate(l =>
                                                               {
                                                                   counter++;
                                                                   textvalues.Add(new Tuple<int, string>(l.Report.GetHashCode(), l.Text));
@@ -138,7 +193,7 @@ namespace XtraSubReports.Runtime.UnitTests
 
                                     };
             int counter = 0;
-            var action = new ReportRuntimeAction<XRLabel>(l =>
+            var action = ReportRuntimeAction<XRLabel>.WithNoPredicate(l =>
             {
                 counter++;
                 textvalues.Add(new Tuple<int, string>(l.Report.GetHashCode(), l.Text));

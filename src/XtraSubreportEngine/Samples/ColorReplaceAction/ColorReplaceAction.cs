@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using ColorReplaceAction.Configuration;
@@ -10,8 +11,10 @@ namespace ColorReplaceAction
     [ReportRuntimeActionExportAttribute("Color Replacer", "Replaces ForeColors, BackColors, and BorderColors of any report label using a config file.")]
     public class ColorReplacerAction : ReportRuntimeActionBase<XRLabel>
     {
-        ColorReplaceActionConfiguration _config;
+        private readonly ColorReplaceActionConfiguration _config;
 
+        #region Constructors
+        
         public ColorReplacerAction()
             : this(GetDefaultConfigFilePath())
         {
@@ -23,44 +26,44 @@ namespace ColorReplaceAction
         }
 
         public ColorReplacerAction(ColorReplaceActionConfiguration config)
-            : base(control => true, null)
         {
             _config = config;
-
-            _action = control =>
-            {
-                control.ForeColor = GetReplacementColor(control.ForeColor, ColorLocation.ForeColor);
-                control.BackColor = GetReplacementColor(control.BackColor, ColorLocation.BackColor);
-                control.BorderColor = GetReplacementColor(control.BorderColor, ColorLocation.BorderColor);
-            };
         }
 
-        private Color GetReplacementColor(Color color, ColorLocation location)
+        #endregion
+
+        #region Assets
+        
+
+        private static Color GetReplacementColor(Color color, ColorLocation location, ColorReplaceActionConfiguration config)
         {
-            var q = from definition in _config.ColorReplaceDefinitions
+            var q = from definition in config.ColorReplaceDefinitions
                     where location == definition.Location
                     where color.ToArgb() == definition.FromColor.ToArgb()
                     select definition;
 
             var colorChange = q.SingleOrDefault();
 
-            if (colorChange != null)
-                // Replace Color
-                return colorChange.ToColor;
-            else
-                // Same Color
-                return color;
+            return colorChange != null ? colorChange.ToColor : color;
         }
 
         private static string GetDefaultConfigFilePath()
         {
             // Default config file location
             var assemblyPath = Path.GetDirectoryName(typeof(ColorReplacerAction).Assembly.Location) + @"\";
-            var fileName = @"ColorReplaceAction.config";
+            const string fileName = @"ColorReplaceAction.config";
             var filePath = System.IO.Path.Combine(assemblyPath, fileName);
 
             return filePath;
         }
 
+        #endregion
+
+        protected override void PerformAction(XRLabel control)
+        {
+            control.ForeColor = GetReplacementColor(control.ForeColor, ColorLocation.ForeColor, _config);
+            control.BackColor = GetReplacementColor(control.BackColor, ColorLocation.BackColor, _config);
+            control.BorderColor = GetReplacementColor(control.BorderColor, ColorLocation.BorderColor, _config);            
+        }
     }
 }

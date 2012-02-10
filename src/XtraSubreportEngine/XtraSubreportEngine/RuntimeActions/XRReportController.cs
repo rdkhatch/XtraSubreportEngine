@@ -34,7 +34,7 @@ namespace XtraSubreport.Engine.RuntimeActions
 
         protected void RegisterFor<T>(Action<T> toDo) where T : XRControl
         {
-            var action = new ReportRuntimeAction<T>(toDo);
+            var action = ReportRuntimeAction<T>.WithNoPredicate(toDo);
             _toDos.Add(action);
         }
 

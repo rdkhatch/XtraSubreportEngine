@@ -47,8 +47,8 @@ namespace XtraSubReports.Runtime.UnitTests
             var counterA = 0;
             var counterB = 0;
 
-            var actionA = new ReportRuntimeAction<XRControl>(c => counterA++);
-            var actionB = new ReportRuntimeAction<XRControl>(c => counterB++);
+            var actionA = ReportRuntimeAction<XRControl>.WithNoPredicate(c => counterA++);
+            var actionB = ReportRuntimeAction<XRControl>.WithNoPredicate(c => counterB++);
             var facadeA = new XRRuntimeActionFacade(actionA);
             var facadeB = new XRRuntimeActionFacade(actionB);
 
