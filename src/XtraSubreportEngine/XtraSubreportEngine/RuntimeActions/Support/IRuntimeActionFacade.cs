@@ -2,7 +2,7 @@
 
 namespace XtraSubreport.Engine.RuntimeActions
 {
-    public interface IRuntimeActionController
+    public interface IRuntimeActionFacade
     {
         void AttemptActionsOnControl(XRControl control);
     }

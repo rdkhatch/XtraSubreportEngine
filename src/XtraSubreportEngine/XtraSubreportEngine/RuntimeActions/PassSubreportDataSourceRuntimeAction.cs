@@ -5,19 +5,30 @@ using System.Text;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.Native;
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.RuntimeActions
 {
-    public class PassSubreportDataSourceRuntimeAction : ReportRuntimeActionBase<XRSubreport>
+     public class PassSubreportDataSourceRuntimeAction : ReportRuntimeAction<XRSubreport>
     {
-        private static Func<XRSubreport, bool> predicate = (subreport) => true;
-        private static Action<XRSubreport> action = (subreport) =>
-            {
-                RunTimeHelper.SetDataSourceOnSubreport(subreport);
-            };
+        private static readonly Func<XRSubreport, bool> Predicate = s => true;
 
         public PassSubreportDataSourceRuntimeAction()
-            : base( predicate, action)
+            : this(null)
+        {
+        }
+
+        private static void OnPerformAction(XRSubreport subReport, Action<XRSubreport, object> nestedAction)
+        {
+            var ds = RunTimeHelper.SetDataSourceOnSubreport(subReport);
+
+            if (nestedAction != null)
+                nestedAction(subReport,ds);
+        }
+
+        public PassSubreportDataSourceRuntimeAction(Action<XRSubreport, object> nestedAction)
+            : base( Predicate,r=> OnPerformAction(r, nestedAction))
+                                  
         {
         }
 
