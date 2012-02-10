@@ -73,6 +73,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <ApplicationRevision>$(BUILD_NUMBER)</ApplicationRevision>
     <InstallUrl>$(INSTALL_URL)</InstallUrl>
+    <UpdateUrl>$(UPDATE_URL)</UpdateUrl>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v11.2.Core, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
