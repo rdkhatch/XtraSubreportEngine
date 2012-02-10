@@ -1,5 +1,7 @@
-﻿using DevExpress.XtraReports.UserDesigner;
+﻿using DevExpress.XtraReports.UI;
+using DevExpress.XtraReports.UserDesigner;
 using XtraSubreport.Engine.Designer;
+using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreportEngine;
 
 namespace XtraSubReport.Tests
@@ -8,6 +10,11 @@ namespace XtraSubReport.Tests
     {
         public DataSourceLocator DataSourceLocator { get; private set; }
         public XRDesignForm DesignForm { get; private set; }
+
+        public IReportController GetController(XtraReport report)
+        {
+            throw new System.NotImplementedException("When is this called?");
+        }
 
         public DummyDesignerContext()
         {

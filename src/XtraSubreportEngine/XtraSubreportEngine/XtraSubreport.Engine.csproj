@@ -69,6 +69,7 @@
     <Compile Include="Datasources\DataSourceLocator.cs" />
     <Compile Include="Datasources\ObjectGraphPathTraverser.cs" />
     <Compile Include="Extensions\DesignTimeHelper.cs" />
+    <Compile Include="Extensions\PreviewCommandHandler.cs" />
     <Compile Include="Extensions\RunTimeHelper.cs" />
     <Compile Include="Eventing\EventAggregator.cs" />
     <Compile Include="RuntimeActions\IReportController.cs" />

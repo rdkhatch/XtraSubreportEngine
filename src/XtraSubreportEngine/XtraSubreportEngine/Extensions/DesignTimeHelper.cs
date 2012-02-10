@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraReports.UI;
+using DevExpress.XtraReports.UserDesigner;
 using GeniusCode.Framework.Extensions;
 using GeniusCode.Framework.Support.Collections.Tree;
 using XtraSubreport.Contracts.DataSources;
@@ -115,6 +116,9 @@ namespace XtraSubreport.Engine
                     }
 #endif
                 };
+
+                designPanel.SetCommandVisibility(ReportCommand.ShowScriptsTab, CommandVisibility.None);
+                controller.AddCommandHandler(new PreviewCommandHandler(designPanel,designContext));
 
             });
         }

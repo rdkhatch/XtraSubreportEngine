@@ -3,23 +3,115 @@ using DevExpress.XtraReports.UI;
 
 namespace XtraSubreport.Contracts.RuntimeActions
 {
-    public class ReportRuntimeAction<T> : IReportRuntimeAction<T>
+
+    public abstract class ReportRuntimeActionBase : IReportRuntimeAction
+    {
+        protected virtual bool ReturnShouldApplyAction(XRControl control)
+        {
+            return true;
+        }
+
+        Func<XRControl, bool> IReportRuntimeAction.ActionPredicate
+        {
+            get { return ReturnShouldApplyAction; }
+        }
+
+        protected abstract void PerformAction(XRControl control);
+
+        public Action<XRControl> ActionToApply
+        {
+            get { return PerformAction; }
+        }
+
+        protected abstract Type GetActionTargetType();
+
+        public Type ApplyToControlType
+        {
+            get { return GetActionTargetType(); }
+        }
+    }
+
+    public abstract class ReportRuntimeActionBase<T> : ReportRuntimeActionBase, IReportRuntimeAction<T>
+        where T: XRControl
+    {
+
+        protected sealed override bool ReturnShouldApplyAction(XRControl control)
+        {
+            return this.ReturnShouldApplyAction((T) control);
+        }
+
+        protected virtual bool ReturnShouldApplyAction(T control)
+        {
+            return true;
+        }
+
+        Func<T, bool> IReportRuntimeAction<T>.Predicate
+        {
+            get { return this.ReturnShouldApplyAction; }
+        }
+
+        protected sealed override void PerformAction(XRControl control)
+        {
+            this.PerformAction((T)control);
+        }
+
+        protected abstract void PerformAction(T control);
+
+        Action<T> IReportRuntimeAction<T>.ActionToApply
+        {
+            get { return this.PerformAction; }
+        }
+
+        protected sealed override Type  GetActionTargetType()
+        {
+            return typeof (T);
+        }
+    }
+
+    public sealed class ReportRuntimeAction<T> : ReportRuntimeActionBase<T> where T : XRControl
+    {
+        private readonly Func<T, bool> _predicate;
+        private readonly Action<T> _action;
+
+        public static ReportRuntimeAction<T> WithNoPredicate(Action<T> action)
+        {
+            return new ReportRuntimeAction<T>(a=> true,action);
+        }
+
+        public ReportRuntimeAction (Func<T,bool> predicate, Action<T> action)
+        {
+            _predicate = predicate;
+            _action = action;
+        }
+
+        protected override bool  ReturnShouldApplyAction(T control)
+        {
+            return _predicate(control);
+        }
+
+        protected override void PerformAction(T control)
+        {
+            _action(control);
+        }
+    }
+
+/*    public class ReportRuntimeAction2<T> : IReportRuntimeAction<T>
         where T : XRControl
     {
         private Func<T, bool> _predicate;
         private readonly Action<T> _action;
 
-        protected ReportRuntimeAction()
+        protected ReportRuntimeAction2()
         {
             // If you want to inherit, you can
         }
 
-        public ReportRuntimeAction(Action<T> action)
+        public ReportRuntimeAction2(Action<T> action)
             : this(a=> true, action)
         {
         }
 
-        public ReportRuntimeAction(Func<T, bool> predicate, Action<T> action)
+        public ReportRuntimeAction2(Func<T, bool> predicate, Action<T> action)
             : this()
         {
             _predicate = predicate;
@@ -76,5 +168,5 @@ namespace XtraSubreport.Contracts.RuntimeActions
         {
             get { return typeof(T); }
         }
-    }
+    }*/
 }
