@@ -13,8 +13,8 @@ namespace XtraSubreport.Engine
         {
             var subreports = report.FindAllSubreports();
 
-            foreach (var subreport in subreports)
-                PassDatasourceToSubreport(subreport);
+            foreach (var subreportContainer in subreports)
+                PassDatasourceToSubreport(subreportContainer);
         }
 
         #region Helper Methods
@@ -23,8 +23,8 @@ namespace XtraSubreport.Engine
         {
             subreportContainer.BeforePrint += (sender, e) =>
             {
-                var subreport = (XRSubreport)sender;
-                SetDataSourceOnSubreport(subreport);
+                var subreportContainer = (XRSubreport)sender;
+                SetDataSourceOnSubreport(subreportContainer);
             };
         }
 */
@@ -44,21 +44,36 @@ namespace XtraSubreport.Engine
             return datasource;
         }
 
-        public static int SetRootHashCodeOnSubreport(XRSubreport subreport)
+        public static int SetRootHashCodeOnSubreport(XRSubreport subreportContainer)
         {
-            var hashcode = ((MyReportBase)subreport.Report).RootHashCode;
+            var myReportBase = subreportContainer.NavigateToMyReportBase();
+            var hashcode = myReportBase.RootHashCode;
 
             if(hashcode == 0)
                 throw new Exception("Report did not have a root hashcode.");
 
-            var report = (MyReportBase)subreport.ReportSource ;
-            report.RootHashCode = hashcode;              
+            var subreportAsMyReportbase = ConvertReportSourceToMyReportBaseIfNeeded(subreportContainer);
+
+            if (subreportAsMyReportbase != null)
+                subreportAsMyReportbase.RootHashCode = hashcode;              
 
             return hashcode;
         }
 
+        private static MyReportBase ConvertReportSourceToMyReportBaseIfNeeded(XRSubreport subreportContainer)
+        {
+            var subreportAsMyReportbase = subreportContainer.ReportSource as MyReportBase;
+
+            if (subreportAsMyReportbase == null)
+            {
+                subreportAsMyReportbase = subreportContainer.ReportSource.ConvertReportToMyReportBase();
+                subreportContainer.ReportSource = subreportAsMyReportbase;
+            }        
+
+            return subreportAsMyReportbase;
+        }
 
 
-     //   #endregion
+        //   #endregion
     }
 }

@@ -67,18 +67,24 @@
     </Compile>
     <Compile Include="Extensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Steps\ActionsExecuteRecursivelySteps.cs" />
-    <Compile Include="Steps\SubReportRecievesDatasourceWithPathTraversal.cs" />
-    <Compile Include="Steps\SubReportRecievesDatasourceWithoutPathTraversal.cs" />
-    <Compile Include="SubreportRecievesDataSourceWithCollectionPathTraversal.feature.cs">
+    <Compile Include="SetImagesUsingAction.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SubreportRecievesDataSourceWithCollectionPathTraversal.feature</DependentUpon>
+      <DependentUpon>SetImagesUsingAction.feature</DependentUpon>
     </Compile>
-    <Compile Include="SubreportRecievesDatasourceWithoutPathTraversal.feature.cs">
+    <Compile Include="Steps\ActionsExecuteRecursivelySteps.cs" />
+    <Compile Include="Steps\SetImagesUsingActionsSteps.cs" />
+    <Compile Include="Steps\SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.cs" />
+    <Compile Include="Steps\SubReportIsPassedCorrectDatasource.cs" />
+    <Compile Include="SubreportInsideOfDetailReportBandIsPassedCorrectDatasource1.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SubreportRecievesDatasourceWithoutPathTraversal.feature</DependentUpon>
+      <DependentUpon>SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.feature</DependentUpon>
+    </Compile>
+    <Compile Include="SubReportIsPassedCorrectDatasource1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SubReportIsPassedCorrectDatasource.feature</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -88,13 +94,17 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="SubreportRecievesDataSourceWithCollectionPathTraversal.feature">
+    <None Include="SetImagesUsingAction.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SubreportRecievesDataSourceWithCollectionPathTraversal.feature.cs</LastGenOutput>
+      <LastGenOutput>SetImagesUsingAction.feature.cs</LastGenOutput>
     </None>
-    <None Include="SubreportRecievesDatasourceWithoutPathTraversal.feature">
+    <None Include="SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>SubreportRecievesDatasourceWithoutPathTraversal.feature.cs</LastGenOutput>
+      <LastGenOutput>SubreportInsideOfDetailReportBandIsPassedCorrectDatasource1.feature.cs</LastGenOutput>
+    </None>
+    <None Include="SubReportIsPassedCorrectDatasource.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>SubReportIsPassedCorrectDatasource1.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +120,11 @@
       <Project>{B3254A1C-0A73-4A04-9B96-268E3F66CD38}</Project>
       <Name>XtraSubReports.Runtime.UnitTests</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Steps\Penguins.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

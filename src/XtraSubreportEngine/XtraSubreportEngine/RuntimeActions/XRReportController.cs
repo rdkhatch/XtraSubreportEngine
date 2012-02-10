@@ -47,7 +47,7 @@ namespace XtraSubreport.Engine.RuntimeActions
             OnRegisterAdditionalActions();
             var additionalActionsFacade = new XRRuntimeActionFacade(_toDos.ToArray());
 
-            var newView = CloneInMemory(_view);
+            var newView = _view.ConvertReportToMyReportBase();
             newView.RootHashCode = newView.GetHashCode();
             _subscriber = new ScopedXRSubscriber(newView.RootHashCode, c =>
                                                                            {
@@ -59,19 +59,6 @@ namespace XtraSubreport.Engine.RuntimeActions
                                                                            });
             printAction(newView);
             return newView;
-        }
-
-        private static MyReportBase CloneInMemory(XtraReport report)
-        {
-            var stream = new MemoryStream();
-            report.SaveLayout(stream);
-            stream.Position = 0;
-
-            var newReport = new MyReportBase();
-            newReport.LoadLayout(stream);
-            newReport.DataSource = report.DataSource;
-
-            return newReport;
         }
 
         public void Dispose()

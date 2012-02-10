@@ -1,7 +1,7 @@
-﻿Feature: Subreport recieves datasource without path traversal
-	In order to avoid silly mistakes
-	As a math idiot
-	I want to be told the sum of two numbers
+﻿Feature: Subreport is passed correct datasource
+	In order to easily build reports without writing any code
+	As a report designer
+	I want my sub reports to share datasources automatically
 
 @mytag
 Scenario: Subreport inside of a header band
@@ -15,6 +15,7 @@ Scenario: Subreport inside of a header band
 	Then the subreport's datasource should be the same as the parent report's datasource
 	And the subreport's datasource should not be null
 	And the subreport action should have been fired 1 time(s)
+
 
 Scenario: Subreport inside of a footer band
 	Given A parent report exists

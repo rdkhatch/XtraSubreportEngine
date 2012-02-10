@@ -38,9 +38,20 @@ namespace XtraSubreport.Engine.RuntimeActions
 
     private void AttachToControl(XRControl control)
     {
-        control.BeforePrint -= control_BeforePrint;
-        control.BeforePrint += control_BeforePrint;
+        var hashcode = control.GetHashCode();
+
+        if (!_listenedInstances.Contains(hashcode))
+        {
+            control.BeforePrint += control_BeforePrint;
+            _listenedInstances.Add(hashcode);
+        }
+
+        //control.BeforePrint -= control_BeforePrint;
+        
     }
+
+
+    private readonly List<int> _listenedInstances = new List<int>(); 
 
     private void control_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
     {
@@ -57,7 +68,6 @@ namespace XtraSubreport.Engine.RuntimeActions
         // Set Root Hashcode On SubReport Here:
         control.TryAs<XRSubreport>(sr => RunTimeHelper.SetRootHashCodeOnSubreport(sr));
 
-
         // Self
         PublishScopedMessage(control);
 
@@ -72,7 +82,7 @@ namespace XtraSubreport.Engine.RuntimeActions
 
     private void PublishScopedMessage(XRControl control)
     {
-        var hashcode = ((MyReportBase) control.Report).RootHashCode;
+        var hashcode = control.NavigateToMyReportBase().RootHashCode;
         var message = new ScopedXRControlBeforePrintMessage(hashcode, control);
         _eventAggregator.Publish(message);
     }
@@ -82,21 +92,24 @@ namespace XtraSubreport.Engine.RuntimeActions
         if (control is XRSubreport) return VisitSubreportPlaceholderChildren(control as XRSubreport);
         if (control is XRTable) return VisitTableChildren(control as XRTable);
         if (control is XRTableRow) return VisitTableRowChildren(control as XRTableRow);
+        if (control is XtraReportBase)
+        {
+            return (control as XtraReportBase).Bands.OfType<Band>().SelectMany(VisitBandChildren).ToList();
+        }
         if (control is Band) return VisitBandChildren(control as Band);
 
         return control.Controls.Cast<XRControl>().ToList();
     }
 
-    private List<XRControl> VisitBandChildren(Band band)
-    {
-        
 
+        private List<XRControl> VisitBandChildren(Band band)
+    {
         // Special Controls - Bands & Subreport Placeholders (which need additional event handlers)
         var childBands = band.Controls.OfType<Band>().ToList();
         var subreportPlaceholders = band.Controls.OfType<XRSubreport>().ToList();
 
         // Attach to Special Controls
-        childBands.ForEach(AttachToControl);  //BUG: Not firing
+        childBands.ForEach(AttachToControl);  
         subreportPlaceholders.ForEach(AttachToControl);
 
         var ignore = childBands.Concat(subreportPlaceholders.Cast<XRControl>());
@@ -107,11 +120,12 @@ namespace XtraSubreport.Engine.RuntimeActions
 
     private List<XRControl> VisitSubreportPlaceholderChildren(XRSubreport placeholder)
     {
-        // Subreport
+/*        // Subreport
         XtraReport subreport = placeholder.ReportSource;
         Visit(subreport);
 
         // Return empty collection
+        return new List<XRControl>();*/
         return new List<XRControl>();
     }
 

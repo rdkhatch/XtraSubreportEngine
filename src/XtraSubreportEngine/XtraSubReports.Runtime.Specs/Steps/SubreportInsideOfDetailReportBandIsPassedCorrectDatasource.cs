@@ -1,33 +1,26 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using DevExpress.XtraReports.UI;
 using FluentAssertions;
-using GeniusCode.Framework.Extensions;
 using TechTalk.SpecFlow;
 using XtraSubReports.Runtime.UnitTests;
-using XtraSubreport.Contracts.RuntimeActions;
-using XtraSubreport.Engine;
-using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReports.Runtime.Specs.Steps
 {
     [Binding]
-    [Scope(Feature = "Subreport Recieves Datasource With Collection Path Traversal")]
-    public class SubReportRecievesDatasourceWithPathTraversal
+    [Scope(Feature = "Subreport Inside of a Detail Report Band is passed the correct Datasource")]
+    public class SubreportInsideOfDetailReportBandIsPassedCorrectDatasource
     {
         private XtraReport _parentReport;
         private string _subReportFilePath;
         private XRSubreport _xrSubreportContainer;
         private int _counter;
 
-        private readonly HashSet<Person2> _personDataSources = new HashSet<Person2>();
-        private readonly HashSet<Dog> _dogDatasources = new HashSet<Dog>();
+        
+        private readonly List<object> _datasources = new List<object>();
         private DataSourceTrackingController _controller;
         
         private DetailReportBand _detailReport;
@@ -64,21 +57,20 @@ namespace XtraSubReports.Runtime.Specs.Steps
         }
 
 
-        [Given(@"the parent report has a group traversal on a collection inside a detail band")]
-        public void GivenTheParentReportHasAGroupTraversalOnACollectionInsideADetailBand()
+        [Given(@"the parent report has a detail report band with a datamember of dogs")]
+        public void GivenTheParentReportHasADetailReportBandWithADatamemberOfDogs()
         {
-
+            _parentReport.Bands.Add(new DetailBand());
             _detailReport = new DetailReportBand();
             _detailReport.DataMember = "Dogs";
-            //_detailReport.DataSource = _parentReport.DataSource;
             _detailReport.Level = 0;
             _detailReport.Name = "DetailReport";
 
             _parentReport.Bands.Add(_detailReport);
         }
 
-        [Given(@"the group contains a subreport in its (.*) band")]
-        public void GivenTheXRSubreportContainerExistsInTheParentReportBand(string location)
+        [Given(@"the detail report band contains a subreport in its (.*) band")]
+        public void GivenTheDetailReportBandContainsASubreportInItsHeaderBand(string location)
         {
             Band band;
             switch (location.ToUpper())
@@ -114,26 +106,9 @@ namespace XtraSubReports.Runtime.Specs.Steps
             _controller = new DataSourceTrackingController(_parentReport,(s,o)=>
                                                                              {
                                                                                  _counter++;
-
-                                                                                 o.TryAs<Dog>(
-                                                                                     d => _dogDatasources.Add(d));
-
-                                                                                 o.TryAs<Person2>(p=> _personDataSources.Add(p));
-
-
-                                                                                 o.TryAs<List<object>>(ol =>
-                                                                                                           {
-                                                                                                               ol.OfType<Person2>().ForAll(p => _personDataSources.Add(p));
-                                                                                                               ol.OfType<Dog>().ForAll(d => _dogDatasources.Add(d));
-                                                                                                           });
-
-                                                                                 o.TryAs<List<Person2>>(ol => ol.ForEach(p=> _personDataSources.Add(p)));
-                                                                                 o.TryAs<List<Dog>>(ol => ol.ForEach(d => _dogDatasources.Add(d)));
+                                                                                 _datasources.Add(o);
                                                                              });
-
         }
-
-
 
         [When(@"the report engine runs")]
         public void WhenTheReportEngineRuns()
@@ -144,11 +119,31 @@ namespace XtraSubReports.Runtime.Specs.Steps
         [Then(@"the subreport should have the same datasource as the containing group's datasource collection")]
         public void ThenTheSubreportShouldHaveTheSameDatasourceAsTheContainingGroupSDatasourceCollection()
         {
-            _dogDatasources.Count.Should().Be(6);
-            _personDataSources.Count.Should().Be(3);
+            var q = _datasources.OfType<List<Dog>>().SelectMany(t => t);
+            q.Count().Should().Be(6);
+            _counter.Should().Be(3);
         }
 
+        [Then(@"each subreport should have a datasource containing a single item")]
+        public void ThenEachSubreportShouldHaveACollectionDatasourceContainingOnlyOneItem()
+        {
+            _datasources.OfType<Dog>().Count().Should().Be(6);
+        }
 
+        [Then(@"each subreport datasource contains the same datasource as the containing group's detail band")]
+        public void ThenEachSubreportDatasourceContainsTheSameDatasourceAsTheContainingGroupSDetailBand()
+        {
+            var datasources = _datasources.OfType<Dog>().ToList();
+
+            var mainds = (List<Person2>) _parentReport.DataSource;
+
+            mainds[0].Dogs[0].Should().BeSameAs(datasources[0]);
+            mainds[0].Dogs[1].Should().BeSameAs(datasources[1]);
+            mainds[1].Dogs[0].Should().BeSameAs(datasources[2]);
+            mainds[1].Dogs[1].Should().BeSameAs(datasources[3]);
+            mainds[2].Dogs[0].Should().BeSameAs(datasources[4]);
+            mainds[2].Dogs[1].Should().BeSameAs(datasources[5]);
+        }
 
 
     }

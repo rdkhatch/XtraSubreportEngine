@@ -38,13 +38,19 @@ namespace XtraSubreport.Engine.RuntimeActions
             VisitMethodRecursively(message);
         }
 
-        public readonly List<WeakReference> Visitors = new List<WeakReference>();
+        public readonly Dictionary<int,WeakReference> Visitors = new Dictionary<int, WeakReference>();
 
         private void VisitMethodRecursively(XRBeforePrintMessage message)
         {
+            var incomingHashcode = message.Report.GetHashCode();
+
+            // prevent multiple visitors on the same report.
+            // a report can print multiple times if it is a subreport
+            if (Visitors.ContainsKey(incomingHashcode)) return;
+
             using (var visitor = new XRRuntimeVisitor(_aggregator, message.Report)) 
             {
-                Visitors.Add( new WeakReference(visitor));
+                Visitors.Add(incomingHashcode, new WeakReference(visitor));
                 visitor.Visit();
             }
         }

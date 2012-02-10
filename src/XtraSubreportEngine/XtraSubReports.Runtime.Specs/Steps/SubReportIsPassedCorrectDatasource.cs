@@ -18,8 +18,8 @@ using XtraSubreportEngine.Support;
 namespace XtraSubReports.Runtime.Specs.Steps
 {
     [Binding]
-    [Scope(Feature = "Subreport recieves datasource without path traversal")]
-    public class SubReportRecievesDatasourceWithoutPathTraversal
+    [Scope(Feature = "Subreport is passed correct datasource")]
+    public class SubReportIsPassedCorrectDatasource
     {
         private XtraReport _parentReport;
         private string _subReportFilePath;
@@ -57,7 +57,7 @@ namespace XtraSubReports.Runtime.Specs.Steps
         {
             _subReportFilePath = Helpers.GetNewTempFile() + ".repx";
             Path.GetDirectoryName(_subReportFilePath).Should().NotBeNullOrEmpty();
-            var subReport = new MyReportBase();
+            var subReport = new XtraReport();
             subReport.SaveLayout(_subReportFilePath);
             File.Exists(_subReportFilePath).Should().BeTrue();
         }

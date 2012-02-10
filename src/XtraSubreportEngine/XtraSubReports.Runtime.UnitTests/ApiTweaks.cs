@@ -69,9 +69,9 @@ namespace XtraSubReports.Runtime.UnitTests
             var controllerA = new XRReportController(view);
             var view2 = controllerA.Print(r => r.ExportToMemory());
             
-            GlobalXRSubscriber.Singleton.Visitors.Count(wr => wr.IsAlive && ((XRRuntimeVisitor)wr.Target).ReportHashcode == view2.RootHashCode).Should().Be(1);
+            GlobalXRSubscriber.Singleton.Visitors.Values.Count(wr => wr.IsAlive && ((XRRuntimeVisitor)wr.Target).ReportHashcode == view2.RootHashCode).Should().Be(1);
             GC.Collect();
-            GlobalXRSubscriber.Singleton.Visitors.Count(wr => wr.IsAlive && ((XRRuntimeVisitor)wr.Target).ReportHashcode == view2.RootHashCode).Should().Be(0);
+            GlobalXRSubscriber.Singleton.Visitors.Values.Count(wr => wr.IsAlive && ((XRRuntimeVisitor)wr.Target).ReportHashcode == view2.RootHashCode).Should().Be(0);
         }
         
 
