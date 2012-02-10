@@ -17,15 +17,19 @@ namespace XtraSubreportEngine.Support
         public XRSerializableCollection<DesignTimeDataSourceDefinition> DesignTimeDataSources { get; set; }
 
         public MyReportBase()
-            : base()
         {
             DesignTimeDataSources = new XRSerializableCollection<DesignTimeDataSourceDefinition>();
         }
 
+        /// <summary>
+        /// Hashcode of Root Report
+        /// </summary>
+        public int RootHashCode { get; set; }
+
         protected override void DeclareCustomProperties()
         {
             // Serialize DesignTimeDataSources collection into .REPX file
-            DeclareCustomObjectProperty(() => this.DesignTimeDataSources);
+            DeclareCustomObjectProperty(() => DesignTimeDataSources);
         }
 
         protected override void OnBeforePrint(System.Drawing.Printing.PrintEventArgs e)
@@ -37,6 +41,7 @@ namespace XtraSubreportEngine.Support
 
             base.OnBeforePrint(e);
         }
+
 
     }
 }

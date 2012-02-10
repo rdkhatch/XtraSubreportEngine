@@ -3,11 +3,11 @@ using DevExpress.XtraReports.UI;
 
 namespace XtraSubreport.Contracts.RuntimeActions
 {
-    public interface IReportRuntimeAction<T> : IReportRuntimeAction
+    public interface IReportRuntimeAction<in T> : IReportRuntimeAction
         where T : XRControl
     {
         Func<T, bool> Predicate { get; }
-        Action<T> ActionToApply { get; }
+        new Action<T> ActionToApply { get; }
     }
 
     public interface IReportRuntimeAction

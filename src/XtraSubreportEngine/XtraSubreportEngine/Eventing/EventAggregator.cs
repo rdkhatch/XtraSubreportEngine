@@ -91,7 +91,7 @@ namespace XtraSubreport.Engine.Eventing
         /// </summary>
         public static Action<System.Action> DefaultPublicationThreadMarshaller = action => action();
 
-        readonly List<Handler> handlers = new List<Handler>();
+        readonly List<Handler> _handlers = new List<Handler>();
 
         /// <summary>
         ///   Initializes a new instance of the <see cref = "EventAggregator" /> class.
@@ -115,12 +115,12 @@ namespace XtraSubreport.Engine.Eventing
         /// <param name = "instance">The instance to subscribe for event publication.</param>
         public virtual void Subscribe(object instance)
         {
-            lock (handlers)
+            lock (_handlers)
             {
-                if (handlers.Any(x => x.Matches(instance)))
+                if (_handlers.Any(x => x.Matches(instance)))
                     return;
 
-                handlers.Add(new Handler(instance));
+                _handlers.Add(new Handler(instance));
             }
         }
 
@@ -130,12 +130,12 @@ namespace XtraSubreport.Engine.Eventing
         /// <param name = "instance">The instance to unsubscribe.</param>
         public virtual void Unsubscribe(object instance)
         {
-            lock (handlers)
+            lock (_handlers)
             {
-                var found = handlers.FirstOrDefault(x => x.Matches(instance));
+                var found = _handlers.FirstOrDefault(x => x.Matches(instance));
 
                 if (found != null)
-                    handlers.Remove(found);
+                    _handlers.Remove(found);
             }
         }
 
@@ -156,11 +156,11 @@ namespace XtraSubreport.Engine.Eventing
         /// </summary>
         /// <param name = "message">The message instance.</param>
         /// <param name = "marshal">Allows the publisher to provide a custom thread marshaller for the message publication.</param>
-        public virtual void Publish(object message, Action<System.Action> marshal)
+        public virtual void Publish(object message, Action<Action> marshal)
         {
             Handler[] toNotify;
-            lock (handlers)
-                toNotify = handlers.ToArray();
+            lock (_handlers)
+                toNotify = _handlers.ToArray();
 
             marshal(() =>
             {
@@ -172,9 +172,9 @@ namespace XtraSubreport.Engine.Eventing
 
                 if (dead.Any())
                 {
-                    lock (handlers)
+                    lock (_handlers)
                     {
-                        dead.ForEach(x => handlers.Remove(x));
+                        dead.ForEach(x => _handlers.Remove(x));
                     }
                 }
             });
@@ -182,12 +182,12 @@ namespace XtraSubreport.Engine.Eventing
 
         protected class Handler
         {
-            readonly WeakReference reference;
-            readonly Dictionary<Type, MethodInfo> supportedHandlers = new Dictionary<Type, MethodInfo>();
+            readonly WeakReference _reference;
+            readonly Dictionary<Type, MethodInfo> _supportedHandlers = new Dictionary<Type, MethodInfo>();
 
             public Handler(object handler)
             {
-                reference = new WeakReference(handler);
+                _reference = new WeakReference(handler);
 
                 var interfaces = handler.GetType().GetInterfaces()
                     .Where(x => typeof(IHandle).IsAssignableFrom(x) && x.IsGenericType);
@@ -196,22 +196,22 @@ namespace XtraSubreport.Engine.Eventing
                 {
                     var type = @interface.GetGenericArguments()[0];
                     var method = @interface.GetMethod("Handle");
-                    supportedHandlers[type] = method;
+                    _supportedHandlers[type] = method;
                 }
             }
 
             public bool Matches(object instance)
             {
-                return reference.Target == instance;
+                return _reference.Target == instance;
             }
 
             public bool Handle(Type messageType, object message)
             {
-                var target = reference.Target;
+                var target = _reference.Target;
                 if (target == null)
                     return false;
 
-                foreach (var pair in supportedHandlers)
+                foreach (var pair in _supportedHandlers)
                 {
                     if (pair.Key.IsAssignableFrom(messageType))
                     {

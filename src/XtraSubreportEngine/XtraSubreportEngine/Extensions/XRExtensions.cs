@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using DevExpress.Data.Browsing;
@@ -11,11 +12,50 @@ using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Nodes;
 using DevExpress.XtraTreeList.Nodes.Operations;
 using GeniusCode.Framework.Extensions;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine
 {
     public static class XRExtensions
     {
+
+        public static MyReportBase ConvertReportToMyReportBase(this XtraReport report)
+        {
+            if (report == null) return null;
+
+            // return, do not convert if input is already myReportBase
+            var convertReportToMyReportBase = report as MyReportBase;
+            if (convertReportToMyReportBase != null)
+                return convertReportToMyReportBase;
+
+
+            var stream = new MemoryStream();
+            report.SaveLayout(stream);
+            stream.Position = 0;
+
+            var newReport = new MyReportBase();
+            newReport.LoadLayout(stream);
+            newReport.DataSource = report.DataSource;
+
+            return newReport;
+        }
+
+        public static MyReportBase NavigateToMyReportBase(this XRControl input)
+        {
+            var currentParent = input.Report;
+
+            while (!(input is MyReportBase) && !ReferenceEquals(currentParent,currentParent.Report))
+            {
+                currentParent = currentParent.Report;
+            }
+
+
+            //NOTE: BAD!
+/*            if (!(currentParent is MyReportBase) && currentParent is XtraReport)
+                currentParent = ((XtraReport) currentParent).ConvertReportToMyReportBase();*/
+
+            return (MyReportBase) currentParent;
+        }
 
         #region Get DataSource
 
@@ -132,7 +172,7 @@ namespace XtraSubreport.Engine
 
         public static IEnumerable<XRControl> GetAllControls(this XRControl control)
         {
-            var myControls = control.Controls.Cast<XRControl>();
+            var myControls = control.Controls.Cast<XRControl>().ToList();
 
             // Recursive
             var bandChildControls = from band in myControls.OfType<Band>()
@@ -144,7 +184,7 @@ namespace XtraSubreport.Engine
 
         public static IEnumerable<XRControl> GetAllControls(this Band band)
         {
-            var myControls = band.Controls.Cast<XRControl>();
+            var myControls = band.Controls.Cast<XRControl>().ToList();
 
             // Recursive
             var childControls = from control in myControls
