@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.XtraBars;
 using DevExpress.XtraReports.Extensions;
+using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
 using GeniusCode.Framework.Extensions;
 using XtraSubreport.Contracts.RuntimeActions;
@@ -18,8 +19,8 @@ namespace XtraSubreport.Designer
 
     public class DesignerContext : IDesignerContext
     {
-        private XRRuntimeSubscriber _subscriber;
-        private XRRuntimeActionController _runtimeActionController;
+        private readonly List<IReportRuntimeAction> _additionalReportActions;
+        private XRReportController _controller;
 
         private string _reportBasePath;
         private string _datasourceBasePath;
@@ -27,18 +28,24 @@ namespace XtraSubreport.Designer
         public DataSourceLocator DataSourceLocator { get; private set; }
         public XRDesignForm DesignForm { get; private set; }
 
+        
+
         public DesignerContext(List<IReportRuntimeAction> additionalReportActions, string relativeReportBasePath, string relativeDatasourceBasePath)
         {
+            _additionalReportActions = additionalReportActions;
             // Design-Time MEF Datasources
             DataSourceLocator = new DataSourceLocator(relativeDatasourceBasePath);
 
-            // Runtime Actions
-            var runtimeActions = GetRuntimeActions(additionalReportActions);
-            _runtimeActionController = new XRRuntimeActionController(runtimeActions);
-            _subscriber = new XRRuntimeSubscriber(_runtimeActionController);
-
             // Designer
             CreateDesigner(relativeReportBasePath);
+        }
+
+        public IReportController GetController(XtraReport report)
+        {
+            var runtimeActions = GetRuntimeActions(_additionalReportActions);
+            var facade = new XRRuntimeActionFacade(runtimeActions);
+
+            return new XRReportController(report,facade);
         }
 
         private void CreateDesigner(string relativeReportBasePath)
@@ -55,6 +62,9 @@ namespace XtraSubreport.Designer
             // Relative Path ReportSourceURL (Sad this is static/global.  Bad Design, DevExpress.)
             var relativePathStorage = new RelativePathReportStorage(relativeReportBasePath);
             ReportStorageExtension.RegisterExtensionGlobal(relativePathStorage);
+
+            // hide elements
+
         }
 
         private IReportRuntimeAction[] GetRuntimeActions(List<IReportRuntimeAction> additionalActions)

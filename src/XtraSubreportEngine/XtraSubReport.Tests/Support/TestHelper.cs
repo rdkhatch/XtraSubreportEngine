@@ -3,8 +3,10 @@ using System.IO;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.UI;
 using NUnit.Framework;
+using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Designer;
+using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreportEngine;
 using XtraSubreportEngine.Support;
 
@@ -75,9 +77,10 @@ namespace XtraSubReport.Tests
             return new Tuple<MyReportBase, XRSubreport, MyReportBase, IDesignerContext>(parentReport, subreportContainer, subreport, designContext);
         }
 
-        public static void RunReport(XtraReport report)
+        public static void RunReport(XtraReport report, params IReportRuntimeAction[] action)
         {
-            report.ExportToHtml(new MemoryStream(), new HtmlExportOptions());
+            var controller = new XRReportController(report, new XRRuntimeActionFacade(action));
+            controller.Print(r => r.ExportToHtml(new MemoryStream(), new HtmlExportOptions()));
         }
     }
 }

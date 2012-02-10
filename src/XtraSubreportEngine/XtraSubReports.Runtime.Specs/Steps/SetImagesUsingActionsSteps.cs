@@ -57,7 +57,7 @@ namespace XtraSubReports.Runtime.Specs.Steps
         [Given(@"an action exists to place the image into the placeholder")]
         public void GivenAnActionExistsToPlaceTheImageIntoThePlaceholder()
         {
-            _action = new ReportRuntimeAction<XRPictureBox>(p => p.ImageUrl = _imageFileName);
+            _action = ReportRuntimeAction<XRPictureBox>.WithNoPredicate(p => p.ImageUrl = _imageFileName);
         }
 
         [When(@"the report runs")]
