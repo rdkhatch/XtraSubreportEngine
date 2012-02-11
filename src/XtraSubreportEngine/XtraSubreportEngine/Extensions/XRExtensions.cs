@@ -28,7 +28,11 @@ namespace XtraSubreport.Engine
             if (convertReportToMyReportBase != null)
                 return convertReportToMyReportBase;
 
+            return report.CloneLayoutAsMyReportBase();
+        }
 
+        public static MyReportBase CloneLayoutAsMyReportBase(this XtraReport report)
+        {
             var stream = new MemoryStream();
             report.SaveLayout(stream);
             stream.Position = 0;
@@ -44,17 +48,17 @@ namespace XtraSubreport.Engine
         {
             var currentParent = input.Report;
 
-            while (!(input is MyReportBase) && !ReferenceEquals(currentParent,currentParent.Report))
+            while (!(input is MyReportBase) && !ReferenceEquals(currentParent, currentParent.Report))
             {
                 currentParent = currentParent.Report;
             }
 
 
             //NOTE: BAD!
-/*            if (!(currentParent is MyReportBase) && currentParent is XtraReport)
-                currentParent = ((XtraReport) currentParent).ConvertReportToMyReportBase();*/
+            /*            if (!(currentParent is MyReportBase) && currentParent is XtraReport)
+                            currentParent = ((XtraReport) currentParent).ConvertReportToMyReportBase();*/
 
-            return (MyReportBase) currentParent;
+            return (MyReportBase)currentParent;
         }
 
         #region Get DataSource

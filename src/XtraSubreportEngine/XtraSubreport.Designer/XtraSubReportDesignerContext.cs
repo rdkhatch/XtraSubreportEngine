@@ -28,7 +28,7 @@ namespace XtraSubreport.Designer
         public DataSourceLocator DataSourceLocator { get; private set; }
         public XRDesignForm DesignForm { get; private set; }
 
-        
+
 
         public DesignerContext(List<IReportRuntimeAction> additionalReportActions, string relativeReportBasePath, string relativeDatasourceBasePath)
         {
@@ -45,13 +45,20 @@ namespace XtraSubreport.Designer
             var runtimeActions = GetRuntimeActions(_additionalReportActions);
             var facade = new XRRuntimeActionFacade(runtimeActions);
 
-            return new XRReportController(report,facade);
+            return new XRReportController(report, facade);
         }
 
         private void CreateDesigner(string relativeReportBasePath)
         {
             DesignForm = CreateDesignForm();
             var controller = DesignForm.DesignMdiController;
+
+            // Hide Scripting & HTML Preview
+            controller.SetCommandVisibility(ReportCommand.ShowScriptsTab, CommandVisibility.None);
+            controller.SetCommandVisibility(ReportCommand.ShowHTMLViewTab, CommandVisibility.None);
+
+            // Use ReportController during PrintPreview
+            this.UseReportControllerDuringPrintPreview();
 
             // Pass Datasource to Subreports
             this.SetupDesignTimeSubreportDatasourcePassing();
@@ -62,9 +69,6 @@ namespace XtraSubreport.Designer
             // Relative Path ReportSourceURL (Sad this is static/global.  Bad Design, DevExpress.)
             var relativePathStorage = new RelativePathReportStorage(relativeReportBasePath);
             ReportStorageExtension.RegisterExtensionGlobal(relativePathStorage);
-
-            // hide elements
-
         }
 
         private IReportRuntimeAction[] GetRuntimeActions(List<IReportRuntimeAction> additionalActions)
