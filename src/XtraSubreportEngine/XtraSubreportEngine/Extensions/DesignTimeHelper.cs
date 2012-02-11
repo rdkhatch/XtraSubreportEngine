@@ -72,6 +72,18 @@ namespace XtraSubreport.Engine
             return report.DataSource != null;
         }
 
+        public static void UseReportControllerDuringPrintPreview(this IDesignerContext designerContext)
+        {
+            var controller = designerContext.DesignForm.DesignMdiController;
+            controller.DesignPanelLoaded += (s, e) =>
+            {
+                var designPanel = (XRDesignPanel)s;
+
+                // Override Print Preview Behavior
+                controller.AddCommandHandler(new PreviewCommandHandler(designPanel, designerContext));
+            };
+        }
+
         public static void SetupDesignTimeSubreportDatasourcePassing(this IDesignerContext designContext)
         {
             // Selected Subreport on Design Panel
@@ -116,9 +128,6 @@ namespace XtraSubreport.Engine
                     }
 #endif
                 };
-
-                designPanel.SetCommandVisibility(ReportCommand.ShowScriptsTab, CommandVisibility.None);
-                controller.AddCommandHandler(new PreviewCommandHandler(designPanel,designContext));
 
             });
         }
