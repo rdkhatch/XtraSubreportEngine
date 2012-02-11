@@ -14,10 +14,9 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Jeremiah Redekop\Desktop\Hello World\</PublishUrl>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
+    <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
@@ -25,7 +24,9 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>1</ApplicationRevision>
+    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
+    <WebPage>publish.htm</WebPage>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -73,6 +74,7 @@
     <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
     <ApplicationRevision>$(BUILD_NUMBER)</ApplicationRevision>
     <InstallUrl>$(INSTALL_URL)</InstallUrl>
+    <PublishUrl>$(INSTALL_URL)</PublishUrl>
     <UpdateUrl>$(UPDATE_URL)</UpdateUrl>
   </PropertyGroup>
   <ItemGroup>
