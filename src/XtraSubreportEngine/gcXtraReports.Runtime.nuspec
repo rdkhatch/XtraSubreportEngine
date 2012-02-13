@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>gXtraReports</id>
+    <version>1.0</version>
+    <title>Genius Code XtraReports Runtime Library</title>
+    <authors>GeniusCode</authors>
+    <owners>JeremiahRedekop RyanHatch</owners>
+    <projectUrl>https://github.com/rdkhatch/XtraSubreportEngine</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Libaray designed for seperating designers from develoers when it comes to repx files.  Using this library,
+	developers can run actions that can be applied to XtraReports objects, such as labels or picture boxes.  The actions are run recursively.
+	One important function this library does is to automatically pass the correct datasource to subreports in different bands.
+	</description>
+    <summary>Class library for creating Actions against DevExpress XtraReports objects</summary>
+    <tags>xtrareports</tags>
+  </metadata>
+  <files>
+    <file src="src\XtraSubreportEngine\XtraSubreportEngine\bin\Release\*.dll" target="lib\net40" />
+  </files>
+</package>
