@@ -74,14 +74,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Designer\DesignerContextBase.cs" />
-    <Compile Include="Designer\IDesignerContext.cs" />
     <Compile Include="Eventing\ScopedXRControlBeforePrintMessage.cs" />
     <Compile Include="Eventing\XRBeforePrintMessage.cs" />
-    <Compile Include="Datasources\DataSourceLocator.cs" />
-    <Compile Include="Datasources\ObjectGraphPathTraverser.cs" />
-    <Compile Include="Extensions\DesignTimeHelper.cs" />
-    <Compile Include="Designer\PreviewCommandHandler.cs" />
     <Compile Include="Extensions\RunTimeHelper.cs" />
     <Compile Include="Eventing\EventAggregator.cs" />
     <Compile Include="RuntimeActions\IReportController.cs" />
@@ -97,13 +91,10 @@
     <Compile Include="Serialization\XtraReportWithCustomPropertiesBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Datasources\DesignTimeDataSourceTreeItem.cs" />
+    <Compile Include="Support\DesignTimeDataSourceDefinition.cs" />
     <Compile Include="Support\MefHelper.cs" />
     <Compile Include="Support\RelativePathReportStorageExtension.cs" />
     <Compile Include="Support\ReportFactory.cs" />
-    <Compile Include="Datasources\DesignTimeDataSourceDefinition.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Support\MyReportBase.cs">
       <SubType>Component</SubType>
     </Compile>

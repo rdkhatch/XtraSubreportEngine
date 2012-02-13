@@ -9,6 +9,7 @@ namespace XtraSubreport.Engine.Designer
     {
         protected abstract DataSourceLocator GetDataSourceLocator();
         protected abstract XRDesignForm GetDesignForm();
+        public string ProjectRootPath { get; private set; }
 
         public DesignerContextBase(string projectRootPath)
         {
@@ -28,8 +29,6 @@ namespace XtraSubreport.Engine.Designer
         }
 
         public abstract IReportController GetController(XtraReport report);
-
-        public string ProjectRootPath { get; private set; }
 
         #endregion
 

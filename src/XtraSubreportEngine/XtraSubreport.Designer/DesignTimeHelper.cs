@@ -5,6 +5,9 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
+using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Nodes;
+using DevExpress.XtraTreeList.Nodes.Operations;
 using GeniusCode.Framework.Extensions;
 using GeniusCode.Framework.Support.Collections.Tree;
 using XtraSubreport.Contracts.DataSources;
@@ -110,7 +113,7 @@ namespace XtraSubreport.Engine
                     else
                         // Subreport was Double-clicked, new DesignPanel has been activated for it
                         // Pass Design-Time DataSource from Parent to Subreport
-                        DesignTimeHelper.PassDesignTimeDataSourceToSubreport(selectedSubreport, myReport, designContext);
+                        PassDesignTimeDataSourceToSubreport(selectedSubreport, myReport, designContext);
                 });
 
                 // Capture selected Subreport
@@ -140,7 +143,7 @@ namespace XtraSubreport.Engine
 
             if (parentDataSourceItem != null)
             {
-                var path = DesignTimeHelper.GetFullDataMemberPath(container.Band);
+                var path = GetFullDataMemberPath(container.Band);
 
                 var datasourceDefinition = new DesignTimeDataSourceDefinition(parentDataSourceItem.DataSourceName, parentDataSourceItem.DataSourceAssemblyLocationPath, path);
 
@@ -156,7 +159,7 @@ namespace XtraSubreport.Engine
         /// <returns></returns>
         public static string GetFullDataMemberPath(this Band band)
         {
-            string path = string.Empty;
+            string path = String.Empty;
 
             if (band == null)
                 return path;
@@ -169,7 +172,7 @@ namespace XtraSubreport.Engine
                 bool isRootReport = report == report.Report;
 
                 // Keep calling parent reports, until there is no DataMember
-                if (!isRootReport && path != string.Empty)
+                if (!isRootReport && path != String.Empty)
                 {
                     // Go deeper
                     string parentPath = GetFullDataMemberPath(report.Report);
@@ -266,7 +269,7 @@ namespace XtraSubreport.Engine
 
             Func<string, IReportDatasourceMetadata, DesignTimeDataSourceDefinition, DesignTimeDataSourceTreeItem> CreateDataSourceTreeItem = (relativeFolder, metadataNullable, definitionNullable) =>
             {
-                var definition = definitionNullable ?? new DesignTimeDataSourceDefinition(metadataNullable.Name, relativeFolder, string.Empty);
+                var definition = definitionNullable ?? new DesignTimeDataSourceDefinition(metadataNullable.Name, relativeFolder, String.Empty);
 
                 return new DesignTimeDataSourceTreeItem()
                 {
@@ -294,5 +297,29 @@ namespace XtraSubreport.Engine
 
         #endregion
 
+        public static void OnDesignPanelActivated(this XRDesignMdiController controller, Action<XRDesignPanel> handler)
+        {
+            controller.DesignPanelLoaded += (sender1, designLoadedArgs) =>
+                                                {
+                                                    var designPanel = (XRDesignPanel)sender1;
+
+                                                    EventHandler activated = null;
+                                                    activated = (sender2, emptyArgs) =>
+                                                                    {
+                                                                        designLoadedArgs.DesignerHost.Activated -= activated;
+                                                                        handler.Invoke(designPanel);
+                                                                    };
+
+                                                    designLoadedArgs.DesignerHost.Activated += activated;
+                                                };
+        }
+
+        public static IEnumerable<TreeListNode> GetAllNodes(this TreeList tree)
+        {
+            var accumulator = new TreeListOperationAccumulateNodes();
+            tree.NodesIterator.DoOperation(accumulator);
+
+            return accumulator.Nodes.Cast<TreeListNode>();
+        }
     }
 }
