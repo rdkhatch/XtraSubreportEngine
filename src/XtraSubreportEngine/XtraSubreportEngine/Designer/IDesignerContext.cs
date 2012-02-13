@@ -10,6 +10,7 @@ namespace XtraSubreport.Engine.Designer
         DataSourceLocator DataSourceLocator { get; }
         XRDesignForm DesignForm { get; }
         IReportController GetController(XtraReport report);
+        string ProjectRootPath { get; }
     }
 
     internal interface IDesignerContextInternal

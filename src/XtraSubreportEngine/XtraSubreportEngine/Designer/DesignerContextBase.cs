@@ -10,6 +10,11 @@ namespace XtraSubreport.Engine.Designer
         protected abstract DataSourceLocator GetDataSourceLocator();
         protected abstract XRDesignForm GetDesignForm();
 
+        public DesignerContextBase(string projectRootPath)
+        {
+            ProjectRootPath = projectRootPath;
+        }
+
         #region IDesignerContext
 
         DataSourceLocator IDesignerContext.DataSourceLocator
@@ -23,6 +28,8 @@ namespace XtraSubreport.Engine.Designer
         }
 
         public abstract IReportController GetController(XtraReport report);
+
+        public string ProjectRootPath { get; private set; }
 
         #endregion
 
