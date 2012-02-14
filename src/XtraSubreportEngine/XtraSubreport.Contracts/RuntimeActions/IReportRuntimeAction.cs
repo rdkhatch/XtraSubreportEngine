@@ -15,5 +15,9 @@ namespace XtraSubreport.Contracts.RuntimeActions
         Func<XRControl, bool> ActionPredicate { get; }
         Action<XRControl> ActionToApply { get; }
         Type ApplyToControlType { get; }
+
+        string Name { get; }
+        string Description { get; }
+        //string GroupName { get; }
     }
 }

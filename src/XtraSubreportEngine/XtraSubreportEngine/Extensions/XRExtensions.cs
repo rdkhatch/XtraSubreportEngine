@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,10 +6,6 @@ using System.Reflection;
 using DevExpress.Data.Browsing;
 using DevExpress.XtraReports.Native.Data;
 using DevExpress.XtraReports.UI;
-using DevExpress.XtraReports.UserDesigner;
-using DevExpress.XtraTreeList;
-using DevExpress.XtraTreeList.Nodes;
-using DevExpress.XtraTreeList.Nodes.Operations;
 using GeniusCode.Framework.Extensions;
 using XtraSubreportEngine.Support;
 
@@ -149,30 +144,6 @@ namespace XtraSubreport.Engine
 
         #endregion
 
-        public static void OnDesignPanelActivated(this XRDesignMdiController controller, Action<XRDesignPanel> handler)
-        {
-            controller.DesignPanelLoaded += (sender1, designLoadedArgs) =>
-            {
-                var designPanel = (XRDesignPanel)sender1;
-
-                EventHandler activated = null;
-                activated = (sender2, emptyArgs) =>
-                {
-                    designLoadedArgs.DesignerHost.Activated -= activated;
-                    handler.Invoke(designPanel);
-                };
-
-                designLoadedArgs.DesignerHost.Activated += activated;
-            };
-        }
-
-        public static IEnumerable<TreeListNode> GetAllNodes(this TreeList tree)
-        {
-            var accumulator = new TreeListOperationAccumulateNodes();
-            tree.NodesIterator.DoOperation(accumulator);
-
-            return accumulator.Nodes.Cast<TreeListNode>();
-        }
 
         public static IEnumerable<XRControl> GetAllControls(this XRControl control)
         {
@@ -219,7 +190,6 @@ namespace XtraSubreport.Engine
 
             return Enumerable.Concat(mySubreports, childBandSubreports);
         }
-
     }
 
 }

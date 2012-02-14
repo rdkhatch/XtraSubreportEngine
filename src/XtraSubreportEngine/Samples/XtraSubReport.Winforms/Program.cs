@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using DevExpress.XtraReports.UI;
 using NLog;
+using XtraSubreport.Contracts.DesignTime;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Designer;
 
@@ -38,7 +39,10 @@ namespace XtraSubReport.Winforms
                 new ReportRuntimeAction<XRLabel>(label => label.Name.Contains("gold"), label => label.BackColor = Color.Gold)
             };
 
-            var designerContext = new DesignerContext(runtimeActions, relativeReportBasePath, relativeDatasourceBasePath);
+            var rootProjectPath = string.Empty;
+            List<IReportDatasourceProvider> datasourceProviders = null;
+
+            var designerContext = new DesignerContext(runtimeActions, relativeReportBasePath, rootProjectPath, datasourceProviders);
 
             Application.Run(designerContext.DesignForm);
         }

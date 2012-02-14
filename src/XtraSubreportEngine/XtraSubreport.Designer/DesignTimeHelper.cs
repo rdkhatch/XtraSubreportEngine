@@ -5,12 +5,15 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
+using DevExpress.XtraTreeList;
+using DevExpress.XtraTreeList.Nodes;
+using DevExpress.XtraTreeList.Nodes.Operations;
 using GeniusCode.Framework.Extensions;
 using GeniusCode.Framework.Support.Collections.Tree;
-using XtraSubreport.Contracts.DataSources;
+using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Designer;
 using XtraSubreport.Engine.Designer;
 using XtraSubreport.Engine.Support;
-using XtraSubreportEngine;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine
@@ -36,7 +39,7 @@ namespace XtraSubreport.Engine
             if (definition != null)
             {
                 // Get Traversed Datasource
-                var traversedResult = designContext.DataSourceLocator.GetTraversedObjectFromDataSourceDefinition(definition);
+                var traversedResult = designContext.DataSourceLocator.GetDataSource(definition);
                 datasource = traversedResult.TraversedDataSource;
 
                 if (traversedResult.RootDataSource == null)
@@ -110,7 +113,7 @@ namespace XtraSubreport.Engine
                     else
                         // Subreport was Double-clicked, new DesignPanel has been activated for it
                         // Pass Design-Time DataSource from Parent to Subreport
-                        DesignTimeHelper.PassDesignTimeDataSourceToSubreport(selectedSubreport, myReport, designContext);
+                        PassDesignTimeDataSourceToSubreport(selectedSubreport, myReport, designContext);
                 });
 
                 // Capture selected Subreport
@@ -140,9 +143,9 @@ namespace XtraSubreport.Engine
 
             if (parentDataSourceItem != null)
             {
-                var path = DesignTimeHelper.GetFullDataMemberPath(container.Band);
+                var path = GetFullDataMemberPath(container.Band);
 
-                var datasourceDefinition = new DesignTimeDataSourceDefinition(parentDataSourceItem.DataSourceName, parentDataSourceItem.DataSourceAssemblyLocationPath, path);
+                var datasourceDefinition = new DesignTimeDataSourceDefinition(parentDataSourceItem.DataSourceUniqueId, parentDataSourceItem.DataSourceName, path);
 
                 // Go!
                 subreport.ChangeDesignTimeDatasource(datasourceDefinition, designContext);
@@ -156,7 +159,7 @@ namespace XtraSubreport.Engine
         /// <returns></returns>
         public static string GetFullDataMemberPath(this Band band)
         {
-            string path = string.Empty;
+            string path = String.Empty;
 
             if (band == null)
                 return path;
@@ -169,7 +172,7 @@ namespace XtraSubreport.Engine
                 bool isRootReport = report == report.Report;
 
                 // Keep calling parent reports, until there is no DataMember
-                if (!isRootReport && path != string.Empty)
+                if (!isRootReport && path != String.Empty)
                 {
                     // Go deeper
                     string parentPath = GetFullDataMemberPath(report.Report);
@@ -218,7 +221,7 @@ namespace XtraSubreport.Engine
 
         #region Tree Items
 
-        public static IEnumerable<DesignTimeDataSourceTreeItem> BuildDesignTimeDataSourceTreeItems(DataSourceLocator locator, MyReportBase report, out DynamicTree<DesignTimeDataSourceTreeItem> tree, out List<DesignTimeDataSourceTreeItem> flatList)
+        public static IEnumerable<DesignTimeDataSourceTreeItem> BuildDesignTimeDataSourceTreeItems(IDataSourceLocator locator, MyReportBase report, out DynamicTree<DesignTimeDataSourceTreeItem> tree, out List<DesignTimeDataSourceTreeItem> flatList)
         {
             var treeItems = BuildDesignTimeDataSourceTreeItems(locator, report);
 
@@ -239,60 +242,71 @@ namespace XtraSubreport.Engine
             return treeItems;
         }
 
-        private static IEnumerable<DesignTimeDataSourceTreeItem> BuildDesignTimeDataSourceTreeItems(DataSourceLocator locator, MyReportBase report)
+        private static IEnumerable<DesignTimeDataSourceTreeItem> BuildDesignTimeDataSourceTreeItems(IDataSourceLocator locator, MyReportBase report)
         {
             // Report Requested Datasource Definitions
             var requestedDatasources = report.DesignTimeDataSources;
-
-            // Folders
-            var requestedFolders = requestedDatasources.Select(definition => locator.FormatRelativePath(definition.DataSourceAssemblyLocationPath));
-            var realFolders = locator.GetAllFoldersWithinBasePathContainingDLLs().Select(folder => locator.FormatRelativePath(folder));
-            var allFolders = requestedFolders.Union(realFolders);
-
-            Func<string, IEnumerable<IReportDatasourceMetadata>> GetExportsFromRelativeFolder = relativeFolder =>
-            {
-                var exports = locator.GetDatasources(relativeFolder);
-                var metadatas = exports.Select((lazy) => lazy.Metadata);
-                return metadatas;
-            };
 
             Func<IReportDatasourceMetadata, DesignTimeDataSourceDefinition, bool> match = (metadata, requested) =>
             {
                 if (metadata == null || requested == null)
                     return false;
                 else
-                    return metadata.Name == requested.DataSourceName;
+                    return metadata.UniqueId == requested.DataSourceName;
             };
 
-            Func<string, IReportDatasourceMetadata, DesignTimeDataSourceDefinition, DesignTimeDataSourceTreeItem> CreateDataSourceTreeItem = (relativeFolder, metadataNullable, definitionNullable) =>
+            Func<IReportDatasourceMetadata, DesignTimeDataSourceDefinition, DesignTimeDataSourceTreeItem> CreateDataSourceTreeItem = (metadataNullable, definitionNullable) =>
             {
-                var definition = definitionNullable ?? new DesignTimeDataSourceDefinition(metadataNullable.Name, relativeFolder, string.Empty);
+                var definition = definitionNullable ?? new DesignTimeDataSourceDefinition(metadataNullable.UniqueId, metadataNullable.Name, String.Empty);
 
                 return new DesignTimeDataSourceTreeItem()
                 {
-                    Path = relativeFolder,
+                    Path = string.Empty,
                     Name = definition.DataSourceName,
 
                     DesignTimeDataSourceDefinition = definition,
-                    MEFMetadata = metadataNullable,
+                    Metadata = metadataNullable,
                     PreviouslyUsedWithThisReport = (definitionNullable != null).ToString(),
                     RelationPath = definition.DataSourceRelationPath
                 };
             };
 
-            var dataSourceTreeItems = (from relativeFolder in allFolders
-                                       let exports = GetExportsFromRelativeFolder(relativeFolder)
-                                       let definitions = requestedDatasources.Where(definition => definition.DataSourceAssemblyLocationPath == relativeFolder)
-                                       // Join exports & definitions on folder + datasource name
-                                       from tuple in exports.FullOuterJoin(definitions, match)
+            var dataSourceTreeItems = (from datasourceProvider in locator.GetReportDatasourceProviders()
+                                       let availableDatasources = datasourceProvider.GetReportDatasources()
+                                       // Join availableDatasources & requestedDatasources on datasource name
+                                       from tuple in availableDatasources.FullOuterJoin(requestedDatasources, match)
                                        let export = tuple.T1Object
                                        let definition = tuple.T2Object
-                                       select CreateDataSourceTreeItem(relativeFolder, export, definition)).ToList();
+                                       select CreateDataSourceTreeItem(export, definition)).ToList();
 
             return dataSourceTreeItems;
         }
 
         #endregion
 
+        public static void OnDesignPanelActivated(this XRDesignMdiController controller, Action<XRDesignPanel> handler)
+        {
+            controller.DesignPanelLoaded += (sender1, designLoadedArgs) =>
+                                                {
+                                                    var designPanel = (XRDesignPanel)sender1;
+
+                                                    EventHandler activated = null;
+                                                    activated = (sender2, emptyArgs) =>
+                                                                    {
+                                                                        designLoadedArgs.DesignerHost.Activated -= activated;
+                                                                        handler.Invoke(designPanel);
+                                                                    };
+
+                                                    designLoadedArgs.DesignerHost.Activated += activated;
+                                                };
+        }
+
+        public static IEnumerable<TreeListNode> GetAllNodes(this TreeList tree)
+        {
+            var accumulator = new TreeListOperationAccumulateNodes();
+            tree.NodesIterator.DoOperation(accumulator);
+
+            return accumulator.Nodes.Cast<TreeListNode>();
+        }
     }
 }

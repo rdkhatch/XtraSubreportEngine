@@ -11,17 +11,21 @@ namespace XtraSubreportEngine.Support
         {
         }
 
-        public DesignTimeDataSourceDefinition(string dataSourceName, string dataSourceAssemblyLocationPath, string dataSourceRelationPath)
+        public DesignTimeDataSourceDefinition(string datasourceUniqueId, string dataSourceName, string dataSourceRelationPath)
         {
+            DataSourceUniqueId = datasourceUniqueId;
             DataSourceName = dataSourceName;
-            DataSourceAssemblyLocationPath = dataSourceAssemblyLocationPath;
+
             // Optional
             DataSourceRelationPath = dataSourceRelationPath;
         }
 
+        public string DataSourceUniqueId { get; set; }
         public string DataSourceName { get; set; }
-        public string DataSourceAssemblyLocationPath { get; set; }
         public string DataSourceRelationPath { get; set; }
+
+        [Obsolete]
+        public string DataSourceAssemblyLocationPath { get; set; }
 
         // These get assigned in the Designer when the datasource is opened
         public Type RootDataSourceType { get; set; }
@@ -34,12 +38,12 @@ namespace XtraSubreportEngine.Support
 
         public override int GetHashCode()
         {
-            return HashcodeBuilder.GetHashcodeItems(DataSourceName, DataSourceAssemblyLocationPath, DataSourceRelationPath);
+            return HashcodeBuilder.GetHashcodeItems(DataSourceUniqueId, DataSourceRelationPath);
         }
 
         public override string ToString()
         {
-            return "{0} ('{1}', '{2}')".FormatString(DataSourceName, DataSourceAssemblyLocationPath, DataSourceRelationPath);
+            return "{0} ('{1}')".FormatString(DataSourceName, DataSourceRelationPath);
         }
 
     }

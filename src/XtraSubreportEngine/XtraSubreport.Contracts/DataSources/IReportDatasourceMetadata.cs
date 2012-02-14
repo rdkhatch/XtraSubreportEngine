@@ -1,12 +1,12 @@
 using System;
 
-namespace XtraSubreport.Contracts.DataSources
+namespace XtraSubreport.Contracts.DesignTime
 {
-    // Interface for MEF metadata
     public interface IReportDatasourceMetadata
     {
+        string UniqueId { get; }
         string Name { get; }
-        Type DataSourceType { get; }
         string Description { get; }
+        Type DataSourceType { get; }
     }
 }

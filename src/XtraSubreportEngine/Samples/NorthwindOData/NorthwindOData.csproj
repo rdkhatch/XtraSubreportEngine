@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NorthwindDatasourceProvider.cs" />
     <Compile Include="NorthwindProducts.cs" />
     <Compile Include="NorthwindOrders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
