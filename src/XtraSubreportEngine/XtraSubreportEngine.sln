@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{28D030
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindOData", "Samples\NorthwindOData\NorthwindOData.csproj", "{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubReport.Winforms.Specs", "XtraSubReport.Winforms.Specs\XtraSubReport.Winforms.Specs.csproj", "{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubReports.Winforms.Tests", "XtraSubReports.Winforms.Tests\XtraSubReports.Winforms.Tests.csproj", "{158658AA-76A8-44BF-A4E5-475CA334679C}"
