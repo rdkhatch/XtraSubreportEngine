@@ -85,16 +85,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Datasources\DataSourceLocator.cs" />
-    <Compile Include="Datasources\DesignTimeDataSourceDefinition.cs" />
+    <Compile Include="Datasources\DataSourceLocator.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Datasources\DesignTimeDataSourceTreeItem.cs" />
+    <Compile Include="Datasources\IDataSourceLocator.cs" />
     <Compile Include="Datasources\ObjectGraphPathTraverser.cs" />
+    <Compile Include="Datasources\TraversedDatasourceResult.cs" />
     <Compile Include="Designer\DesignerContextBase.cs" />
     <Compile Include="Designer\IDesignerContext.cs" />
     <Compile Include="Designer\PreviewCommandHandler.cs" />
     <Compile Include="DesignTimeHelper.cs" />
-    <Compile Include="MefHelper.cs" />
-    <Compile Include="XtraSubReportDesignerContext.cs" />
+    <Compile Include="old.MEF\MefHelper.cs" />
+    <Compile Include="old.MEF\ReportMEFRuntimeActionProvider.cs" />
+    <Compile Include="PathHelper.cs" />
+    <Compile Include="Designer\XtraSubReportDesignerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectDesignTimeDataSourceForm.cs">
       <SubType>Form</SubType>

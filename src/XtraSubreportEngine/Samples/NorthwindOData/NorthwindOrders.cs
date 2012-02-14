@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using NorthwindOData.Northwind;
-using XtraSubreport.Contracts.DataSources;
+using XtraSubreport.Contracts.DesignTime;
 
 namespace NorthwindOData
 {
-    [ReportDatasourceExport("Northwind_Orders", "Orders, Order_Details, and Products from Northwind OData Feed")]
-    public class NorthwindOrders : IReportDatasource
+    public class NorthwindOrders : IReportDatasourceMetadata, NorthwindDatasourceProvider.IFetchData
     {
         private IEnumerable<Order> datasource;
         public static readonly string SerializeToFilename = "Northwind_Orders.json";
@@ -89,9 +88,29 @@ namespace NorthwindOData
             datasource = q.ToList();
         }
 
-        object IReportDatasource.GetDataSource()
+        object NorthwindDatasourceProvider.IFetchData.Fetch()
         {
             return GetDataSource();
+        }
+
+        public string UniqueId
+        {
+            get { return "4B89DD20-DB16-4CCF-BA6A-781EBCE540D3"; }
+        }
+
+        public string Name
+        {
+            get { return "Northwind_Orders"; }
+        }
+
+        public string Description
+        {
+            get { return "Orders, Order_Details, and Products from Northwind OData Feed"; }
+        }
+
+        public Type DataSourceType
+        {
+            get { return typeof(Order); }
         }
     }
 }

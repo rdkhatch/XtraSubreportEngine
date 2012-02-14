@@ -6,18 +6,18 @@ using DevExpress.XtraReports.Extensions;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
 using GeniusCode.Framework.Extensions;
+using XtraSubreport.Contracts.DesignTime;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Designer;
 using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreport.Engine.Support;
-using XtraSubreportEngine;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Designer
 {
 
-    public class DesignerContext : IDesignerContext
+    public class DesignerContext : DesignerContextBase
     {
         private readonly List<IReportRuntimeAction> _additionalReportActions;
         private XRReportController _controller;
@@ -25,22 +25,33 @@ namespace XtraSubreport.Designer
         private string _reportBasePath;
         private string _datasourceBasePath;
 
-        public DataSourceLocator DataSourceLocator { get; private set; }
+        public IDataSourceLocator DataSourceLocator { get; private set; }
         public XRDesignForm DesignForm { get; private set; }
 
 
-
-        public DesignerContext(List<IReportRuntimeAction> additionalReportActions, string relativeReportBasePath, string relativeDatasourceBasePath)
+        public DesignerContext(List<IReportRuntimeAction> additionalReportActions, string relativeReportBasePath, string projectRootPath, List<IReportDatasourceProvider> datasourceProviders)
+            : base(projectRootPath)
         {
             _additionalReportActions = additionalReportActions;
-            // Design-Time MEF Datasources
-            DataSourceLocator = new DataSourceLocator(relativeDatasourceBasePath);
+
+            // Design-Time Datasources
+            DataSourceLocator = new DataSourceLocator(datasourceProviders);
 
             // Designer
             CreateDesigner(relativeReportBasePath);
         }
 
-        public IReportController GetController(XtraReport report)
+        protected override IDataSourceLocator GetDataSourceLocator()
+        {
+            return DataSourceLocator;
+        }
+
+        protected override XRDesignForm GetDesignForm()
+        {
+            return DesignForm;
+        }
+
+        public override IReportController GetController(XtraReport report)
         {
             var runtimeActions = GetRuntimeActions(_additionalReportActions);
             var facade = new XRRuntimeActionFacade(runtimeActions);

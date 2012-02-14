@@ -1,13 +1,13 @@
 ﻿using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
+using XtraSubreport.Designer;
 using XtraSubreport.Engine.RuntimeActions;
-using XtraSubreportEngine;
 
 namespace XtraSubreport.Engine.Designer
 {
     public abstract class DesignerContextBase : IDesignerContext, IDesignerContextInternal
     {
-        protected abstract DataSourceLocator GetDataSourceLocator();
+        protected abstract IDataSourceLocator GetDataSourceLocator();
         protected abstract XRDesignForm GetDesignForm();
         public string ProjectRootPath { get; private set; }
 
@@ -18,7 +18,7 @@ namespace XtraSubreport.Engine.Designer
 
         #region IDesignerContext
 
-        DataSourceLocator IDesignerContext.DataSourceLocator
+        IDataSourceLocator IDesignerContext.DataSourceLocator
         {
             get { return GetDataSourceLocator(); }
         }

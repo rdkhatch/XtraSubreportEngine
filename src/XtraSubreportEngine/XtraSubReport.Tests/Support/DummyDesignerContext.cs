@@ -1,14 +1,14 @@
 ﻿using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
+using XtraSubreport.Designer;
 using XtraSubreport.Engine.Designer;
 using XtraSubreport.Engine.RuntimeActions;
-using XtraSubreportEngine;
 
 namespace XtraSubReport.Tests
 {
     public class DummyDesignerContext : IDesignerContext
     {
-        public DataSourceLocator DataSourceLocator { get; private set; }
+        public IDataSourceLocator DataSourceLocator { get; private set; }
         public XRDesignForm DesignForm { get; private set; }
 
         public IReportController GetController(XtraReport report)
@@ -16,9 +16,14 @@ namespace XtraSubReport.Tests
             throw new System.NotImplementedException("When is this called?");
         }
 
-        public DummyDesignerContext()
+        public string ProjectRootPath
         {
-            DataSourceLocator = TestHelper.CreateDataSourceLocator();
+            get { throw new System.NotImplementedException(); }
+        }
+
+        public DummyDesignerContext(IDataSourceLocator locator)
+        {
+            DataSourceLocator = locator;
             DesignForm = new XRDesignForm();
         }
     }

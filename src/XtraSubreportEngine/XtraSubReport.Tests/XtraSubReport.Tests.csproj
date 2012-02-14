@@ -86,24 +86,16 @@
     <Compile Include="ReportTests\ReportTests.cs" />
     <Compile Include="DataSourceTests\PathTraverserTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DataSourceTests\MefDatasourceTests.cs" />
-    <Compile Include="RuntimeActionTests\ColorReplacerTest.cs" />
-    <Compile Include="RuntimeActionTests\PassDatasourceToSubreportTest.cs" />
-    <Compile Include="RuntimeActionTests\RuntimeActionMefTest.cs" />
-    <Compile Include="RuntimeActionTests\RuntimeActionTests.cs" />
-    <Compile Include="DataSourceTests\SelectDatasourceTests.cs" />
     <Compile Include="SerializationTests\SerializationTests.cs" />
     <Compile Include="ReportTests\RelativePathReportStorageTest.cs" />
     <Compile Include="Support\AssertHelper.Exceptions.cs" />
     <Compile Include="Support\AssertHelper.Reports.cs" />
-    <Compile Include="Support\DummyDesignerContext.cs" />
+    <Compile Include="Support\DummyDesignerContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Support\TestHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Samples\ColorReplaceAction\ColorReplaceAction.csproj">
-      <Project>{7F3F5266-9D51-47A6-BE5C-292B13939D46}</Project>
-      <Name>ColorReplaceAction</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Samples\NorthwindOData\NorthwindOData.csproj">
       <Project>{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}</Project>
       <Name>NorthwindOData</Name>

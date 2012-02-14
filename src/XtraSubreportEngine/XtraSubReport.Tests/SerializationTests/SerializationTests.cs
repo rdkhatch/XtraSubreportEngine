@@ -56,10 +56,6 @@ namespace XtraSubReport.Tests
             // Set Selected Design-Time Datasource
             report1.ChangeDesignTimeDatasource(datasource1, designContext);
 
-            var report2 = TestHelper.RunThroughSerializer(report1);
-            var datasource2 = report2.DesignTimeDataSources.Single();
-
-            Assert.IsNotNull(datasource2);
             Assert.AreEqual(datasource1.DataSourceType, typeof(List<Order>));
             Assert.AreEqual(datasource1.RootDataSourceType, typeof(List<Order>));
         }
@@ -83,7 +79,6 @@ namespace XtraSubReport.Tests
 
             // Assert all properties were serialized
             Assert.AreEqual(datasource1.DataSourceName, datasource2.DataSourceName);
-            Assert.AreEqual(datasource1.DataSourceAssemblyLocationPath, datasource2.DataSourceAssemblyLocationPath);
             Assert.AreEqual(datasource1.DataSourceRelationPath, datasource2.DataSourceRelationPath);
             Assert.AreEqual(datasource1.DataSourceType, datasource2.DataSourceType);
             Assert.AreEqual(datasource1.RootDataSourceType, datasource2.RootDataSourceType);

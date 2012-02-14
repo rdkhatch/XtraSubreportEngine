@@ -4,6 +4,7 @@ using System.Linq;
 using DevExpress.XtraReports.UI;
 using NorthwindOData.Northwind;
 using NUnit.Framework;
+using XtraSubreport.Designer;
 using XtraSubreport.Engine;
 
 namespace XtraSubReport.Tests

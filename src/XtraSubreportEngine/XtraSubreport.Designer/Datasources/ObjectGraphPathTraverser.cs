@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using GeniusCode.Framework.Extensions;
 using GeniusCode.Framework.Support.Refection;
 
-namespace XtraSubreport.Engine
+namespace XtraSubreport.Designer
 {
 
     public class ExtractFromCollectionTraversal : MemberTraversal

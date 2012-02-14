@@ -4,12 +4,11 @@ using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using NorthwindOData.Northwind;
-using XtraSubreport.Contracts.DataSources;
 
 namespace NorthwindOData
 {
-    [ReportDatasourceExport("Northwind_Products", "WE CHANGED THIS Products from Northwind OData Feed")]
-    public class NorthwindProducts : IReportDatasource
+    //[ReportDatasourceExport("Northwind_Products", "WE CHANGED THIS Products from Northwind OData Feed")]
+    public class NorthwindProducts
     {
         private IEnumerable<Product> datasource;
         public string SerializeToFilename = "Northwind_Products.json";
@@ -80,9 +79,5 @@ namespace NorthwindOData
             datasource = q.ToList();
         }
 
-        object IReportDatasource.GetDataSource()
-        {
-            return GetDataSource();
-        }
     }
 }

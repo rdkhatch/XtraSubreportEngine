@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.UI;
+using NorthwindOData;
 using NUnit.Framework;
+using XtraSubreport.Contracts.DesignTime;
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Designer;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Designer;
 using XtraSubreport.Engine.RuntimeActions;
-using XtraSubreportEngine;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
@@ -16,12 +19,14 @@ namespace XtraSubReport.Tests
     {
         public static IDesignerContext CreateDesignerContext()
         {
-            return new DummyDesignerContext();
+            var datasourcelocator = CreateDataSourceLocator();
+            return new DummyDesignerContext(datasourcelocator);
         }
 
         public static DataSourceLocator CreateDataSourceLocator()
         {
-            return new DataSourceLocator(string.Empty);
+            var providers = new List<IReportDatasourceProvider>() { new NorthwindDatasourceProvider() };
+            return new DataSourceLocator(providers);
         }
 
         public static TReport RunThroughSerializer<TReport>(TReport report)
@@ -40,13 +45,13 @@ namespace XtraSubReport.Tests
 
         public static DesignTimeDataSourceDefinition NorthwindDataSource
         {
-            get { return new DesignTimeDataSourceDefinition("Northwind_Orders", string.Empty, string.Empty); }
+            get { return new DesignTimeDataSourceDefinition(new NorthwindOrders().UniqueId, "Northwind_Orders", string.Empty); }
         }
 
         public static object GetNorthwindOrders()
         {
             var locator = CreateDataSourceLocator();
-            return locator.GetDatasource(NorthwindDataSource).Value.GetDataSource();
+            return locator.GetDataSource(NorthwindDataSource);
         }
 
         public static Tuple<MyReportBase, XRSubreport, MyReportBase, IDesignerContext> GetParentAndNestedSubreport()
@@ -82,5 +87,7 @@ namespace XtraSubReport.Tests
             var controller = new XRReportController(report, new XRRuntimeActionFacade(action));
             controller.Print(r => r.ExportToHtml(new MemoryStream(), new HtmlExportOptions()));
         }
+
+
     }
 }

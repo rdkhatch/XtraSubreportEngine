@@ -80,7 +80,6 @@
     <Compile Include="Eventing\EventAggregator.cs" />
     <Compile Include="RuntimeActions\IReportController.cs" />
     <Compile Include="RuntimeActions\PassSubreportDataSourceRuntimeAction.cs" />
-    <Compile Include="RuntimeActions\Providers\ReportMEFRuntimeActionProvider.cs" />
     <Compile Include="RuntimeActions\ScopedXRSubscriber.cs" />
     <Compile Include="RuntimeActions\XRReportController.cs" />
     <Compile Include="RuntimeActions\XRRuntimeActionFacade.cs" />
@@ -92,7 +91,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Support\DesignTimeDataSourceDefinition.cs" />
-    <Compile Include="Support\MefHelper.cs" />
     <Compile Include="Support\RelativePathReportStorageExtension.cs" />
     <Compile Include="Support\ReportFactory.cs" />
     <Compile Include="Support\MyReportBase.cs">
