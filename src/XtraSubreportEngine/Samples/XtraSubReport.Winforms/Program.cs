@@ -54,7 +54,7 @@ namespace XtraSubReport.Winforms
             var projectBootstrapper = bs.GetProjectBootstrapper(ReportsDirectoryName,DataSourceDirectoryName,ActionsDirectoryName);
 
             projectBootstrapper.CreateFoldersIfNeeded();
-            projectBootstrapper.ExecuteBatchFile(BootStrapperBatchFileName);
+            projectBootstrapper.ExecuteBootStrapperBatchFileIfExists(BootStrapperBatchFileName);
 
             MessageBox.Show("NOT IMPLEMENTED", "Now we can wire this up...");// + bs.GetProjectBootstrapper().ToString());
             return;

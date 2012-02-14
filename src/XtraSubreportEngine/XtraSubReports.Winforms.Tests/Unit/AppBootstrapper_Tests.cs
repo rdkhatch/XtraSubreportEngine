@@ -29,7 +29,7 @@ namespace XtraSubReports.Winforms.Tests.Unit
             File.Exists(Path.Combine(path, "bootstrapper.bat")).Should().BeTrue("batch file needs to exist");
 
 
-            bs.ExecuteBatchFile("bootstrapper.bat");
+            bs.ExecuteBootStrapperBatchFileIfExists("bootstrapper.bat");
 
             Directory.Exists(Path.Combine(path, "findit")).Should().BeTrue("Folder was created by batch file");
 

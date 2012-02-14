@@ -54,7 +54,7 @@ namespace XtraSubReport.Winforms
                 Directory.CreateDirectory(path);
         }
 
-        public void ExecuteBatchFile(string bootstrapperBat)
+        public void ExecuteBootStrapperBatchFileIfExists(string bootstrapperBat)
         {
          
 
