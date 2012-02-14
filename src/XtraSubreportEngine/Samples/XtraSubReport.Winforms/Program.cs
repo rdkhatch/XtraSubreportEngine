@@ -16,6 +16,10 @@ namespace XtraSubReport.Winforms
 
     public static class Program
     {
+        private const string DefaultRootFolderName = "gcXtraReports\\ReportDesigner";
+        private const string DataSourceDirectoryName = "Datasources";
+        private const string ReportsDirectoryName = "Reports";
+
         // NLog - Helpful to diagnose if a DLL cannot be found, etc.
         private static Logger logger;
 
@@ -26,6 +30,27 @@ namespace XtraSubReport.Winforms
         static void Main()
         {
             SetupNLog();
+
+            var bs = new AppBootStrapper(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), DefaultRootFolderName));
+
+
+            var mode = bs.DetectProjectMode();
+
+            switch (mode)
+            {
+                    case AppProjectsStructureMode.None:
+                    new Popups.NoProjectsExistWarning(bs).ShowDialog();
+                    return;
+                    case AppProjectsStructureMode.MultipleUnchosen:
+                    new Popups.ChooseProject(bs).ShowDialog();
+                    if (bs.DetectProjectMode() == AppProjectsStructureMode.MultipleUnchosen)
+                        return;
+                    break;
+            }
+
+            MessageBox.Show("NOT IMPLEMENTED", "Now we can wire this up...");// + bs.GetProjectBootstrapper().ToString());
+            return;
 
             // Reports
             var relativeReportBasePath = GetReportRelativeBasePath();

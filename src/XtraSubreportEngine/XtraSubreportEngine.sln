@@ -30,6 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{28D030
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NorthwindOData", "Samples\NorthwindOData\NorthwindOData.csproj", "{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubReport.Winforms.Specs", "XtraSubReport.Winforms.Specs\XtraSubReport.Winforms.Specs.csproj", "{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraSubReports.Winforms.Tests", "XtraSubReports.Winforms.Tests\XtraSubReports.Winforms.Tests.csproj", "{158658AA-76A8-44BF-A4E5-475CA334679C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -164,6 +167,36 @@ Global
 		{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}.Release|x86.ActiveCfg = Release|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.DeployClickOnce|Any CPU.ActiveCfg = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.DeployClickOnce|Any CPU.Build.0 = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.DeployClickOnce|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.DeployClickOnce|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.DeployClickOnce|x86.ActiveCfg = Debug|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}.Release|x86.ActiveCfg = Release|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.DeployClickOnce|Any CPU.ActiveCfg = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.DeployClickOnce|Any CPU.Build.0 = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.DeployClickOnce|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.DeployClickOnce|Mixed Platforms.Build.0 = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.DeployClickOnce|x86.ActiveCfg = Debug|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{158658AA-76A8-44BF-A4E5-475CA334679C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,5 +210,7 @@ Global
 		{B3254A1C-0A73-4A04-9B96-268E3F66CD38} = {F8BC9BA4-8FB2-423C-8E52-00F829698D4D}
 		{32BA9C78-C41C-4E3E-B987-33018F28A47B} = {9A899BEC-E1D5-4C78-827C-358141D49AD3}
 		{13A64BA9-F7C5-462F-A575-AAAB29CF71FB} = {9A899BEC-E1D5-4C78-827C-358141D49AD3}
+		{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E} = {9A899BEC-E1D5-4C78-827C-358141D49AD3}
+		{158658AA-76A8-44BF-A4E5-475CA334679C} = {9A899BEC-E1D5-4C78-827C-358141D49AD3}
 	EndGlobalSection
 EndGlobal
