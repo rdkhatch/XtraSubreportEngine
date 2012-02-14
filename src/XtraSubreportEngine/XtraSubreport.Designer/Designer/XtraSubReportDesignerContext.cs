@@ -59,8 +59,6 @@ namespace XtraSubreport.Designer
             return new XRReportController(report, facade);
         }
 
-        public string ProjectRootPath { get; set; }
-
         private void CreateDesigner(string relativeReportBasePath)
         {
             DesignForm = CreateDesignForm();

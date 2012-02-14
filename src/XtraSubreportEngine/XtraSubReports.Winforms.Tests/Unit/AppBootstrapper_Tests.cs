@@ -9,6 +9,61 @@ using XtraSubReport.Winforms;
 
 namespace XtraSubReports.Winforms.Tests.Unit
 {
+
+    [TestFixture]
+    public class ProjectBootstrapper_Tests
+    {
+
+        [Test]
+        public void Should_run_bat_file_if_exists()
+        {
+            var path = GetNewEmptyPathThatExists();
+            const string reportsName = "Reports";
+            const string datasourcesName = "Datasources";
+            const string actionsName = "Actions";
+
+            var bs = new ProjectBootStrapper(path, reportsName, datasourcesName, actionsName);
+
+            File.WriteAllLines(Path.Combine(path,"bootstrapper.bat"), new []{"md findit"});
+
+            File.Exists(Path.Combine(path, "bootstrapper.bat")).Should().BeTrue("batch file needs to exist");
+
+
+            bs.ExecuteBatchFile("bootstrapper.bat");
+
+            Directory.Exists(Path.Combine(path, "findit")).Should().BeTrue("Folder was created by batch file");
+
+
+
+        }
+
+        [Test]
+        public void Should_auto_create_folders()
+        {
+            var path = GetNewEmptyPathThatExists();
+            const string reportsName = "Reports";
+            const string datasourcesName = "Datasources";
+            const string actionsName = "Actions";
+
+            var bs = new ProjectBootStrapper(path, reportsName,datasourcesName,actionsName);
+
+            bs.CreateFoldersIfNeeded();
+
+            Directory.Exists(Path.Combine(path, reportsName)).Should().BeTrue();
+            Directory.Exists(Path.Combine(path, datasourcesName)).Should().BeTrue();
+            Directory.Exists(Path.Combine(path, actionsName)).Should().BeTrue();
+        }
+
+
+        private static string GetNewEmptyPathThatExists()
+        {
+            var tempPath = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            Directory.CreateDirectory(tempPath);
+            return tempPath;
+        }
+
+    }
+
     [TestFixture]
     public class AppBootstrapper_Tests
     {

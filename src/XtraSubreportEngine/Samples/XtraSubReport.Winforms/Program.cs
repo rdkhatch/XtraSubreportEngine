@@ -19,6 +19,8 @@ namespace XtraSubReport.Winforms
         private const string DefaultRootFolderName = "gcXtraReports\\ReportDesigner";
         private const string DataSourceDirectoryName = "Datasources";
         private const string ReportsDirectoryName = "Reports";
+        private const string ActionsDirectoryName = "Actions";
+        private const string BootStrapperBatchFileName = "bootstrapper.bat";
 
         // NLog - Helpful to diagnose if a DLL cannot be found, etc.
         private static Logger logger;
@@ -49,14 +51,13 @@ namespace XtraSubReport.Winforms
                     break;
             }
 
+            var projectBootstrapper = bs.GetProjectBootstrapper(ReportsDirectoryName,DataSourceDirectoryName,ActionsDirectoryName);
+
+            projectBootstrapper.CreateFoldersIfNeeded();
+            projectBootstrapper.ExecuteBatchFile(BootStrapperBatchFileName);
+
             MessageBox.Show("NOT IMPLEMENTED", "Now we can wire this up...");// + bs.GetProjectBootstrapper().ToString());
             return;
-
-            // Reports
-            var relativeReportBasePath = GetReportRelativeBasePath();
-
-            // Datasources
-            var relativeDatasourceBasePath = GetDatasourceRelativeBasePath();
 
             // Runtime Actions
             var runtimeActions = new List<IReportRuntimeAction>()
@@ -67,7 +68,7 @@ namespace XtraSubReport.Winforms
             var rootProjectPath = string.Empty;
             List<IReportDatasourceProvider> datasourceProviders = null;
 
-            var designerContext = new DesignerContext(runtimeActions, relativeReportBasePath, rootProjectPath, datasourceProviders);
+            var designerContext = new DesignerContext(runtimeActions, projectBootstrapper.ReportsFolderPath, rootProjectPath, datasourceProviders);
 
             Application.Run(designerContext.DesignForm);
         }
