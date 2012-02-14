@@ -60,7 +60,7 @@ namespace XtraSubReport.Winforms
 
             var path = Path.Combine(_defaultRootPath, item);
 
-            if (Directory.Exists(_defaultRootPath))
+            if (Directory.Exists(path))
             {
                 _projectName = item;    
             }
