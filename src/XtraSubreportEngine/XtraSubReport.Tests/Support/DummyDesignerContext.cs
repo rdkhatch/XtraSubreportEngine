@@ -16,6 +16,11 @@ namespace XtraSubReport.Tests
             throw new System.NotImplementedException("When is this called?");
         }
 
+        public string ProjectRootPath
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
         public DummyDesignerContext()
         {
             DataSourceLocator = TestHelper.CreateDataSourceLocator();
