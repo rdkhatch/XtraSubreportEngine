@@ -75,7 +75,7 @@ namespace XtraSubreport.Engine
             return report.DataSource != null;
         }
 
-        public static void UseReportControllerDuringPrintPreview(this IDesignerContext designerContext)
+        public static void UseReportControllerDuringPrintPreview(this IDesignerContext designerContext, IReportControllerFactory reportControllerFactory)
         {
             var controller = designerContext.DesignForm.DesignMdiController;
             controller.DesignPanelLoaded += (s, e) =>
@@ -83,7 +83,7 @@ namespace XtraSubreport.Engine
                 var designPanel = (XRDesignPanel)s;
 
                 // Override Print Preview Behavior
-                controller.AddCommandHandler(new PreviewCommandHandler(designPanel, designerContext));
+                controller.AddCommandHandler(new PreviewCommandHandler(designPanel, reportControllerFactory));
             };
         }
 

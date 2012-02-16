@@ -69,7 +69,7 @@ namespace XtraSubreport.Designer
             controller.SetCommandVisibility(ReportCommand.ShowHTMLViewTab, CommandVisibility.None);
 
             // Use ReportController during PrintPreview
-            this.UseReportControllerDuringPrintPreview();
+            this.UseReportControllerDuringPrintPreview(this);
 
             // Pass Datasource to Subreports
             this.SetupDesignTimeSubreportDatasourcePassing();

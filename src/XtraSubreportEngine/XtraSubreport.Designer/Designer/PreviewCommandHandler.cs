@@ -5,12 +5,12 @@ namespace XtraSubreport.Engine.Designer
     public class PreviewCommandHandler : ICommandHandler
     {
         private readonly XRDesignPanel _designPanel;
-        private readonly IDesignerContext _designerContext;
+        private readonly IReportControllerFactory _controllerFactory;
 
-        public PreviewCommandHandler(XRDesignPanel designPanel, IDesignerContext designerContext)
+        public PreviewCommandHandler(XRDesignPanel designPanel, IReportControllerFactory controllerFactory)
         {
             _designPanel = designPanel;
-            _designerContext = designerContext;
+            _controllerFactory = controllerFactory;
         }
 
         public void HandleCommand(ReportCommand command, object[] args, ref bool handled)
@@ -24,7 +24,7 @@ namespace XtraSubreport.Engine.Designer
             // This also converts to our base class - which will fire BeforePrint events
             var previewReport = designReport.CloneLayoutAsMyReportBase();
 
-            var reportController = _designerContext.GetController(previewReport);
+            var reportController = _controllerFactory.GetController(previewReport);
 
             // Print Preview!
             reportController.Print(r => r.ShowPreviewDialog(_designPanel.LookAndFeel));

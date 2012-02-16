@@ -5,17 +5,26 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using DevExpress.XtraBars;
 using DevExpress.XtraReports.UI;
+using DevExpress.XtraReports.UserDesigner;
+using GeniusCode.Framework.Extensions;
 using NLog;
+using XtraSubReport.Winforms.Popups;
+using XtraSubReport.Winforms.Prototypes;
 using XtraSubreport.Contracts.DesignTime;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Designer;
+using XtraSubreport.Engine.Eventing;
+using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Winforms
 {
 
     public static class Program
     {
+        public static MessageHandler DebugMessageHandler;
+
         private const string DefaultRootFolderName = "gcXtraReports\\ReportDesigner";
         private const string DataSourceDirectoryName = "Datasources";
         private const string ReportsDirectoryName = "Reports";
@@ -57,6 +66,16 @@ namespace XtraSubReport.Winforms
             projectBootstrapper.ExecuteBootStrapperBatchFileIfExists(BootStrapperBatchFileName);
 
             MessageBox.Show("NOT IMPLEMENTED", "Now we can wire this up...");// + bs.GetProjectBootstrapper().ToString());
+
+            DebugMessageHandler = new MessageHandler(EventAggregator.Singleton);
+            var form = new XRMessagingDesignForm(EventAggregator.Singleton);
+
+            AddToolbarButton_SelectDataSource(form);
+
+            form.ShowDialog();
+
+
+
             return;
 
             // Runtime Actions
@@ -105,6 +124,18 @@ namespace XtraSubReport.Winforms
                 var exception = (Exception)e.ExceptionObject;
                 logger.FatalException("Report Designer encountered unhandled exception", exception);
             };
+        }
+
+
+        private static void AddToolbarButton_SelectDataSource(XRDesignForm form)
+        {
+            var item = new BarButtonItem(form.DesignBarManager, "See Messages");
+
+            // Click Handler
+            item.ItemClick += (s, e) => new ShowMessages(DebugMessageHandler).ShowDialog();
+
+            // Add Datasource Button
+            form.DesignBarManager.Toolbar.AddItem(item);
         }
 
     }

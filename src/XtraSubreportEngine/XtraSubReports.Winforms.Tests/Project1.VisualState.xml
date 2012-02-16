@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
+  <TopNode>[0-1000]C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\Project1.nunit</TopNode>
+  <SelectedNode>[0-1013]XtraSubReports.Winforms.Tests.Unit.DesignFormFactory_tests.Should_use_our_handler_on_print_preview</SelectedNode>
+  <ExcludeCategories>false</ExcludeCategories>
+  <Nodes>
+    <Node UniqueName="[0-1000]C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\Project1.nunit" Expanded="true" />
+    <Node UniqueName="[0-1017]C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\bin\Debug\XtraSubReports.Winforms.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1018]XtraSubReports" Expanded="true" />
+    <Node UniqueName="[0-1019]XtraSubReports.Winforms" Expanded="true" />
+    <Node UniqueName="[0-1020]XtraSubReports.Winforms.Tests" Expanded="true" />
+    <Node UniqueName="[0-1021]XtraSubReports.Winforms.Tests.Unit" Expanded="true" />
+    <Node UniqueName="[0-1004]XtraSubReports.Winforms.Tests.Unit.AppBootstrapper_Tests" Expanded="true" />
+    <Node UniqueName="[0-1015]XtraSubReports.Winforms.Tests.Unit.DesignContext_tests" Expanded="true" />
+    <Node UniqueName="[0-1012]XtraSubReports.Winforms.Tests.Unit.DesignFormFactory_tests" Expanded="true" />
+    <Node UniqueName="[0-1001]XtraSubReports.Winforms.Tests.Unit.ProjectBootstrapper_Tests" Expanded="true" />
+  </Nodes>
+</VisualState>

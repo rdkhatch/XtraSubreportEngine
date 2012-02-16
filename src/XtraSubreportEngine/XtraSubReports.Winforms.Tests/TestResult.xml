@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\Project1.nunit" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2012-02-16" time="10:07:09">
+  <environment nunit-version="2.5.10.11092" clr-version="2.0.50727.5448" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Program Files\NUnit 2.5.10\bin\net-2.0" machine-name="WIN-R2MC10THE6H" user="Jeremiah Redekop" user-domain="WIN-R2MC10THE6H" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Project" name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\Project1.nunit" executed="True" result="Success" success="True" time="36.403" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\bin\Debug\XtraSubReports.Winforms.Tests.dll" executed="True" result="Success" success="True" time="36.403" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="XtraSubReports" executed="True" result="Success" success="True" time="36.402" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Winforms" executed="True" result="Success" success="True" time="36.402" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="36.402" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="Unit" executed="True" result="Success" success="True" time="36.401" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="DesignFormFactory_tests" executed="True" result="Success" success="True" time="36.400" asserts="0">
+                            <results>
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.DesignFormFactory_tests.Should_use_our_handler_on_print_preview" executed="True" result="Success" success="True" time="36.399" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>

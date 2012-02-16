@@ -126,6 +126,8 @@
     <Reference Include="DevExpress.XtraEditors.v11.2.Design, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
+    <Reference Include="DevExpress.XtraGrid.v11.2, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v11.2, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPivotGrid.v11.2, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -206,6 +208,21 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProjectBootStrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Prototypes\DesignPanelPrintPreviewMessage.cs" />
+    <Compile Include="Popups\ShowMessages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Popups\ShowMessages.Designer.cs">
+      <DependentUpon>ShowMessages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Prototypes\MessageHandler.cs" />
+    <Compile Include="Prototypes\MessageInfo.cs" />
+    <Compile Include="Prototypes\RelayCommandHandler.cs" />
+    <Compile Include="Prototypes\ReportActivatedBySubreportMessage.cs" />
+    <Compile Include="Prototypes\ReportActivatedMessage.cs" />
+    <Compile Include="Prototypes\XRMessagingDesignForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Content Include="Sample Reports\dummy.placeholder.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -226,12 +243,16 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Popups\ShowMessages.resx">
+      <DependentUpon>ShowMessages.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\XtraSubreport.Engine.Support.DesignTimeDataSourceTreeItem.datasource" />
+    <None Include="Properties\DataSources\XtraSubReport.Winforms.Prototypes.MessageInfo.datasource" />
     <None Include="Properties\DataSources\XtraSubReport.Winforms.ServiceReference1.NorthwindEntities.datasource" />
     <None Include="Properties\DataSources\XtraSubreportEngine.Support.DesignTimeDataSource.datasource" />
     <None Include="Properties\Settings.settings">
