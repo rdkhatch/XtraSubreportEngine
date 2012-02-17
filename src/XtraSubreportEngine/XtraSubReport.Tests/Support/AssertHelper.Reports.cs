@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using NUnit.Framework;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests

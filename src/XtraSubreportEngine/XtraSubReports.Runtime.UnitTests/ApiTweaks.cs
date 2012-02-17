@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using DevExpress.XtraReports.UI;
 using FluentAssertions;
 using NUnit.Framework;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine.RuntimeActions;
-using XtraSubreportEngine.Support;
+using XtraSubreport.Engine.Support;
 
 namespace XtraSubReports.Runtime.UnitTests
 {
@@ -31,11 +30,11 @@ namespace XtraSubReports.Runtime.UnitTests
             var newView = myController.Print(printAction);
 
             var subReportsHashcode =
-                ((MyReportBase) ((XRSubreport) newView.Bands[BandKind.Detail].Controls[0]).ReportSource).RootHashCode;
+                ((MyReportBase) ((XRSubreport) newView.Bands[BandKind.Detail].Controls[0]).ReportSource).RuntimeRootReportHashCode;
 
-            newView.RootHashCode.Should().NotBe(0);
+            newView.RuntimeRootReportHashCode.Should().NotBe(0);
 
-            subReportsHashcode.Should().Be(newView.RootHashCode);
+            subReportsHashcode.Should().Be(newView.RuntimeRootReportHashCode);
 
         }
 
@@ -69,9 +68,9 @@ namespace XtraSubReports.Runtime.UnitTests
             var controllerA = new XRReportController(view);
             var view2 = controllerA.Print(r => r.ExportToMemory());
             
-            GlobalXRSubscriber.Singleton.Visitors.Values.Count(wr => wr.IsAlive && ((XRRuntimeVisitor)wr.Target).ReportHashcode == view2.RootHashCode).Should().Be(1);
+            GlobalXRSubscriber.Singleton.Visitors.Values.Count(wr => wr.IsAlive && ((XRRuntimeVisitor)wr.Target).ReportHashcode == view2.RuntimeRootReportHashCode).Should().Be(1);
             GC.Collect();
-            GlobalXRSubscriber.Singleton.Visitors.Values.Count(wr => wr.IsAlive && ((XRRuntimeVisitor)wr.Target).ReportHashcode == view2.RootHashCode).Should().Be(0);
+            GlobalXRSubscriber.Singleton.Visitors.Values.Count(wr => wr.IsAlive && ((XRRuntimeVisitor)wr.Target).ReportHashcode == view2.RuntimeRootReportHashCode).Should().Be(0);
         }
         
 

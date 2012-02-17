@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using FluentAssertions;
 using NUnit.Framework;
 using XtraSubReport.Winforms;
+using XtraSubReport.Winforms.Support;
 
 namespace XtraSubReports.Winforms.Tests.Unit
 {
-
     [TestFixture]
     public class ProjectBootstrapper_Tests
     {

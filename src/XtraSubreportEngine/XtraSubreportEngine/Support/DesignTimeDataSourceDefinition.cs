@@ -1,51 +1,54 @@
+using System.Linq;
 using System;
 using GeniusCode.Framework.Support.Objects;
+using XtraSubreport.Contracts.DesignTime;
+using XtraSubreportEngine.Support;
 
-namespace XtraSubreportEngine.Support
+namespace XtraSubreport.Engine.Support
 {
-    public class DesignTimeDataSourceDefinition : XRSerializableBase
+    public class ReportDatasourceMetadataWithTraversal : IReportDatasourceMetadataWithTraversal
     {
-        // Default constructor, for IXRSerializable deserializing
-        public DesignTimeDataSourceDefinition()
-            : this(string.Empty, string.Empty, string.Empty)
+        public ReportDatasourceMetadataWithTraversal(IReportDatasourceMetadata md, string traversalPath, Type traversedDataSourceType)
         {
+            UniqueId = md.UniqueId;
+            Name = md.Name;
+            Description = md.Description;
+            DataSourceType = md.DataSourceType;
+            TraversalPath = traversalPath;
+            TraversedDataSourceType = traversedDataSourceType;
         }
 
-        public DesignTimeDataSourceDefinition(string datasourceUniqueId, string dataSourceName, string dataSourceRelationPath)
-        {
-            DataSourceUniqueId = datasourceUniqueId;
-            DataSourceName = dataSourceName;
+        public string UniqueId { get; private set; }
 
-            // Optional
-            DataSourceRelationPath = dataSourceRelationPath;
-        }
+        public string Name { get; private set; }
 
-        public string DataSourceUniqueId { get; set; }
-        public string DataSourceName { get; set; }
-        public string DataSourceRelationPath { get; set; }
+        public string Description { get; private set; }
 
-        [Obsolete]
-        public string DataSourceAssemblyLocationPath { get; set; }
+        public Type DataSourceType { get; private set; }
 
-        // These get assigned in the Designer when the datasource is opened
-        public Type RootDataSourceType { get; set; }
-        public Type DataSourceType { get; set; }
 
+        #region optional
+        
         public override bool Equals(object obj)
         {
             return CompareHelper.ObjectCompare(this, obj, CompareMethod.GetHashCodeIfSameTypeOtherwiseFalse);
         }
 
-        public override int GetHashCode()
+       public override int GetHashCode()
         {
-            return HashcodeBuilder.GetHashcodeItems(DataSourceUniqueId, DataSourceRelationPath);
+            return HashcodeBuilder.GetHashcodeItems(UniqueId, TraversalPath);
         }
 
-        public override string ToString()
+        #endregion
+
+       public override string ToString()
         {
-            return "{0} ('{1}')".FormatString(DataSourceName, DataSourceRelationPath);
+            return "{0} ('{1}')".FormatString(Name, TraversalPath);
         }
 
+        public string TraversalPath { get; private set; }
+
+        public Type TraversedDataSourceType { get; private set; }
     }
 
 }

@@ -4,8 +4,10 @@ using System.Linq;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
 using GeniusCode.Framework.Extensions;
+using XtraSubreport.Design;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Eventing;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Winforms.Prototypes
@@ -15,15 +17,17 @@ namespace XtraSubReport.Winforms.Prototypes
         #region fields
 
         private readonly IEventAggregator _aggregator;
+        private readonly IDesignReportMetadataAssociationRepository _designReportMetadataAssociationRepository;
 
         #endregion
 
         #region Constructors
 
-        public XRMessagingDesignForm(IEventAggregator aggregator)
+        public XRMessagingDesignForm(IEventAggregator aggregator, IDesignReportMetadataAssociationRepository designReportMetadataAssociationRepository)
         {
             if (aggregator == null) throw new ArgumentNullException("aggregator");
             _aggregator = aggregator;
+            _designReportMetadataAssociationRepository = designReportMetadataAssociationRepository;
 
             InitForm();
         }
@@ -111,14 +115,6 @@ namespace XtraSubReport.Winforms.Prototypes
                 {
                     var selected = designPanel.GetSelectedComponents();
                     selectedSubreport = selected.OfType<SubreportBase>().SingleOrDefault();
-
-#if DEBUG
-                    if (selectedSubreport != null)
-                    {
-                        var path = GetFullDataMemberPath(selectedSubreport.Band);
-                        Debug.WriteLine("You selected subreport with Path: {0}".FormatString(path));
-                    }
-#endif
                 };
 
             });
@@ -176,13 +172,14 @@ namespace XtraSubReport.Winforms.Prototypes
                 {
                     // If we are at the top, add starting Relation Path from datasource
                     report.TryAs<MyReportBase>(myReport =>
-                    {
-                        var selectedDatasourceDefinition = myReport.GetSelectedDesignTimeDatasource();
+                                                   {
+                                                       var selectedDatasourceDefinition =
+                                                           _designReportMetadataAssociationRepository.GetCurrentAssociationForReport(myReport);
 
                         if (selectedDatasourceDefinition != null)
                         {
                             // Append parent report
-                            var startingReportPath = selectedDatasourceDefinition.DataSourceRelationPath;
+                            var startingReportPath = selectedDatasourceDefinition.TraversalPath;
                             path = startingReportPath;
                         }
                     });

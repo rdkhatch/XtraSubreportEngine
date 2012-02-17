@@ -25,7 +25,7 @@ namespace XtraSubreport.Engine.RuntimeActions
 
          protected override void PerformAction(XRSubreport control)
          {
-             var ds = RunTimeHelper.SetDataSourceOnSubreport(control);
+             var ds = control.SetDataSourceOnSubreport();
 
              if (_nestedAction != null)
                  _nestedAction(control, ds);

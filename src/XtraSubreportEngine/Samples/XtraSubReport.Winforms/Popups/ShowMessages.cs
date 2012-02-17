@@ -11,10 +11,10 @@ namespace XtraSubReport.Winforms.Popups
             InitializeComponent();
         }
 
-        public ShowMessages(MessageHandler debugMessageHandler)
+        public ShowMessages(DebugMessageHandler debugDebugMessageHandler)
         {
             InitializeComponent();
-            this.messageInfoBindingSource.DataSource = debugMessageHandler.GetMessageInfos();
+            this.messageInfoBindingSource.DataSource = debugDebugMessageHandler.GetMessageInfos();
         }
     }
 }

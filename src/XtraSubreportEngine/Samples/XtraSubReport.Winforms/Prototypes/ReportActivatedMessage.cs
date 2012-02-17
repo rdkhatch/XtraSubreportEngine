@@ -1,4 +1,5 @@
 using System.Linq;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Winforms.Prototypes

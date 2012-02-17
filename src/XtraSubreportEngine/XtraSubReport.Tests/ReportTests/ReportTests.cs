@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
@@ -20,7 +21,8 @@ namespace XtraSubReport.Tests
         [Test]
         public void populates_design_time_datasource()
         {
-            var factory = new ReportFactory();
+            throw new NotImplementedException("Test does not compile");
+/*            var factory = new ReportFactory();
             var designContext = TestHelper.CreateDesignerContext();
 
             var report = factory.GetNewReport();
@@ -29,13 +31,14 @@ namespace XtraSubReport.Tests
 
             report.ChangeDesignTimeDatasourceToDefault(designContext);
 
-            AssertHelper.Reports.AssertDatasourceHasItems(report);
+            AssertHelper.Reports.AssertDatasourceHasItems(report);*/
         }
 
         [Test]
         public void save_parent_and_subreport_for_opening_in_designer()
         {
-            var tuple = TestHelper.GetParentAndNestedSubreport();
+            throw new NotImplementedException("Test does not compile");
+/*            var tuple = TestHelper.GetParentAndNestedSubreport();
 
             var parentReport = tuple.Item1;
             var subreportContainer = tuple.Item2;
@@ -53,25 +56,27 @@ namespace XtraSubReport.Tests
             subreport.ChangeDesignTimeDatasource(datasourceDefinition, designContext);
 
             parentReport.SaveLayout(parentPath);
-            subreport.SaveLayout(subreportPath);
+            subreport.SaveLayout(subreportPath);*/
         }
 
         [Test]
         public void should_not_throw_exception_when_no_design_time_datasources()
         {
-            var factory = new ReportFactory();
+            throw new NotImplementedException("Test does not compile");
+/*            var factory = new ReportFactory();
             var designContext = TestHelper.CreateDesignerContext();
 
             var report = factory.GetNewReport();
 
             // Should not throw exception
-            report.ChangeDesignTimeDatasourceToDefault(designContext);
+            report.ChangeDesignTimeDatasourceToDefault(designContext);*/
         }
 
         [Test]
         public void should_replace_existing_datasource()
         {
-            var factory = new ReportFactory();
+            throw new NotImplementedException("Test does not compile");
+/*            var factory = new ReportFactory();
             var designContext = TestHelper.CreateDesignerContext();
 
             var report = factory.GetNewReport();
@@ -82,18 +87,18 @@ namespace XtraSubReport.Tests
 
             report.ChangeDesignTimeDatasourceToDefault(designContext);
 
-            Assert.AreEqual(null, report.DataSource);
+            Assert.AreEqual(null, report.DataSource);*/
         }
 
-        public class DummyReport : XtraReportWithCustomPropertiesBase
+/*        public class DummyReport : XtraReportWithCustomPropertiesBase
         {
-            public DesignTimeDataSourceDefinition RyansSerializeTestObject { get; set; }
+            public ReportDatasourceMetadataWithTraversal RyansSerializeTestObject { get; set; }
 
             protected override void DeclareCustomProperties()
             {
                 base.DeclareCustomObjectProperty(() => this.RyansSerializeTestObject);
             }
-        }
+        }*/
 
     }
 

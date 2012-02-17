@@ -6,6 +6,7 @@ using DevExpress.XtraReports.UI;
 using FluentAssertions;
 using TechTalk.SpecFlow;
 using XtraSubReports.Runtime.UnitTests;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReports.Runtime.Specs.Steps

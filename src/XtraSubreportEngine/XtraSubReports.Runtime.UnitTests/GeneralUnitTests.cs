@@ -6,10 +6,13 @@ using System.Text;
 using DevExpress.XtraReports.UI;
 using FluentAssertions;
 using NUnit.Framework;
+using XtraSubReports.TestResources.Models;
+using XtraSubReports.TestResources.Reports;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Eventing;
 using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubReports.Runtime.UnitTests

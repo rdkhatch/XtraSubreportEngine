@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.XtraReports.UI;
 using NorthwindOData.Northwind;
 using NUnit.Framework;
-using XtraSubreport.Designer;
+using XtraSubReport.Tests.Support;
+using XtraSubreport.Design.Traversals;
 using XtraSubreport.Engine;
 
 namespace XtraSubReport.Tests
@@ -18,11 +20,11 @@ namespace XtraSubReport.Tests
             object orders = TestHelper.GetNorthwindOrders();
 
             // Null
-            object orders2 = ObjectGraphPathTraverser.TraversePath(orders, null);
+            object orders2 = new ObjectGraphPathTraverser().Traverse(orders, null);
             Assert.ReferenceEquals(orders, orders2);
 
             // Empty String
-            object orders3 = ObjectGraphPathTraverser.TraversePath(orders, "");
+            object orders3 = new ObjectGraphPathTraverser().Traverse(orders, "");
             Assert.ReferenceEquals(orders, orders3);
         }
 
@@ -31,7 +33,7 @@ namespace XtraSubReport.Tests
         {
             object orders = TestHelper.GetNorthwindOrders();
 
-            object order = ObjectGraphPathTraverser.TraversePath(orders, "[0]");
+            object order = new ObjectGraphPathTraverser().Traverse(orders, "[0]");
 
             Assert.IsTrue(order is NorthwindOData.Northwind.Order);
             Assert.IsNotNull(order);
@@ -42,7 +44,7 @@ namespace XtraSubReport.Tests
         {
             object orders = TestHelper.GetNorthwindOrders();
 
-            object order_details = ObjectGraphPathTraverser.TraversePath(orders, "[0].Order_Details");
+            object order_details = new ObjectGraphPathTraverser().Traverse(orders, "[0].Order_Details");
 
             var collection = (order_details as IEnumerable).Cast<Order_Detail>();
 
@@ -54,7 +56,7 @@ namespace XtraSubReport.Tests
         {
             object orders = TestHelper.GetNorthwindOrders();
 
-            object order_detail = ObjectGraphPathTraverser.TraversePath(orders, "[0].Order_Details[0]");
+            object order_detail = new ObjectGraphPathTraverser().Traverse(orders, "[0].Order_Details[0]");
 
             Assert.IsTrue(order_detail is Order_Detail);
         }
@@ -64,7 +66,7 @@ namespace XtraSubReport.Tests
         {
             object orders = TestHelper.GetNorthwindOrders();
 
-            object order_details = ObjectGraphPathTraverser.TraversePath(orders, "Order_Details");
+            object order_details = new ObjectGraphPathTraverser().Traverse(orders, "Order_Details");
 
             Assert.IsTrue(order_details is IEnumerable<Order_Detail>);
         }
@@ -72,7 +74,8 @@ namespace XtraSubReport.Tests
         [Test]
         public void combine_parent_datasourcepath_with_band_memberpath()
         {
-            var factory = new ReportFactory();
+            throw new NotImplementedException("Test does not compile");
+/*            var factory = new ReportFactory();
             var designContext = TestHelper.CreateDesignerContext();
 
             // Parent Report
@@ -88,13 +91,14 @@ namespace XtraSubReport.Tests
             report.Bands.Add(detailReportBand);
 
             var path = detailReportBand.GetFullDataMemberPath();
-            Assert.AreEqual("[0].OrderDetails", path);
+            Assert.AreEqual("[0].OrderDetails", path);*/
         }
 
         [Test]
         public void should_traverse_when_changing_datasource()
         {
-            var factory = new ReportFactory();
+            throw new NotImplementedException("Test does not compile");
+/*            var factory = new ReportFactory();
             var designContext = TestHelper.CreateDesignerContext();
 
             var report = factory.GetNewReport();
@@ -106,7 +110,7 @@ namespace XtraSubReport.Tests
 
             var datasource = report.DataSource;
 
-            Assert.IsTrue(datasource is IEnumerable<Order_Detail>);
+            Assert.IsTrue(datasource is IEnumerable<Order_Detail>);*/
         }
     }
 }

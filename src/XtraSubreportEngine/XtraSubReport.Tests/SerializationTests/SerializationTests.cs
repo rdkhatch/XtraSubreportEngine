@@ -8,7 +8,7 @@ using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
 {
-    [TestFixture]
+/*    [TestFixture]
     public class SerializationTests
     {
         [Test]
@@ -94,5 +94,5 @@ namespace XtraSubReport.Tests
             }
         }
 
-    }
+    }*/
 }

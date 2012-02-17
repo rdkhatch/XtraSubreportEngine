@@ -2,17 +2,9 @@
 using System.Linq;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
-using DevExpress.XtraReports.Extensions;
-using System.ComponentModel;
-using DevExpress.XtraReports;
-using DevExpress.XtraReports.Localization;
-using DevExpress.Utils;
-using System.Diagnostics;
-using DevExpress.XtraReports.UserDesigner.Native;
-using DevExpress.XtraReports.Design;
 using XtraSubreportEngine.Support;
 
-namespace XtraSubreport.Engine
+namespace XtraSubreport.Engine.Support
 {
     /// <summary>
     /// Factory for MyReportBase

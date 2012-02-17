@@ -104,9 +104,9 @@
       <Project>{316A7AB5-8178-4F21-BAF4-C4D470594477}</Project>
       <Name>XtraSubreport.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\XtraSubreport.Designer\XtraSubreport.Designer.csproj">
+    <ProjectReference Include="..\XtraSubreport.Designer\XtraSubreport.Design.csproj">
       <Project>{69C3EEB8-11C3-475C-A15A-0C4324CB052B}</Project>
-      <Name>XtraSubreport.Designer</Name>
+      <Name>XtraSubreport.Design</Name>
     </ProjectReference>
     <ProjectReference Include="..\Samples\XtraSubReport.Winforms\XtraSubReport.Winforms.csproj">
       <Project>{32BA9C78-C41C-4E3E-B987-33018F28A47B}</Project>
@@ -115,6 +115,10 @@
     <ProjectReference Include="..\XtraSubreportEngine\XtraSubreport.Engine.csproj">
       <Project>{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}</Project>
       <Name>XtraSubreport.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XtraSubReports.TestResources\XtraSubReports.TestResources.csproj">
+      <Project>{4C4B84C6-A3BF-42AC-9E7B-393387DBA4D1}</Project>
+      <Name>XtraSubReports.TestResources</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

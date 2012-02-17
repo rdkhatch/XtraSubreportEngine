@@ -1,32 +1,32 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.UI;
 using NorthwindOData;
-using NUnit.Framework;
+using XtraSubReport.Winforms.Repositories;
 using XtraSubreport.Contracts.DesignTime;
 using XtraSubreport.Contracts.RuntimeActions;
-using XtraSubreport.Designer;
-using XtraSubreport.Engine;
-using XtraSubreport.Engine.Designer;
+using XtraSubreport.Design;
 using XtraSubreport.Engine.RuntimeActions;
-using XtraSubreportEngine.Support;
+using XtraSubreport.Engine.Support;
 
-namespace XtraSubReport.Tests
+namespace XtraSubReport.Tests.Support
 {
     static class TestHelper
     {
-        public static IDesignerContext CreateDesignerContext()
+        public static IDesignDataContext CreateDesignerContext()
         {
-            var datasourcelocator = CreateDataSourceLocator();
-            return new DummyDesignerContext(datasourcelocator);
+            throw new NotImplementedException("Does not compile");
+            /*var datasourcelocator = CreateDataSourceRepository();
+            return new DummyDesignerContext(datasourcelocator);*/
         }
 
-        public static DataSourceLocator CreateDataSourceLocator()
+        public static IDesignDataRepository CreateDataSourceRepository()
         {
             var providers = new List<IReportDatasourceProvider>() { new NorthwindDatasourceProvider() };
-            return new DataSourceLocator(providers);
+            return new DesignDataRepository(providers);
         }
 
         public static TReport RunThroughSerializer<TReport>(TReport report)
@@ -43,20 +43,21 @@ namespace XtraSubReport.Tests
             return (TReport)report2;
         }
 
-        public static DesignTimeDataSourceDefinition NorthwindDataSource
+        public static ReportDatasourceMetadataWithTraversal NorthwindDataSource
         {
-            get { return new DesignTimeDataSourceDefinition(new NorthwindOrders().UniqueId, "Northwind_Orders", string.Empty); }
+            get { return new ReportDatasourceMetadataWithTraversal(new NorthwindOrders(), "Northwind_Orders", typeof(NorthwindOrders)); }
         }
 
         public static object GetNorthwindOrders()
         {
-            var locator = CreateDataSourceLocator();
-            return locator.GetDataSource(NorthwindDataSource);
+            var locator = CreateDataSourceRepository();
+            return locator.GetDataSourceByUniqueId(NorthwindDataSource.UniqueId);
         }
 
-        public static Tuple<MyReportBase, XRSubreport, MyReportBase, IDesignerContext> GetParentAndNestedSubreport()
+        public static Tuple<MyReportBase, XRSubreport, MyReportBase, object> GetParentAndNestedSubreport()
         {
-            var factory = new ReportFactory();
+            throw new NotImplementedException("Method does not compile");
+/*            var factory = new ReportFactory();
 
             // Parent Report
             var parentReport = factory.GetNewReport("parentReport");
@@ -79,7 +80,7 @@ namespace XtraSubReport.Tests
             parentReport.ChangeDesignTimeDatasource(TestHelper.NorthwindDataSource, designContext);
             Assert.IsNotNull(parentReport.DataSource);
 
-            return new Tuple<MyReportBase, XRSubreport, MyReportBase, IDesignerContext>(parentReport, subreportContainer, subreport, designContext);
+            return new Tuple<MyReportBase, XRSubreport, MyReportBase, IDesignerContext>(parentReport, subreportContainer, subreport, designContext);*/
         }
 
         public static void RunReport(XtraReport report, params IReportRuntimeAction[] action)

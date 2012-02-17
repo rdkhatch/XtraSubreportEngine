@@ -76,7 +76,7 @@
   <ItemGroup>
     <Compile Include="Eventing\ScopedXRControlBeforePrintMessage.cs" />
     <Compile Include="Eventing\XRBeforePrintMessage.cs" />
-    <Compile Include="Extensions\RunTimeHelper.cs" />
+    <Compile Include="SubreportExtensions.cs" />
     <Compile Include="Eventing\EventAggregator.cs" />
     <Compile Include="RuntimeActions\IReportController.cs" />
     <Compile Include="RuntimeActions\PassSubreportDataSourceRuntimeAction.cs" />
@@ -102,7 +102,7 @@
     </Compile>
     <Compile Include="Serialization\XRSerializableCollection.cs" />
     <Compile Include="Serialization\XtraReportsSerializationHelper.cs" />
-    <Compile Include="Extensions\XRExtensions.cs" />
+    <Compile Include="XRExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XtraSubreport.Contracts\XtraSubreport.Contracts.csproj">

@@ -9,9 +9,9 @@ namespace XtraSubreport.Engine.Support
 
     public class RelativePathReportStorage : ReportStorageExtension
     {
-        string _relativeBasePath;
-        string _executingAssemblyDirectory;
-        string _fullBasePath;
+        readonly string _relativeBasePath;
+        readonly string _executingAssemblyDirectory;
+        readonly string _fullBasePath;
 
         public RelativePathReportStorage(string relativeReportBasePath)
         {

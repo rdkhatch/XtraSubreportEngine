@@ -81,6 +81,12 @@
     <UpdateUrl>$(UPDATE_URL)</UpdateUrl>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\..\packages\Autofac.2.5.2.830\lib\NET40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Configuration">
+      <HintPath>..\..\packages\Autofac.2.5.2.830\lib\NET40\Autofac.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Charts.v11.2.Core, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
       <Private>True</Private>
     </Reference>
@@ -191,8 +197,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppBootStrapper.cs" />
-    <Compile Include="AppProjectsStructureMode.cs" />
+    <Compile Include="CompositeRoot.cs" />
+    <Compile Include="DesignDataContext2.cs" />
+    <Compile Include="Prototypes\DataSourceSelectedForReportMessage.cs" />
+    <Compile Include="Support\ActionMessageHandler.cs" />
+    <Compile Include="Support\AppBootStrapper.cs" />
+    <Compile Include="Support\AppProjectsStructureMode.cs" />
     <Compile Include="Popups\ChooseProject.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,8 +215,10 @@
     <Compile Include="Popups\NoProjectsExistWarning.Designer.cs">
       <DependentUpon>NoProjectsExistWarning.cs</DependentUpon>
     </Compile>
+    <Compile Include="Popups\Support\DesignTimeDataSourceTreeItem.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="ProjectBootStrapper.cs" />
+    <Compile Include="Support\DataSourceSetter.cs" />
+    <Compile Include="Support\ProjectBootStrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Prototypes\DesignPanelPrintPreviewMessage.cs" />
     <Compile Include="Popups\ShowMessages.cs">
@@ -215,7 +227,7 @@
     <Compile Include="Popups\ShowMessages.Designer.cs">
       <DependentUpon>ShowMessages.cs</DependentUpon>
     </Compile>
-    <Compile Include="Prototypes\MessageHandler.cs" />
+    <Compile Include="Prototypes\DebugMessageHandler.cs" />
     <Compile Include="Prototypes\MessageInfo.cs" />
     <Compile Include="Prototypes\RelayCommandHandler.cs" />
     <Compile Include="Prototypes\ReportActivatedBySubreportMessage.cs" />
@@ -223,6 +235,9 @@
     <Compile Include="Prototypes\XRMessagingDesignForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Repositories\DesignReportMetadataAssociationRepository.cs" />
+    <Compile Include="Repositories\DesignDataRepository.cs" />
+    <Compile Include="Support\ReportControllerFactory.cs" />
     <Content Include="Sample Reports\dummy.placeholder.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -280,9 +295,9 @@
       <Project>{316A7AB5-8178-4F21-BAF4-C4D470594477}</Project>
       <Name>XtraSubreport.Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\XtraSubreport.Designer\XtraSubreport.Designer.csproj">
+    <ProjectReference Include="..\..\XtraSubreport.Designer\XtraSubreport.Design.csproj">
       <Project>{69C3EEB8-11C3-475C-A15A-0C4324CB052B}</Project>
-      <Name>XtraSubreport.Designer</Name>
+      <Name>XtraSubreport.Design</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\XtraSubreportEngine\XtraSubreport.Engine.csproj">
       <Project>{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}</Project>

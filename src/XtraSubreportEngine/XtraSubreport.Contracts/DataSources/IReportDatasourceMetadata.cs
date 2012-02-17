@@ -9,4 +9,10 @@ namespace XtraSubreport.Contracts.DesignTime
         string Description { get; }
         Type DataSourceType { get; }
     }
+
+    public interface IReportDatasourceMetadataWithTraversal : IReportDatasourceMetadata
+    {
+        string TraversalPath { get; }
+        Type TraversedDataSourceType { get; }
+    }
 }

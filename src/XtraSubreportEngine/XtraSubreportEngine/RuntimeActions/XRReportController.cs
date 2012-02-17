@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using DevExpress.XtraReports.UI;
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.RuntimeActions
@@ -48,8 +49,8 @@ namespace XtraSubreport.Engine.RuntimeActions
             var additionalActionsFacade = new XRRuntimeActionFacade(_toDos.ToArray());
 
             var newView = _view.ConvertReportToMyReportBase();
-            newView.RootHashCode = newView.GetHashCode();
-            _subscriber = new ScopedXRSubscriber(newView.RootHashCode, c =>
+            newView.RuntimeRootReportHashCode = newView.GetHashCode();
+            _subscriber = new ScopedXRSubscriber(newView.RuntimeRootReportHashCode, c =>
                                                                            {
                                                                                defaultFacade.AttemptActionsOnControl(c);
                                                                                additionalActionsFacade.AttemptActionsOnControl(c);

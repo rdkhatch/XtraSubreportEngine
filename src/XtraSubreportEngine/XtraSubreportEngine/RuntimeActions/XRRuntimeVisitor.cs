@@ -4,6 +4,7 @@ using System.Linq;
 using DevExpress.XtraReports.UI;
 using GeniusCode.Framework.Extensions;
 using XtraSubreport.Engine.Eventing;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.RuntimeActions
@@ -18,7 +19,7 @@ namespace XtraSubreport.Engine.RuntimeActions
 
         public int ReportHashcode
         {
-            get { return _report.RootHashCode; }
+            get { return _report.RuntimeRootReportHashCode; }
         }
 
     public XRRuntimeVisitor(IEventAggregator eventAggregator, MyReportBase report)
@@ -66,7 +67,7 @@ namespace XtraSubreport.Engine.RuntimeActions
     private void Visit(XRControl control)
     {
         // Set Root Hashcode On SubReport Here:
-        control.TryAs<XRSubreport>(sr => RunTimeHelper.SetRootHashCodeOnSubreport(sr));
+        control.TryAs<XRSubreport>(sr => sr.SetRootHashCodeOnSubreport());
 
         // Self
         PublishScopedMessage(control);
@@ -82,7 +83,7 @@ namespace XtraSubreport.Engine.RuntimeActions
 
     private void PublishScopedMessage(XRControl control)
     {
-        var hashcode = control.NavigateToMyReportBase().RootHashCode;
+        var hashcode = control.NavigateToMyReportBase().RuntimeRootReportHashCode;
         var message = new ScopedXRControlBeforePrintMessage(hashcode, control);
         _eventAggregator.Publish(message);
     }

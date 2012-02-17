@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DevExpress.XtraReports.UserDesigner;
 
@@ -5,11 +6,11 @@ namespace XtraSubReport.Winforms.Prototypes
 {
     public class DesignPanelPrintPreviewMessage
     {
-        public XRDesignPanel Sender { get; set; }
+        public XRDesignPanel DesignPanel { get; set; }
 
-        public DesignPanelPrintPreviewMessage(XRDesignPanel sender)
+        public DesignPanelPrintPreviewMessage(XRDesignPanel designPanel)
         {
-            Sender = sender;
+            DesignPanel = designPanel;
         }
     }
 }

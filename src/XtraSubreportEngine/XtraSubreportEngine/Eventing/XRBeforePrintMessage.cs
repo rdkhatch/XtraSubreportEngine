@@ -1,4 +1,5 @@
 using System.Drawing.Printing;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.Eventing

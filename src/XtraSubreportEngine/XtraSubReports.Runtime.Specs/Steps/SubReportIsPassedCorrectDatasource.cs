@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using DevExpress.XtraReports.UI;
 using FluentAssertions;
 using GeniusCode.Framework.Extensions;
 using TechTalk.SpecFlow;
 using XtraSubReports.Runtime.UnitTests;
-using XtraSubreport.Contracts.RuntimeActions;
-using XtraSubreport.Engine;
 using XtraSubreport.Engine.RuntimeActions;
-using XtraSubreportEngine.Support;
+using XtraSubreport.Engine.Support;
 
 namespace XtraSubReports.Runtime.Specs.Steps
 {

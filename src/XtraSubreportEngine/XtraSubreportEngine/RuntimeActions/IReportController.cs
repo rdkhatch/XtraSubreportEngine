@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text;
 using DevExpress.XtraReports.UI;
+using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.RuntimeActions
