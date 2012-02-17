@@ -11,5 +11,8 @@ namespace XtraSubreport.Design
     {
         IEnumerable<IReportDatasourceMetadata> GetAvailableMetadatas();
         object GetDataSourceByUniqueId(string uniqueId);
+        IReportDatasourceMetadata GetDataSourceMetadataByUniqueId(string uniqueId);
     }
+
+    
 }

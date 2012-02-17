@@ -72,6 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Integration\SpecificationBase.cs" />
+    <Compile Include="Integration\ThenAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\AppBootstrapper_Tests.cs" />
     <Compile Include="Integration\Message_action_handler_tests.cs" />

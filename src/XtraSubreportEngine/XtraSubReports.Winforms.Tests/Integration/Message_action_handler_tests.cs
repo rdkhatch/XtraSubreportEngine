@@ -8,6 +8,7 @@ using NUnit.Framework;
 using XtraSubReport.Winforms.Prototypes;
 using XtraSubReport.Winforms.Repositories;
 using XtraSubReport.Winforms.Support;
+using XtraSubReports.TestResources.Infrastructure;
 using XtraSubReports.TestResources.Models;
 using XtraSubReports.TestResources.Reports;
 using XtraSubreport.Contracts.DesignTime;
@@ -20,76 +21,59 @@ using XtraSubreportEngine.Support;
 
 namespace XtraSubReports.Winforms.Tests.Integration
 {
+
+
+/*
     [TestFixture]
-    public class Message_action_handler_tests
+    public class When_creating_a_person : SpecificationBase
+    {
+        private static DesignReportMetadataAssociationRepository init(out DataSourceSetter setter,
+                                                                  out IDesignDataRepository datarep)
+        {
+            var providers = new List<IReportDatasourceProvider> { new DogTimeReportDatasourceProvider() };
+            var dataDefRep = new DesignReportMetadataAssociationRepository();
+            datarep = new DesignDataRepository(providers);
+            setter = new DataSourceSetter(datarep, dataDefRep, new ObjectGraphPathTraverser());
+            return dataDefRep;
+        }
+
+        DataSourceSetter _setter;
+        IDesignDataRepository _datarep;
+        DesignReportMetadataAssociationRepository _dataDefRep;
+
+        protected override void Given()
+        {
+            _dataDefRep = init(out _setter, out _datarep);
+        }
+
+        protected override void When()
+        {
+            _p = new Person();
+        }
+
+        [Then]
+        public void object_should_not_be_null()
+        {
+            _p.Should().NotBeNull("Person should not be null");
+        }
+    }*/
+
+
+    [TestFixture]
+    public class Setter_tests
     {
 
-        public class TestReportDatasourceMetadata : IReportDatasourceMetadata
-        {
-            public TestReportDatasourceMetadata(string uniqueId)
-            {
-                UniqueId = uniqueId;
-            }
 
-            public string UniqueId { get; private set; }
-
-            public string Name
-            {
-                get { return "Person2"; }
-            }
-
-            public string Description
-            {
-                get { return "This is some people"; }
-            }
-
-            public Type DataSourceType
-            {
-                get { return typeof (Person2); }
-            }
-        }
-
-        public class TestReportDatasourceProvider : IReportDatasourceProvider
-        {
-            public IEnumerable<IReportDatasourceMetadata> GetReportDatasources()
-            {
-                return new [] {new TestReportDatasourceMetadata("DogTime")};
-            }
-            
-            public object GetReportDatasource(string uniqueId)
-            {
-                return Person2.SampleData();
-            }
-        }
-
-        public class TestDesignDataContext : IDesignDataContext
-        {
-            public TestDesignDataContext(IEnumerable<IReportDatasourceProvider> providers, IDesignDataRepository designDataRepository, IDesignReportMetadataAssociationRepository designReportMetadataAssociationRepository)
-            {
-                Providers = providers;
-                DesignDataRepository = designDataRepository;
-                DesignReportMetadataAssociationRepository = designReportMetadataAssociationRepository;
-            }
-
-            public IEnumerable<IReportDatasourceProvider> Providers { get; private set; }
-            public IDesignDataRepository DesignDataRepository { get; private set; }
-
-            public IDesignReportMetadataAssociationRepository DesignDataDefinitionRepository
-            {
-                get { throw new NotImplementedException(); }
-            }
-
-            public IDesignReportMetadataAssociationRepository DesignReportMetadataAssociationRepository { get; private set; }
-        }
         
         [Test]
         public void Should_do_everything()
         {
+            //TODO: rewrite as spec or individual unit tests!
+
             // given infrastructure
-            var providers = new List<IReportDatasourceProvider> {new TestReportDatasourceProvider()};
-            var dataDefRep = new DesignReportMetadataAssociationRepository();
-            IDesignDataRepository datarep = new DesignDataRepository(providers);
-            var setter = new DataSourceSetter(datarep, dataDefRep, new ObjectGraphPathTraverser());
+            DataSourceSetter setter;
+            IDesignDataRepository datarep;
+            var dataDefRep = init(out setter, out datarep);
             var handler = new ActionMessageHandler( setter, new EventAggregator(), datarep,dataDefRep, new ReportControllerFactory());
             
             // given a report
@@ -99,7 +83,7 @@ namespace XtraSubReports.Winforms.Tests.Integration
             
 
             // given the parent has a datasource
-            IReportDatasourceMetadata metadata = datarep.GetAvailableMetadatas().Single(a => a.Name == "DogTime");
+            IReportDatasourceMetadata metadata = datarep.GetAvailableMetadatas().Single(a => a.UniqueId == "DogTime");
             setter.SetReportDatasource(report2, metadata);
             
             // given a subreport in parent report
@@ -120,27 +104,47 @@ namespace XtraSubReports.Winforms.Tests.Integration
             peoples[0].Dogs[0].Name.Should().Be(dog.Name);
         }
 
-
+        private static DesignReportMetadataAssociationRepository init(out DataSourceSetter setter,
+                                                                          out IDesignDataRepository datarep)
+        {
+            var providers = new List<IReportDatasourceProvider> {new DogTimeReportDatasourceProvider()};
+            var dataDefRep = new DesignReportMetadataAssociationRepository();
+            datarep = new DesignDataRepository(providers);
+            setter = new DataSourceSetter(datarep, dataDefRep, new ObjectGraphPathTraverser());
+            return dataDefRep;
+        }
 
 
         [Test]
-        public void Test()
+        public void Should_set_datasource_on_nontraversal()
         {
-            IDataSourceSetter unknown = null;
-            IReportDatasourceMetadata md = null;
+            DataSourceSetter setter;
+            IDesignDataRepository datarep;
+            DesignReportMetadataAssociationRepository dataDefRep = init(out setter, out datarep);
+
+            var md = datarep.GetDataSourceMetadataByUniqueId("DogTime");
             var report = new MyReportBase();
-            unknown.SetReportDatasource(report, md);
+            setter.SetReportDatasource(report, md);
             report.DataSource.Should().NotBeNull();
+            var persons = ((List<Person2>)report.DataSource);
+
+            persons.Count().Should().Be(3);
         }
 
         [Test]
-        public void Test2()
+        public void Should_set_datasource_on_traversal()
         {
-            IDataSourceSetter unknown = null;
-            IReportDatasourceMetadata md = null;
+            DataSourceSetter setter;
+            IDesignDataRepository datarep;
+            var dataDefRep = init(out setter, out datarep);
+
+            var md = datarep.GetDataSourceMetadataByUniqueId("DogTime");
             var report = new MyReportBase();
-            unknown.SetReportDatasource(report, md, "Dogs");
+            setter.SetReportDatasource(report, md,"Dogs");
             report.DataSource.Should().NotBeNull();
+            var dogs = ((List<Dog>) report.DataSource);
+
+            dogs.Count().Should().Be(2);
         }
 
     }

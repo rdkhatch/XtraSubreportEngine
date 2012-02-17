@@ -16,12 +16,6 @@ namespace XtraSubReport.Tests.Support
 {
     static class TestHelper
     {
-        public static IDesignDataContext CreateDesignerContext()
-        {
-            throw new NotImplementedException("Does not compile");
-            /*var datasourcelocator = CreateDataSourceRepository();
-            return new DummyDesignerContext(datasourcelocator);*/
-        }
 
         public static IDesignDataRepository CreateDataSourceRepository()
         {

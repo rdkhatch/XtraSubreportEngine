@@ -6,7 +6,7 @@ using XtraSubreportEngine.Support;
 
 namespace XtraSubReport.Tests
 {
-    [TestFixture]
+/*    [TestFixture]
     public class ReportTests
     {
         [Test]
@@ -31,7 +31,7 @@ namespace XtraSubReport.Tests
 
             report.ChangeDesignTimeDatasourceToDefault(designContext);
 
-            AssertHelper.Reports.AssertDatasourceHasItems(report);*/
+            AssertHelper.Reports.AssertDatasourceHasItems(report);#1#
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace XtraSubReport.Tests
             subreport.ChangeDesignTimeDatasource(datasourceDefinition, designContext);
 
             parentReport.SaveLayout(parentPath);
-            subreport.SaveLayout(subreportPath);*/
+            subreport.SaveLayout(subreportPath);#1#
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace XtraSubReport.Tests
             var report = factory.GetNewReport();
 
             // Should not throw exception
-            report.ChangeDesignTimeDatasourceToDefault(designContext);*/
+            report.ChangeDesignTimeDatasourceToDefault(designContext);#1#
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace XtraSubReport.Tests
 
             report.ChangeDesignTimeDatasourceToDefault(designContext);
 
-            Assert.AreEqual(null, report.DataSource);*/
+            Assert.AreEqual(null, report.DataSource);#1#
         }
 
 /*        public class DummyReport : XtraReportWithCustomPropertiesBase
@@ -98,8 +98,8 @@ namespace XtraSubReport.Tests
             {
                 base.DeclareCustomObjectProperty(() => this.RyansSerializeTestObject);
             }
-        }*/
+        }#1#
 
-    }
+    }*/
 
 }

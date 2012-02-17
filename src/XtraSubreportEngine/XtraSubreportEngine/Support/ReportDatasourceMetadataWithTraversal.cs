@@ -46,7 +46,7 @@ namespace XtraSubreport.Engine.Support
             return "{0} ('{1}')".FormatString(Name, TraversalPath);
         }
 
-        public string TraversalPath { get; private set; }
+        public string TraversalPath { get; set; }
 
         public Type TraversedDataSourceType { get; private set; }
     }

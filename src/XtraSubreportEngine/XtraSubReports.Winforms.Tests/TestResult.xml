@@ -1,7 +1,255 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\Project1.nunit" total="0" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2012-02-17" time="12:33:16">
+<test-results name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\Project1.nunit" total="21" errors="8" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2012-02-17" time="15:50:41">
   <environment nunit-version="2.5.10.11092" clr-version="2.0.50727.5448" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Program Files\NUnit 2.5.10\bin\net-2.0" machine-name="WIN-R2MC10THE6H" user="Jeremiah Redekop" user-domain="WIN-R2MC10THE6H" />
   <culture-info current-culture="en-US" current-uiculture="en-US" />
-  <test-suite type="Project" name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\Project1.nunit" executed="True" result="Inconclusive" success="False" time="0.005" asserts="0" />
+  <test-suite type="Project" name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\Project1.nunit" executed="True" result="Failure" success="False" time="3.997" asserts="0">
+    <results>
+      <test-suite type="Assembly" name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Winforms.Tests\bin\Debug\XtraSubReports.Winforms.Tests.dll" executed="True" result="Success" success="True" time="2.568" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="XtraSubReports" executed="True" result="Success" success="True" time="2.568" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Winforms" executed="True" result="Success" success="True" time="2.567" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="2.567" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="Integration" executed="True" result="Success" success="True" time="2.418" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="Setter_tests" executed="True" result="Success" success="True" time="2.416" asserts="0">
+                            <results>
+                              <test-case name="XtraSubReports.Winforms.Tests.Integration.Setter_tests.Should_do_everything" executed="True" result="Success" success="True" time="2.397" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Integration.Setter_tests.Should_set_datasource_on_nontraversal" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Integration.Setter_tests.Should_set_datasource_on_traversal" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Unit" executed="True" result="Success" success="True" time="0.144" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="AppBootstrapper_Tests" executed="True" result="Success" success="True" time="0.040" asserts="0">
+                            <results>
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.AppBootstrapper_Tests.Should_auto_create_folder" executed="True" result="Success" success="True" time="0.005" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.AppBootstrapper_Tests.Should_detect_when_multiple_projects_exist_with_correct_count_when_one" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.AppBootstrapper_Tests.Should_detect_when_multiple_projects_exist_with_correct_count_when_three" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.AppBootstrapper_Tests.Should_detect_when_multiple_projects_exist_with_correct_count_when_three_and_chosen" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.AppBootstrapper_Tests.Should_detect_when_multiple_projects_exist_with_correct_count_when_three_and_chosen_but_doesnt_exist" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.AppBootstrapper_Tests.Should_detect_when_no_path_projects_exist" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.AppBootstrapper_Tests.Should_detect_when_no_projects_exist" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ProjectBootstrapper_Tests" executed="True" result="Success" success="True" time="0.097" asserts="0">
+                            <results>
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.ProjectBootstrapper_Tests.Should_auto_create_folders" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="XtraSubReports.Winforms.Tests.Unit.ProjectBootstrapper_Tests.Should_run_bat_file_if_exists" executed="True" result="Success" success="True" time="0.089" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+      <test-suite type="Assembly" name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReport.Winforms.Specs\bin\Debug\XtraSubReport.Winforms.Specs.dll" executed="True" result="Success" success="True" time="1.077" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="XtraSubReport" executed="True" result="Success" success="True" time="1.076" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Winforms" executed="True" result="Success" success="True" time="1.076" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Specs" executed="True" result="Success" success="True" time="1.075" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="PassingDatasourcesAtDesignTimeFeature" description="Passing datasources at design time" executed="True" result="Success" success="True" time="1.075" asserts="0">
+                        <results>
+                          <test-case name="XtraSubReport.Winforms.Specs.PassingDatasourcesAtDesignTimeFeature.PassingDatasourceUsingTraversal" description="Passing Datasource Using Traversal" executed="True" result="Success" success="True" time="0.866" asserts="0">
+                            <categories>
+                              <category name="mytag" />
+                            </categories>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+      <test-suite type="Assembly" name="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\bin\Debug\XtraSubReports.Runtime.Specs.dll" executed="True" result="Failure" success="False" time="0.316" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="XtraSubReports" executed="True" result="Failure" success="False" time="0.315" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Runtime" executed="True" result="Failure" success="False" time="0.315" asserts="0">
+                <results>
+                  <test-suite type="Namespace" name="Specs" executed="True" result="Failure" success="False" time="0.315" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="ActionsFeature" description="Actions" executed="True" result="Failure" success="False" time="0.127" asserts="0">
+                        <results>
+                          <test-case name="XtraSubReports.Runtime.Specs.ActionsFeature.ChangeTextOnALabelInASubreport" description="Change text on a label in a subreport" executed="True" result="Error" success="False" time="0.102" asserts="0">
+                            <categories>
+                              <category name="mytag" />
+                            </categories>
+                            <failure>
+                              <message><![CDATA[System.MissingMethodException : Method not found: 'XtraSubreportEngine.Support.MyReportBase XtraSubreport.Engine.RuntimeActions.XRReportController.Print(System.Action`1<DevExpress.XtraReports.UI.XtraReport>)'.]]></message>
+                              <stack-trace><![CDATA[at XtraSubReports.Runtime.Specs.Steps.ActionsExecuteRecursivelySteps.WhenTheReportEngineRuns()
+at lambda_method(Closure , IContextManager )
+at TechTalk.SpecFlow.Bindings.MethodBinding.InvokeAction(IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Bindings.StepDefinitionBinding.Invoke(IContextManager contextManager, ITestTracer testTracer, Object[] arguments, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepArgs stepArgs)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+at XtraSubReports.Runtime.Specs.ActionsFeature.ScenarioCleanup() in C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\ActionsExecuteRecursively.feature.cs:line 0
+at XtraSubReports.Runtime.Specs.ActionsFeature.ChangeTextOnALabelInASubreport() in c:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\ActionsExecuteRecursively.feature:line 18
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ImagesShouldBeSetByActionFeature" description="Images Should be Set By Action" executed="True" result="Failure" success="False" time="0.017" asserts="0">
+                        <results>
+                          <test-case name="XtraSubReports.Runtime.Specs.ImagesShouldBeSetByActionFeature.InsertImageFromFile" description="Insert image from file" executed="True" result="Error" success="False" time="0.015" asserts="0">
+                            <categories>
+                              <category name="mytag" />
+                            </categories>
+                            <failure>
+                              <message><![CDATA[System.MissingMethodException : Method not found: 'XtraSubreportEngine.Support.MyReportBase XtraSubreport.Engine.RuntimeActions.XRReportController.Print(System.Action`1<DevExpress.XtraReports.UI.XtraReport>)'.]]></message>
+                              <stack-trace><![CDATA[at XtraSubReports.Runtime.Specs.Steps.SetImagesUsingActionsSteps.WhenTheReportRuns()
+at lambda_method(Closure , IContextManager )
+at TechTalk.SpecFlow.Bindings.MethodBinding.InvokeAction(IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Bindings.StepDefinitionBinding.Invoke(IContextManager contextManager, ITestTracer testTracer, Object[] arguments, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepArgs stepArgs)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+at XtraSubReports.Runtime.Specs.ImagesShouldBeSetByActionFeature.ScenarioCleanup() in C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SetImagesUsingAction.feature.cs:line 0
+at XtraSubReports.Runtime.Specs.ImagesShouldBeSetByActionFeature.InsertImageFromFile() in c:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SetImagesUsingAction.feature:line 13
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature" description="Subreport Inside of a Detail Report Band is passed the correct Datasource" executed="True" result="Failure" success="False" time="0.056" asserts="0">
+                        <results>
+                          <test-case name="XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.SubreportInsideDetailOfDetailReportBand" description="Subreport inside detail of detail report band" executed="True" result="Error" success="False" time="0.009" asserts="0">
+                            <failure>
+                              <message><![CDATA[System.TypeLoadException : Could not load type 'XtraSubreportEngine.Support.MyReportBase' from assembly 'XtraSubreport.Engine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.]]></message>
+                              <stack-trace><![CDATA[at XtraSubReports.Runtime.Specs.Steps.SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.GivenASubreportExistsAsAFile()
+at lambda_method(Closure , IContextManager )
+at TechTalk.SpecFlow.Bindings.MethodBinding.InvokeAction(IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Bindings.StepDefinitionBinding.Invoke(IContextManager contextManager, ITestTracer testTracer, Object[] arguments, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepArgs stepArgs)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+at XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.ScenarioCleanup() in C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubreportInsideOfDetailReportBandIsPassedCorrectDatasource1.feature.cs:line 0
+at XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.SubreportInsideDetailOfDetailReportBand() in c:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.feature:line 40
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                          <test-case name="XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.SubreportInsideFooterOfDetailReportBand" description="Subreport inside footer of detail report band" executed="True" result="Error" success="False" time="0.006" asserts="0">
+                            <failure>
+                              <message><![CDATA[System.TypeLoadException : Could not load type 'XtraSubreportEngine.Support.MyReportBase' from assembly 'XtraSubreport.Engine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.]]></message>
+                              <stack-trace><![CDATA[at XtraSubReports.Runtime.Specs.Steps.SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.GivenASubreportExistsAsAFile()
+at lambda_method(Closure , IContextManager )
+at TechTalk.SpecFlow.Bindings.MethodBinding.InvokeAction(IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Bindings.StepDefinitionBinding.Invoke(IContextManager contextManager, ITestTracer testTracer, Object[] arguments, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepArgs stepArgs)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+at XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.ScenarioCleanup() in C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubreportInsideOfDetailReportBandIsPassedCorrectDatasource1.feature.cs:line 0
+at XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.SubreportInsideFooterOfDetailReportBand() in c:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.feature:line 28
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                          <test-case name="XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.SubreportInsideHeaderOfDetailReportBand" description="Subreport inside header of detail report band" executed="True" result="Error" success="False" time="0.006" asserts="0">
+                            <categories>
+                              <category name="mytag" />
+                            </categories>
+                            <failure>
+                              <message><![CDATA[System.TypeLoadException : Could not load type 'XtraSubreportEngine.Support.MyReportBase' from assembly 'XtraSubreport.Engine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'.]]></message>
+                              <stack-trace><![CDATA[at XtraSubReports.Runtime.Specs.Steps.SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.GivenASubreportExistsAsAFile()
+at lambda_method(Closure , IContextManager )
+at TechTalk.SpecFlow.Bindings.MethodBinding.InvokeAction(IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Bindings.StepDefinitionBinding.Invoke(IContextManager contextManager, ITestTracer testTracer, Object[] arguments, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepArgs stepArgs)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+at XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.ScenarioCleanup() in C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubreportInsideOfDetailReportBandIsPassedCorrectDatasource1.feature.cs:line 0
+at XtraSubReports.Runtime.Specs.SubreportInsideOfADetailReportBandIsPassedTheCorrectDatasourceFeature.SubreportInsideHeaderOfDetailReportBand() in c:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubreportInsideOfDetailReportBandIsPassedCorrectDatasource.feature:line 16
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="SubreportIsPassedCorrectDatasourceFeature" description="Subreport is passed correct datasource" executed="True" result="Failure" success="False" time="0.076" asserts="0">
+                        <results>
+                          <test-case name="XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.SubreportInsideOfADetailBand" description="Subreport inside of a detail band" executed="True" result="Error" success="False" time="0.027" asserts="0">
+                            <failure>
+                              <message><![CDATA[System.MissingMethodException : Method not found: 'XtraSubreportEngine.Support.MyReportBase XtraSubreport.Engine.RuntimeActions.XRReportController.Print(System.Action`1<DevExpress.XtraReports.UI.XtraReport>)'.]]></message>
+                              <stack-trace><![CDATA[at XtraSubReports.Runtime.Specs.Steps.SubReportIsPassedCorrectDatasource.WhenTheReportEngineRuns()
+at lambda_method(Closure , IContextManager )
+at TechTalk.SpecFlow.Bindings.MethodBinding.InvokeAction(IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Bindings.StepDefinitionBinding.Invoke(IContextManager contextManager, ITestTracer testTracer, Object[] arguments, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepArgs stepArgs)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+at XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.ScenarioCleanup() in C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubReportIsPassedCorrectDatasource1.feature.cs:line 0
+at XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.SubreportInsideOfADetailBand() in c:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubReportIsPassedCorrectDatasource.feature:line 41
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                          <test-case name="XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.SubreportInsideOfAFooterBand" description="Subreport inside of a footer band" executed="True" result="Error" success="False" time="0.013" asserts="0">
+                            <failure>
+                              <message><![CDATA[System.MissingMethodException : Method not found: 'XtraSubreportEngine.Support.MyReportBase XtraSubreport.Engine.RuntimeActions.XRReportController.Print(System.Action`1<DevExpress.XtraReports.UI.XtraReport>)'.]]></message>
+                              <stack-trace><![CDATA[at XtraSubReports.Runtime.Specs.Steps.SubReportIsPassedCorrectDatasource.WhenTheReportEngineRuns()
+at lambda_method(Closure , IContextManager )
+at TechTalk.SpecFlow.Bindings.MethodBinding.InvokeAction(IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Bindings.StepDefinitionBinding.Invoke(IContextManager contextManager, ITestTracer testTracer, Object[] arguments, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepArgs stepArgs)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+at XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.ScenarioCleanup() in C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubReportIsPassedCorrectDatasource1.feature.cs:line 0
+at XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.SubreportInsideOfAFooterBand() in c:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubReportIsPassedCorrectDatasource.feature:line 30
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                          <test-case name="XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.SubreportInsideOfAHeaderBand" description="Subreport inside of a header band" executed="True" result="Error" success="False" time="0.014" asserts="0">
+                            <categories>
+                              <category name="mytag" />
+                            </categories>
+                            <failure>
+                              <message><![CDATA[System.MissingMethodException : Method not found: 'XtraSubreportEngine.Support.MyReportBase XtraSubreport.Engine.RuntimeActions.XRReportController.Print(System.Action`1<DevExpress.XtraReports.UI.XtraReport>)'.]]></message>
+                              <stack-trace><![CDATA[at XtraSubReports.Runtime.Specs.Steps.SubReportIsPassedCorrectDatasource.WhenTheReportEngineRuns()
+at lambda_method(Closure , IContextManager )
+at TechTalk.SpecFlow.Bindings.MethodBinding.InvokeAction(IContextManager contextManager, Object[] arguments, ITestTracer testTracer, TimeSpan& duration)
+at TechTalk.SpecFlow.Bindings.StepDefinitionBinding.Invoke(IContextManager contextManager, ITestTracer testTracer, Object[] arguments, TimeSpan& duration)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStepMatch(BindingMatch match, Object[] arguments)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.ExecuteStep(StepArgs stepArgs)
+at TechTalk.SpecFlow.Infrastructure.TestExecutionEngine.OnAfterLastStep()
+at TechTalk.SpecFlow.TestRunner.CollectScenarioErrors()
+at XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.ScenarioCleanup() in C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubReportIsPassedCorrectDatasource1.feature.cs:line 0
+at XtraSubReports.Runtime.Specs.SubreportIsPassedCorrectDatasourceFeature.SubreportInsideOfAHeaderBand() in c:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine\XtraSubReports.Runtime.Specs\SubReportIsPassedCorrectDatasource.feature:line 17
+]]></stack-trace>
+                            </failure>
+                          </test-case>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
 </test-results>

@@ -3,11 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.XtraReports.UI;
+using FluentAssertions;
 using NorthwindOData.Northwind;
 using NUnit.Framework;
 using XtraSubReport.Tests.Support;
+using XtraSubReports.TestResources.Infrastructure;
+using XtraSubreport.Design;
 using XtraSubreport.Design.Traversals;
 using XtraSubreport.Engine;
+using XtraSubreport.Engine.Support;
 
 namespace XtraSubReport.Tests
 {
@@ -17,15 +21,16 @@ namespace XtraSubReport.Tests
         [Test]
         public void should_allow_root_collection()
         {
-            object orders = TestHelper.GetNorthwindOrders();
+            var orders = TestHelper.GetNorthwindOrders();
 
             // Null
-            object orders2 = new ObjectGraphPathTraverser().Traverse(orders, null);
-            Assert.ReferenceEquals(orders, orders2);
+            var orders2 = new ObjectGraphPathTraverser().Traverse(orders, null);
 
+            orders.Should().BeSameAs(orders2,"Traversal result should be the same");
+            
             // Empty String
             object orders3 = new ObjectGraphPathTraverser().Traverse(orders, "");
-            Assert.ReferenceEquals(orders, orders3);
+            Assert.AreSame(orders, orders3);
         }
 
         [Test]
@@ -71,46 +76,5 @@ namespace XtraSubReport.Tests
             Assert.IsTrue(order_details is IEnumerable<Order_Detail>);
         }
 
-        [Test]
-        public void combine_parent_datasourcepath_with_band_memberpath()
-        {
-            throw new NotImplementedException("Test does not compile");
-/*            var factory = new ReportFactory();
-            var designContext = TestHelper.CreateDesignerContext();
-
-            // Parent Report
-            var report = factory.GetNewReport();
-            report.Name = "parentreport";
-            var definition = TestHelper.NorthwindDataSource;
-            definition.DataSourceRelationPath = "[0]";
-            report.ChangeDesignTimeDatasource(definition, designContext);
-
-            // Subreport Container
-            var detailReportBand = new DetailReportBand();
-            detailReportBand.DataMember = "OrderDetails";
-            report.Bands.Add(detailReportBand);
-
-            var path = detailReportBand.GetFullDataMemberPath();
-            Assert.AreEqual("[0].OrderDetails", path);*/
-        }
-
-        [Test]
-        public void should_traverse_when_changing_datasource()
-        {
-            throw new NotImplementedException("Test does not compile");
-/*            var factory = new ReportFactory();
-            var designContext = TestHelper.CreateDesignerContext();
-
-            var report = factory.GetNewReport();
-
-            var definition = TestHelper.NorthwindDataSource;
-            definition.DataSourceRelationPath = "Order_Details";
-
-            report.ChangeDesignTimeDatasource(definition, designContext);
-
-            var datasource = report.DataSource;
-
-            Assert.IsTrue(datasource is IEnumerable<Order_Detail>);*/
-        }
     }
 }

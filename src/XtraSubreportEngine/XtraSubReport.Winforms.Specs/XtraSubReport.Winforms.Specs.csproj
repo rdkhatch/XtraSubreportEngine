@@ -3,17 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9F42907D-8C0E-4D29-856A-C64A182FB97F}</ProjectGuid>
+    <ProjectGuid>{F212BFE5-24E2-41DA-89C0-BD0B7AE9967E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XtraSubReport.Tests</RootNamespace>
-    <AssemblyName>XtraSubReport.Tests</AssemblyName>
+    <RootNamespace>XtraSubReport.Winforms.Specs</RootNamespace>
+    <AssemblyName>XtraSubReport.Winforms.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\XtraSubreportEngine\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -34,34 +32,18 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DeployClickOnce|AnyCPU'">
-    <OutputPath>bin\DeployClickOnce\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
-    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v11.2, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Utils.v11.2, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.Charts.v11.2.Core, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraCharts.v11.2, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.PivotGrid.v11.2.Core, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraPivotGrid.v11.2, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v11.2.Core, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v11.2, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraReports.v11.2.Design, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="DevExpress.XtraReports.v11.2.Extensions, Version=11.2.8.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
     <Reference Include="FluentAssertions">
       <HintPath>..\packages\FluentAssertions.1.7.0\Lib\net40\FluentAssertions.dll</HintPath>
     </Reference>
-    <Reference Include="gcCore">
-      <HintPath>..\dependencies\gcCore.dll</HintPath>
+    <Reference Include="nunit.core">
+      <HintPath>..\packages\NUnit.2.5.10.11092\tools\lib\nunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core.interfaces">
+      <HintPath>..\packages\NUnit.2.5.10.11092\tools\lib\nunit.core.interfaces.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
@@ -73,37 +55,39 @@
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\packages\SpecFlow.1.8.1\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ReportTests\ReportTests.cs" />
-    <Compile Include="DataSourceTests\PathTraverserTest.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SerializationTests\SerializationTests.cs" />
-    <Compile Include="ReportTests\RelativePathReportStorageTest.cs" />
-    <Compile Include="Support\AssertHelper.Exceptions.cs" />
-    <Compile Include="Support\AssertHelper.Reports.cs" />
-    <Compile Include="Support\DummyDesignerContext.cs">
-      <SubType>Code</SubType>
+    <Compile Include="PassingDatasourcesAtDesignTime1.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PassingDatasourcesAtDesignTime.feature</DependentUpon>
     </Compile>
-    <Compile Include="Support\TestHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecFlowNUnitExtension.cs" />
+    <Compile Include="Steps\Passing_datasources_at_design_time.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Samples\NorthwindOData\NorthwindOData.csproj">
-      <Project>{13A64BA9-F7C5-462F-A575-AAAB29CF71FB}</Project>
-      <Name>NorthwindOData</Name>
+    <None Include="App.config" />
+    <None Include="PassingDatasourcesAtDesignTime.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PassingDatasourcesAtDesignTime1.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Samples\XtraSubReport.Winforms\XtraSubReport.Winforms.csproj">
+      <Project>{32BA9C78-C41C-4E3E-B987-33018F28A47B}</Project>
+      <Name>XtraSubReport.Winforms</Name>
     </ProjectReference>
     <ProjectReference Include="..\XtraSubreport.Contracts\XtraSubreport.Contracts.csproj">
       <Project>{316A7AB5-8178-4F21-BAF4-C4D470594477}</Project>
@@ -112,10 +96,6 @@
     <ProjectReference Include="..\XtraSubreport.Designer\XtraSubreport.Design.csproj">
       <Project>{69C3EEB8-11C3-475C-A15A-0C4324CB052B}</Project>
       <Name>XtraSubreport.Design</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Samples\XtraSubReport.Winforms\XtraSubReport.Winforms.csproj">
-      <Project>{32BA9C78-C41C-4E3E-B987-33018F28A47B}</Project>
-      <Name>XtraSubReport.Winforms</Name>
     </ProjectReference>
     <ProjectReference Include="..\XtraSubreportEngine\XtraSubreport.Engine.csproj">
       <Project>{007F71E6-FFA1-4511-BC93-4BDFBE2FD896}</Project>
@@ -126,10 +106,7 @@
       <Name>XtraSubReports.TestResources</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

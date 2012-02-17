@@ -29,10 +29,21 @@ namespace XtraSubReport.Winforms.Repositories
 
         object IDesignDataRepository.GetDataSourceByUniqueId(string uniqueId)
         {
+            var tuple = FetchAvailableProvidersAndMetadatas(uniqueId);
+            return tuple.Item1.GetReportDatasource(tuple.Item2.UniqueId);
+        }
+
+        public IReportDatasourceMetadata GetDataSourceMetadataByUniqueId(string uniqueId)
+        {
+            return FetchAvailableProvidersAndMetadatas(uniqueId).Item2;
+        }
+
+        private Tuple<IReportDatasourceProvider, IReportDatasourceMetadata> FetchAvailableProvidersAndMetadatas(string uniqueId)
+        {
             var matches = (from provider in _providers
                            from datasourceMetadata in provider.GetReportDatasources()
                            where datasourceMetadata.UniqueId == uniqueId
-                           select new { provider, datasourceMetadata }).ToList();
+                           select new Tuple<IReportDatasourceProvider,IReportDatasourceMetadata>(provider, datasourceMetadata)).ToList();
 
             if (matches.Count == 0)
                 return null;
@@ -41,12 +52,7 @@ namespace XtraSubReport.Winforms.Repositories
                 throw new Exception("Multiple Design-Time Datasources were found with UniqueId: {0}".FormatString(uniqueId));
 
             var match = matches.Single();
-
-            // Fetch
-            var datasource = match.provider.GetReportDatasource(match.datasourceMetadata.UniqueId);
-
-            return datasource;
+            return match;
         }
-
     }
 }

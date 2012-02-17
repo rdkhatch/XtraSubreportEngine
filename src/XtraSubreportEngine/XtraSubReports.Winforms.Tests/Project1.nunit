@@ -1,7 +1,9 @@
 ﻿<NUnitProject>
-  <Settings activeconfig="Debug" />
+  <Settings activeconfig="Debug" appbase="C:\Users\Jeremiah Redekop\Documents\DBS\XtraSubreportEngine\src\XtraSubreportEngine" />
   <Config name="Debug" binpathtype="Auto">
-    <assembly path="bin\Debug\XtraSubReports.Winforms.Tests.dll" />
+    <assembly path="XtraSubReports.Winforms.Tests\bin\Debug\XtraSubReports.Winforms.Tests.dll" />
+    <assembly path="XtraSubReport.Winforms.Specs\bin\Debug\XtraSubReport.Winforms.Specs.dll" />
+    <assembly path="XtraSubReports.Runtime.Specs\bin\Debug\XtraSubReports.Runtime.Specs.dll" />
   </Config>
   <Config name="Release" binpathtype="Auto" />
 </NUnitProject>
