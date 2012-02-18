@@ -28,7 +28,8 @@ namespace XtraSubReport.Winforms.Popups
 
         public void Handle(NLogMessage message)
         {
-            memoEdit1.Text += "\r\n" + message.LogMessage.FormattedMessage;
+            memoEdit1.Text = message.LogMessage.FormattedMessage + "\r\n" + memoEdit1.Text;
+            this.Refresh();
         }
 
         private void TraceOutput_Load(object sender, EventArgs e)
