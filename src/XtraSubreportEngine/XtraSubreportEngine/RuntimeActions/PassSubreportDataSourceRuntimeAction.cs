@@ -5,6 +5,7 @@ using System.Text;
 using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.Native;
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Engine.RuntimeActions.Support;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.RuntimeActions

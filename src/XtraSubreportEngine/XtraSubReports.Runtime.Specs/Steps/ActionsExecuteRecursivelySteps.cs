@@ -5,6 +5,7 @@ using TechTalk.SpecFlow;
 using XtraSubReports.Runtime.UnitTests;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreport.Engine.RuntimeActions.Support;
 using XtraSubreport.Engine.Support;
 
 namespace XtraSubReports.Runtime.Specs.Steps

@@ -11,6 +11,7 @@ using DevExpress.XtraReports.UI;
 using DevExpress.XtraReports.UserDesigner;
 using GeniusCode.Framework.Extensions;
 using NLog;
+using NLog.Config;
 using XtraSubReport.Winforms.Popups;
 using XtraSubReport.Winforms.Prototypes;
 using XtraSubReport.Winforms.Repositories;
@@ -92,12 +93,13 @@ namespace XtraSubReport.Winforms
                         return false;
                     break;
             }
-
+            var debug = new TraceOutput(EventAggregator.Singleton);
+            debug.Show();
             projectBootstrapper = bs.GetProjectBootstrapper(ReportsDirectoryName, DataSourceDirectoryName,
                                                                 ActionsDirectoryName);
 
-            projectBootstrapper.CopyProjectFiles();
             projectBootstrapper.ExecuteProjectBootStrapperFile(BootStrapperBatchFileName);
+            projectBootstrapper.CopyProjectFiles();
             projectBootstrapper.LoadProjectAssemblies();
             return true;
         }
@@ -191,7 +193,12 @@ namespace XtraSubReport.Winforms
 
         private static void SetupNLog()
         {
+            //ConfigurationItemFactory.Default.Targets.RegisterDefinition("MessagePublishingTarget", typeof(MessagePublishingTarget));
+
             // Create a Logger
+            //var target = new MessagePublishingTarget();
+            //ogManager.Configuration.AddTarget("MessagePublishingTarget", target);
+            //ogManager.Configuration.LoggingRules.Add(new LoggingRule("*", LogLevel.Trace, target));
             _logger = LogManager.GetCurrentClassLogger();
 
             // Add the event handler for handling non-UI thread exceptions 

@@ -66,7 +66,7 @@
     <Compile Include="DataSources\IReportDatasourceMetadata.cs" />
     <Compile Include="RuntimeActions\IReportRuntimeAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RuntimeActions\ReportRuntimeAction.cs" />
+    <Compile Include="RuntimeActions\IReportRuntimeActionProvider.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

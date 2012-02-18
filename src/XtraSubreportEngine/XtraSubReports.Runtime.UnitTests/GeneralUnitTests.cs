@@ -12,6 +12,7 @@ using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine;
 using XtraSubreport.Engine.Eventing;
 using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreport.Engine.RuntimeActions.Support;
 using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 

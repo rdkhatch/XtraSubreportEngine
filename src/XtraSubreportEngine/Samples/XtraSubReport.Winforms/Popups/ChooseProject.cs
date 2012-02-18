@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using XtraSubReport.Winforms.Support;
+using XtraSubreport.Engine.Eventing;
 
 namespace XtraSubReport.Winforms.Popups
 {
@@ -51,5 +52,7 @@ namespace XtraSubReport.Winforms.Popups
             this.multipleProjectsListBoxControl.DataSource = _bootStrapper.GetProjects().ToArray();
 
         }
+
+
     }
 }

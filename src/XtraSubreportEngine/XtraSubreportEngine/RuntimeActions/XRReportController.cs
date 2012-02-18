@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using DevExpress.XtraReports.UI;
 using XtraSubreport.Contracts.RuntimeActions;
+using XtraSubreport.Engine.RuntimeActions.Support;
 using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 

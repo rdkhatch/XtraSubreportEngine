@@ -5,6 +5,7 @@ using FluentAssertions;
 using NUnit.Framework;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreport.Engine.RuntimeActions.Support;
 using XtraSubreport.Engine.Support;
 
 namespace XtraSubReports.Runtime.UnitTests

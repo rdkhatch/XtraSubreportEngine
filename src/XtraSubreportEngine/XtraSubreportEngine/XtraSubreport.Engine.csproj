@@ -76,6 +76,8 @@
   <ItemGroup>
     <Compile Include="Eventing\ScopedXRControlBeforePrintMessage.cs" />
     <Compile Include="Eventing\XRBeforePrintMessage.cs" />
+    <Compile Include="RuntimeActions\Support\ReportRuntimeAction.cs" />
+    <Compile Include="RuntimeActions\Support\ReportRuntimeActionBase.cs" />
     <Compile Include="SubreportExtensions.cs" />
     <Compile Include="Eventing\EventAggregator.cs" />
     <Compile Include="RuntimeActions\IReportController.cs" />
@@ -83,7 +85,6 @@
     <Compile Include="RuntimeActions\ScopedXRSubscriber.cs" />
     <Compile Include="RuntimeActions\XRReportController.cs" />
     <Compile Include="RuntimeActions\XRRuntimeActionFacade.cs" />
-    <Compile Include="RuntimeActions\Support\IReportRuntimeActionProvider.cs" />
     <Compile Include="RuntimeActions\Support\IRuntimeActionFacade.cs" />
     <Compile Include="RuntimeActions\GlobalXRSubscriber.cs" />
     <Compile Include="RuntimeActions\XRRuntimeVisitor.cs" />

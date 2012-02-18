@@ -9,6 +9,7 @@ using TechTalk.SpecFlow;
 using XtraSubReports.Runtime.UnitTests;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Engine.RuntimeActions;
+using XtraSubreport.Engine.RuntimeActions.Support;
 
 namespace XtraSubReports.Runtime.Specs.Steps
 {
