@@ -37,7 +37,8 @@ namespace XtraSubReport.Winforms.Support
             _loader = loader;
 
 
-            var pluginsPath = Path.Combine(Assembly.GetEntryAssembly().Location, PluginsFolderName);
+            var pluginsPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), PluginsFolderName);
+
 
             _reportsTargetFolderPath = Path.Combine(pluginsPath, _reportsFolderName);
             _datasourceTargetFolderPath = Path.Combine(pluginsPath, _datasourceFolderName);
@@ -83,6 +84,14 @@ namespace XtraSubReport.Winforms.Support
             var reportsSourceFolderPath = Path.Combine(_projectPath, _reportsFolderName);
             var datasourceSourceFolderPath = Path.Combine(_projectPath, _datasourceFolderName);
             var actionsSourceFolderPath = Path.Combine(_projectPath, _actionsFolderName);
+
+            CreatePath(_reportsTargetFolderPath);
+            CreatePath(_datasourceTargetFolderPath);
+            CreatePath(_actionsTargetFolderPath);
+
+            CreatePath(reportsSourceFolderPath);
+            CreatePath(datasourceSourceFolderPath);
+            CreatePath(actionsSourceFolderPath);
 
             CloneFiles(reportsSourceFolderPath, _reportsTargetFolderPath);
             CloneFiles(datasourceSourceFolderPath, _datasourceTargetFolderPath);
