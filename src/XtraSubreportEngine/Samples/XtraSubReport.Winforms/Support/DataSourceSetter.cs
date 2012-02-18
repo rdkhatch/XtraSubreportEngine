@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.XtraReports.UI;
-using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Contracts.DataSources;
 using XtraSubreport.Design;
 using XtraSubreport.Design.Traversals;
 using XtraSubreport.Engine;

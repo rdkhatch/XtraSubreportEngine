@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using XtraSubreport.Contracts.DesignTime;
 
 namespace XtraSubreport.Design
 {

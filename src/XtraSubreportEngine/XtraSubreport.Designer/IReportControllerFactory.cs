@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using DevExpress.XtraReports.UI;
-using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Contracts.DataSources;
 using XtraSubreport.Design.Traversals;
 using XtraSubreport.Engine.RuntimeActions;
 using XtraSubreport.Engine.Support;

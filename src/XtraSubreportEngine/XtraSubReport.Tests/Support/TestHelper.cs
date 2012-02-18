@@ -6,7 +6,7 @@ using DevExpress.XtraPrinting;
 using DevExpress.XtraReports.UI;
 using NorthwindOData;
 using XtraSubReport.Winforms.Repositories;
-using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Contracts.DataSources;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Design;
 using XtraSubreport.Engine.RuntimeActions;

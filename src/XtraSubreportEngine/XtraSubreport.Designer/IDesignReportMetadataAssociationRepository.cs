@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Contracts.DataSources;
 using XtraSubreport.Engine.Support;
 using XtraSubreportEngine.Support;
 

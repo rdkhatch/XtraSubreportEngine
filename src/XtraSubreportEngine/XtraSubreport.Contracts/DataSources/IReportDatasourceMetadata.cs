@@ -1,6 +1,7 @@
+using System.Linq;
 using System;
 
-namespace XtraSubreport.Contracts.DesignTime
+namespace XtraSubreport.Contracts.DataSources
 {
     public interface IReportDatasourceMetadata
     {

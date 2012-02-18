@@ -3,7 +3,7 @@ using System.Linq;
 using XtraSubReport.Winforms;
 using XtraSubReport.Winforms.Repositories;
 using XtraSubReport.Winforms.Support;
-using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Contracts.DataSources;
 using XtraSubreport.Design;
 using XtraSubreport.Design.Traversals;
 

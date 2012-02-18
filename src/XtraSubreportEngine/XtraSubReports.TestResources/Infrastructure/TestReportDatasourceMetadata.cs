@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using XtraSubReports.TestResources.Models;
-using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Contracts.DataSources;
 
 namespace XtraSubReports.TestResources.Infrastructure
 {

@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Autofac;
@@ -14,6 +15,7 @@ using XtraSubReport.Winforms.Popups;
 using XtraSubReport.Winforms.Prototypes;
 using XtraSubReport.Winforms.Repositories;
 using XtraSubReport.Winforms.Support;
+using XtraSubreport.Contracts.DataSources;
 using XtraSubreport.Contracts.RuntimeActions;
 using XtraSubreport.Design;
 using XtraSubreport.Design.Traversals;
@@ -50,8 +52,8 @@ namespace XtraSubReport.Winforms
             ProjectBootStrapper projectBootstrapper;
             if (InitUsingBootstrappers(out projectBootstrapper) == false) return;
 
-            
-            CompositeRoot.Init(BuildContainer(projectBootstrapper));
+           
+            CompositeRoot.Init(BuildContainer());
             var form = CompositeRoot.Instance.GetDesignForm();
             DebugDebugMessageHandler = CompositeRoot.Instance.GetDebugMessageHandler();
             ActionMessageHandler = CompositeRoot.Instance.GetActionMessageHandler();
@@ -94,16 +96,30 @@ namespace XtraSubReport.Winforms
             projectBootstrapper = bs.GetProjectBootstrapper(ReportsDirectoryName, DataSourceDirectoryName,
                                                                 ActionsDirectoryName);
 
-            projectBootstrapper.CreateFoldersIfNeeded();
-            projectBootstrapper.ExecuteBootStrapperBatchFileIfExists(BootStrapperBatchFileName);
+            projectBootstrapper.CopyProjectFiles();
+            projectBootstrapper.ExecuteProjectBootStrapperFile(BootStrapperBatchFileName);
+            projectBootstrapper.LoadProjectAssemblies();
             return true;
         }
 
-        private static IContainer BuildContainer(ProjectBootStrapper projectBootstrapper)
+        private static IContainer BuildContainer()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterAssemblyTypes(projectBootstrapper.ActionAssemblies).AsImplementedInterfaces();
-            builder.RegisterAssemblyTypes(projectBootstrapper.DataSourceAssemblies).AsImplementedInterfaces();
+
+            var actionTypes = (from a in AppDomain.CurrentDomain.GetAssemblies()
+                               from t2 in a.GetTypes()
+                               where typeof (IReportRuntimeAction).IsAssignableFrom(t2)
+                               select t2).ToList();
+
+            var datasourceProviderTypes = (from a in AppDomain.CurrentDomain.GetAssemblies()
+                                           from t2 in a.GetTypes()
+                                           where typeof (IReportDatasourceProvider).IsAssignableFrom(t2)
+                                           select t2).ToList();
+            
+
+            actionTypes.ForEach(t=> builder.RegisterType(t).AsImplementedInterfaces());
+            datasourceProviderTypes.ForEach(t => builder.RegisterType(t).AsImplementedInterfaces());
+
             builder.RegisterInstance(EventAggregator.Singleton).AsImplementedInterfaces();
             builder.RegisterType<XRMessagingDesignForm>().OnActivated(a=> DrawToolbarButtons(a.Instance));
             builder.RegisterType<DesignReportMetadataAssociationRepository>().AsImplementedInterfaces().SingleInstance();

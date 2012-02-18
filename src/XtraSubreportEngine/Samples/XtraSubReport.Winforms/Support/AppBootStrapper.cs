@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using XtraSubReport.Winforms.Prototypes;
 
 namespace XtraSubReport.Winforms.Support
 {
@@ -21,7 +22,7 @@ namespace XtraSubReport.Winforms.Support
             if(string.IsNullOrWhiteSpace(_projectName))
                 throw new Exception("Project not set");
 
-            return new ProjectBootStrapper(Path.Combine(_defaultRootPath,_projectName),reportsFolderName,dataSourceFolderName,actionsFolderName);
+            return new ProjectBootStrapper(Path.Combine(_defaultRootPath,_projectName), reportsFolderName, dataSourceFolderName, actionsFolderName, new Cloner(), new DllLoader());
         }
 
         public void CreateRootPathIfNeeded()

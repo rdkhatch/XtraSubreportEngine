@@ -11,7 +11,7 @@ using XtraSubReport.Winforms.Support;
 using XtraSubReports.TestResources.Infrastructure;
 using XtraSubReports.TestResources.Models;
 using XtraSubReports.TestResources.Reports;
-using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Contracts.DataSources;
 using XtraSubreport.Design;
 using XtraSubreport.Design.Traversals;
 using XtraSubreport.Engine;

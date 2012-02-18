@@ -1,7 +1,7 @@
 using System.Linq;
 using System;
 using GeniusCode.Framework.Support.Objects;
-using XtraSubreport.Contracts.DesignTime;
+using XtraSubreport.Contracts.DataSources;
 using XtraSubreportEngine.Support;
 
 namespace XtraSubreport.Engine.Support

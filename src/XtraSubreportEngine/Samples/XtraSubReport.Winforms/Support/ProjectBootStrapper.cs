@@ -2,17 +2,25 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using XtraSubReport.Winforms.Prototypes;
 
 namespace XtraSubReport.Winforms.Support
 {
     public class ProjectBootStrapper
     {
-        private readonly string _projectPath;
-        private readonly string _reportsFolderPath;
-        private readonly string _datasourceFolderPath;
-        private readonly string _actionsFolderPath;
+        private const string PluginsFolderName = "Plugins_Root";
 
-        public ProjectBootStrapper(string projectPath, string reportsFolderName, string datasourceFolderName, string actionsFolderName)
+        private readonly string _projectPath;
+        private readonly string _reportsFolderName;
+        private readonly string _datasourceFolderName;
+        private readonly string _actionsFolderName;
+        private readonly IFileAndDirectoryCloner _cloner;
+        private readonly IDynamicDllLoader _loader;
+        private string _reportsTargetFolderPath;
+        private string _datasourceTargetFolderPath;
+        private string _actionsTargetFolderPath;
+
+        public ProjectBootStrapper(string projectPath, string reportsFolderName, string datasourceFolderName, string actionsFolderName, IFileAndDirectoryCloner cloner, IDynamicDllLoader loader)
         {
             if (String.IsNullOrWhiteSpace(reportsFolderName)) throw new ArgumentNullException("reportsFolderName");
             if (String.IsNullOrWhiteSpace(datasourceFolderName)) throw new ArgumentNullException("datasourceFolderName");
@@ -20,43 +28,23 @@ namespace XtraSubReport.Winforms.Support
             if (String.IsNullOrWhiteSpace(projectPath)) throw new ArgumentNullException("projectPath");
 
 
+
             _projectPath = projectPath;
-            _reportsFolderPath = Path.Combine(_projectPath, reportsFolderName);
-            _datasourceFolderPath = Path.Combine(_projectPath, datasourceFolderName);
-            _actionsFolderPath = Path.Combine(_projectPath, actionsFolderName);
-        }
+            _reportsFolderName = reportsFolderName;
+            _datasourceFolderName = datasourceFolderName;
+            _actionsFolderName = actionsFolderName;
+            _cloner = cloner;
+            _loader = loader;
 
 
-        public Assembly[] ActionAssemblies
-        {
-            get { throw new NotImplementedException(); }
-        }
-        public Assembly[] DataSourceAssemblies
-        {
-            get { throw new NotImplementedException(); }
+            var pluginsPath = Path.Combine(Assembly.GetEntryAssembly().Location, PluginsFolderName);
+
+            _reportsTargetFolderPath = Path.Combine(pluginsPath, _reportsFolderName);
+            _datasourceTargetFolderPath = Path.Combine(pluginsPath, _datasourceFolderName);
+            _actionsTargetFolderPath = Path.Combine(pluginsPath, _actionsFolderName);
+
         }
 
-        public string ActionsFolderPath
-        {
-            get { return _actionsFolderPath; }
-        }
-
-        public string DatasourceFolderPath
-        {
-            get { return _datasourceFolderPath; }
-        }
-
-        public string ReportsFolderPath
-        {
-            get { return _reportsFolderPath; }
-        }
-
-        public void CreateFoldersIfNeeded()
-        {
-            CreatePath(_reportsFolderPath);
-            CreatePath(_datasourceFolderPath);
-            CreatePath(_actionsFolderPath);
-        }
 
         private static void CreatePath(string path)
         {
@@ -64,7 +52,7 @@ namespace XtraSubReport.Winforms.Support
                 Directory.CreateDirectory(path);
         }
 
-        public void ExecuteBootStrapperBatchFileIfExists(string bootstrapperBat)
+        public void ExecuteProjectBootStrapperFile(string bootstrapperBat)
         {
          
 
@@ -89,5 +77,30 @@ namespace XtraSubReport.Winforms.Support
             proc.Start();
             proc.WaitForExit();
         }
+
+        public void CopyProjectFiles()
+        {
+            var reportsSourceFolderPath = Path.Combine(_projectPath, _reportsFolderName);
+            var datasourceSourceFolderPath = Path.Combine(_projectPath, _datasourceFolderName);
+            var actionsSourceFolderPath = Path.Combine(_projectPath, _actionsFolderName);
+
+            CloneFiles(reportsSourceFolderPath, _reportsTargetFolderPath);
+            CloneFiles(datasourceSourceFolderPath, _datasourceTargetFolderPath);
+            CloneFiles(actionsSourceFolderPath, _actionsTargetFolderPath);
+        }
+
+        private void CloneFiles (string sourceFolderName, string targetPath)
+        {
+            CreatePath(targetPath);
+            _cloner.Clone(sourceFolderName, targetPath);
+        }
+
+
+        public void LoadProjectAssemblies()
+        {
+            _loader.LoadDllsInDirectory(_datasourceTargetFolderPath);
+            _loader.LoadDllsInDirectory(_actionsTargetFolderPath);
+        }
+
     }
 }

@@ -199,7 +199,10 @@
   <ItemGroup>
     <Compile Include="CompositeRoot.cs" />
     <Compile Include="DesignDataContext2.cs" />
-    <Compile Include="Prototypes\DataSourceSelectedForReportMessage.cs" />
+    <Compile Include="Messaging\DataSourceSelectedForReportMessage.cs" />
+    <Compile Include="Prototypes\Cloner.cs" />
+    <Compile Include="Prototypes\DllLoader.cs" />
+    <Compile Include="Prototypes\IFileAndDirectoryCloner.cs" />
     <Compile Include="Support\ActionMessageHandler.cs" />
     <Compile Include="Support\AppBootStrapper.cs" />
     <Compile Include="Support\AppProjectsStructureMode.cs" />
@@ -220,19 +223,19 @@
     <Compile Include="Support\DataSourceSetter.cs" />
     <Compile Include="Support\ProjectBootStrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Prototypes\DesignPanelPrintPreviewMessage.cs" />
+    <Compile Include="Messaging\DesignPanelPrintPreviewMessage.cs" />
     <Compile Include="Popups\ShowMessages.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Popups\ShowMessages.Designer.cs">
       <DependentUpon>ShowMessages.cs</DependentUpon>
     </Compile>
-    <Compile Include="Prototypes\DebugMessageHandler.cs" />
-    <Compile Include="Prototypes\MessageInfo.cs" />
+    <Compile Include="Messaging\DebugMessageHandler.cs" />
+    <Compile Include="Messaging\MessageInfo.cs" />
     <Compile Include="Prototypes\RelayCommandHandler.cs" />
-    <Compile Include="Prototypes\ReportActivatedBySubreportMessage.cs" />
-    <Compile Include="Prototypes\ReportActivatedMessage.cs" />
-    <Compile Include="Prototypes\XRMessagingDesignForm.cs">
+    <Compile Include="Messaging\ReportActivatedBySubreportMessage.cs" />
+    <Compile Include="Messaging\ReportActivatedMessage.cs" />
+    <Compile Include="Popups\XRMessagingDesignForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Repositories\DesignReportMetadataAssociationRepository.cs" />
